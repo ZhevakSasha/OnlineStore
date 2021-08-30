@@ -8,6 +8,9 @@ using System.Text;
 
 namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 {
+    /// <summary>
+    /// AdoProductRepository implementation
+    /// </summary>
     public class AdoProductRepository : IProductRepository
     {
         string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=usersdb;Integrated Security=True";
@@ -60,10 +63,10 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 
         public void Create(Product product)
         {
-            using (SqlConnection connaction = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("spCreateProduct", connaction);
-                connaction.Open();
+                var command = new SqlCommand("spCreateProduct", connection);
+                connection.Open();
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@ProductName", product.ProductName);
                 command.Parameters.AddWithValue("@Price", product.Price);
@@ -75,10 +78,10 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 
         public void Update(Product product)
         {
-            using (SqlConnection connaction = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("spUpdateProduct", connaction);
-                connaction.Open();
+                var command = new SqlCommand("spUpdateProduct", connection);
+                connection.Open();
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@ProductName", product.ProductName);
                 command.Parameters.AddWithValue("@Price", product.Price);
@@ -89,11 +92,11 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 
         public void Delete(Product product)
         {
-            using (SqlConnection connaction = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("spCreateProduct", connaction);
+                var command = new SqlCommand("spCreateProduct", connection);
                 command.CommandType = CommandType.StoredProcedure;
-                connaction.Open();
+                connection.Open();
                 command.Parameters.AddWithValue("@Id", product.Id);
                 command.ExecuteNonQuery();
 
