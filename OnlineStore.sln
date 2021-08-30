@@ -7,6 +7,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "OnlineStore.DataBase", "Onl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57B5FAE7-6A68-4DF3-B778-B1A294C9E2E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStore.DataAccess", "OnlineStore.DataAccess\OnlineStore.DataAccess.csproj", "{5C453A03-815F-49CE-8583-E542C31D75F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,12 +21,17 @@ Global
 		{013325D8-ED81-472D-83D8-743BB002BDE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{013325D8-ED81-472D-83D8-743BB002BDE6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{013325D8-ED81-472D-83D8-743BB002BDE6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5C453A03-815F-49CE-8583-E542C31D75F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C453A03-815F-49CE-8583-E542C31D75F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C453A03-815F-49CE-8583-E542C31D75F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C453A03-815F-49CE-8583-E542C31D75F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{013325D8-ED81-472D-83D8-743BB002BDE6} = {57B5FAE7-6A68-4DF3-B778-B1A294C9E2E9}
+		{5C453A03-815F-49CE-8583-E542C31D75F7} = {57B5FAE7-6A68-4DF3-B778-B1A294C9E2E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68993493-D087-43F1-8675-909754EF9C82}
