@@ -4,13 +4,15 @@ using System.Text;
 
 namespace OnlineStore.DataAccess.DataModel
 {
-    public class Product
+    /// <summary>
+    /// Data model for a Product table. 
+    /// </summary>
+    public class Product : ModelId
     {
-        public int Id { get; set; }
-        public string PruductName { get; set; }
+        public string ProductName { get; set; }
         public int Price { get; set; }
         public string UnitOfMeasurement { get; set; }
         public List<Sale> Sales { get; set; } = new List<Sale>();
-
+       
     }
 }
