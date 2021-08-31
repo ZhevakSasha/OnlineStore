@@ -2,6 +2,7 @@
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
@@ -13,16 +14,25 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
     /// </summary>
     public class AdoProductRepository : IProductRepository
     {
-        string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=usersdb;Integrated Security=True";
+        /// <summary>
+        /// The connection string that includes the source database name, 
+        /// and other parameters needed to establish the initial connection. 
+        /// </summary>
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+        /// <summary>
+        /// GetList method. 
+        /// </summary>
+        /// <returns>Returns all objects.</returns>
         public IEnumerable<Product> GetList()
         {
-            List<Product> products = new List<Product>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            var products = new List<Product>();
+            using (var connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand("spGetList", connection);
+                var command = new SqlCommand("spGetList", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
+                var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     var product = new Product()
@@ -39,15 +49,20 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
             }
         }
 
+        /// <summary>
+        /// GetEntity method.
+        /// </summary>
+        /// <param name="id">Takes id parameter. </param>
+        /// <returns>Return one object by id. </returns>
         public Product GetEntity(int id)
         {
-            Product product = new Product();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            var product = new Product();
+            using (var connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand("spGetProduct", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
+                var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     product.Id = Convert.ToInt32(reader["Id"]);
@@ -61,9 +76,14 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
             }
         }
 
+        /// <summary>
+        /// Create method.
+        /// Creates an object of Product class.
+        /// </summary>
+        /// <param name="product">Takes an object of Product class.</param>
         public void Create(Product product)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 var command = new SqlCommand("spCreateProduct", connection);
                 connection.Open();
@@ -76,9 +96,14 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 
         }
 
+        /// <summary>
+        /// Update method.
+        /// Updates an object of Product class.
+        /// </summary>
+        /// <param name="product">Takes an object of Product class.</param>
         public void Update(Product product)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 var command = new SqlCommand("spUpdateProduct", connection);
                 connection.Open();
@@ -90,9 +115,14 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
             }
         }
 
+        /// <summary>
+        /// Delete method.
+        /// Deletes an object of Product class.
+        /// </summary>
+        /// <param name="product">Takes an object of Product class.</param>
         public void Delete(Product product)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 var command = new SqlCommand("spCreateProduct", connection);
                 command.CommandType = CommandType.StoredProcedure;
@@ -102,13 +132,10 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 
             }
         }
+
         public void Save()
         {
-
-        }
-        public void Dispose()
-        {
-
+             
         }
     }
 }

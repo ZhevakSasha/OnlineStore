@@ -5,7 +5,10 @@ using System.Text;
 
 namespace OnlineStore.DataAccess.RepositoryPatterns
 {
-    interface ICustomerRepository : IDisposable, IRepository<Customer>
+    /// <summary>
+    /// Customer repository interface. 
+    /// </summary>
+    interface ICustomerRepository : IRepository<Customer>
     {
   
     }

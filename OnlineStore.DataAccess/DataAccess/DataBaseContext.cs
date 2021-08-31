@@ -11,7 +11,9 @@ namespace OnlineStore.DataAccess.DataAccess
         protected DataBaseContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Customer> Customers { get; set; }
+
         public DbSet<Product> Products { get; set; }
+
         public DbSet<Sale> Sales { get; set; }
 
     }
