@@ -10,9 +10,9 @@ using System.Text;
 namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 {
     /// <summary>
-    /// AdoProductRepository implementation
+    /// AdoCustomerRepository implementation
     /// </summary>
-    public class AdoProductRepository : IProductRepository
+    class AdoCustomerRepository : ICustomerRepository
     {
         /// <summary>
         /// The connection string that includes the source database name, 
@@ -24,28 +24,28 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// GetList method. 
         /// </summary>
         /// <returns>Returns all objects.</returns>
-        public IEnumerable<Product> GetList()
+        public IEnumerable<Customer> GetList()
         {
-            var products = new List<Product>();
+            var customers = new List<Customer>();
             using (var connection = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("spGetProductList", connection);
+                var command = new SqlCommand("spGetCustomerList", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    var product = new Product()
+                    var customer = new Customer()
                     {
                         Id = Convert.ToInt32(reader["Id"]),
-                        ProductName = reader["ProductName"].ToString(),
-                        Price = Convert.ToInt32(reader["Price"]),
-                        UnitOfMeasurement = reader["UnitOfMeasurement"].ToString()
-
+                        FirstName = reader["FirstName"].ToString(),
+                        LastName = reader["LastName"].ToString(),
+                        Addres = reader["Addres"].ToString(),
+                        PhoneNumber = reader["PhoneNumber"].ToString()
                     };
-                    products.Add(product);
+                    customers.Add(customer);
                 }
-                return (products);
+                return (customers);
             }
         }
 
@@ -54,77 +54,80 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// </summary>
         /// <param name="id">Takes id parameter. </param>
         /// <returns>Return one object by id. </returns>
-        public Product GetEntity(int id)
+        public Customer GetEntity(int id)
         {
-            var product = new Product();
+            var customer = new Customer();
             using (var connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand("spGetProduct", connection);
+                SqlCommand command = new SqlCommand("spGetCustomer", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    product.Id = Convert.ToInt32(reader["Id"]);
-                    product.ProductName = reader["ProductName"].ToString();
-                    product.Price = Convert.ToInt32(reader["Price"]);
-                    product.UnitOfMeasurement = reader["UnitOfMeasurement"].ToString();
+                    customer.Id = Convert.ToInt32(reader["Id"]);
+                    customer.FirstName = reader["FirstName"].ToString();
+                    customer.LastName = reader["LastName"].ToString();
+                    customer.Addres = reader["Addres"].ToString();
+                    customer.PhoneNumber = reader["PhoneNumber"].ToString();
                 }
-                return product;
+                return customer;
             }
         }
 
         /// <summary>
         /// Create method.
-        /// Creates an object of Product class.
+        /// Creates an object of Customer class.
         /// </summary>
-        /// <param name="product">Takes an object of Product class.</param>
-        public void Create(Product product)
+        /// <param name="customer">Takes an object of Product class.</param>
+        public void Create(Customer customer)
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("spCreateProduct", connection);
+                var command = new SqlCommand("spCreateCustomer", connection);
                 connection.Open();
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@ProductName", product.ProductName);
-                command.Parameters.AddWithValue("@Price", product.Price);
-                command.Parameters.AddWithValue("@UnitOfMeasurement", product.UnitOfMeasurement);
+                command.Parameters.AddWithValue("@FirstName", customer.FirstName);
+                command.Parameters.AddWithValue("@LastName", customer.LastName);
+                command.Parameters.AddWithValue("@Addres", customer.Addres);
+                command.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
                 command.ExecuteNonQuery();
             }
         }
 
         /// <summary>
         /// Update method.
-        /// Updates an object of Product class.
+        /// Updates an object of Customer class.
         /// </summary>
-        /// <param name="product">Takes an object of Product class.</param>
-        public void Update(Product product)
+        /// <param name="customer">Takes an object of Product class.</param>
+        public void Update(Customer customer)
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("spUpdateProduct", connection);
+                var command = new SqlCommand("spUpdateCustomer", connection);
                 connection.Open();
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@ProductName", product.ProductName);
-                command.Parameters.AddWithValue("@Price", product.Price);
-                command.Parameters.AddWithValue("@UnitOfMeasurement", product.UnitOfMeasurement);
+                command.Parameters.AddWithValue("@FirstName", customer.FirstName);
+                command.Parameters.AddWithValue("@LastName", customer.LastName);
+                command.Parameters.AddWithValue("@Addres", customer.Addres);
+                command.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
                 command.ExecuteNonQuery();
             }
         }
 
         /// <summary>
         /// Delete method.
-        /// Deletes an object of Product class.
+        /// Deletes an object of Customer class.
         /// </summary>
-        /// <param name="product">Takes an object of Product class.</param>
-        public void Delete(Product product)
+        /// <param name="customer">Takes an object of Customer class.</param>
+        public void Delete(Customer customer)
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("spDeleteProduct", connection);
+                var command = new SqlCommand("spDeleteCustomer", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 connection.Open();
-                command.Parameters.AddWithValue("@Id", product.Id);
+                command.Parameters.AddWithValue("@Id", customer.Id);
                 command.ExecuteNonQuery();
 
             }
@@ -132,7 +135,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 
         public void Save()
         {
-             
+
         }
     }
 }
