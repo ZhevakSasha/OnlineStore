@@ -11,13 +11,22 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
     /// <summary>
     /// AdoSaleRepository implementation
     /// </summary>
-    class AdoSaleRepository : ISaleRepository
+    public class AdoSaleRepository : ISaleRepository
     {
         /// <summary>
         /// The connection string that includes the source database name, 
         /// and other parameters needed to establish the initial connection. 
         /// </summary>
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        private readonly string _connectionString;
+
+        /// <summary>
+        /// Constructor for private string field _connectionString
+        /// </summary>
+        /// <param name="connectionString"></param>
+        public AdoSaleRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         /// <summary>
         /// GetList method. 
@@ -26,10 +35,9 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         public IEnumerable<Sale> GetList()
         {
             var sales = new List<Sale>();
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spGetSaleList", connection);
-                command.CommandType = CommandType.StoredProcedure;
+                var command = new SqlCommand("SELECT * FROM Sales", connection);               
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
@@ -56,19 +64,19 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         public Sale GetEntity(int id)
         {
             var sale = new Sale();
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand command = new SqlCommand("spGetSale", connection);
+                SqlCommand command = new SqlCommand($"SELECT * FROM Sales WHERE Id = {id}", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     sale.Id = Convert.ToInt32(reader["Id"]);
-                        sale.ProductId = Convert.ToInt32(reader["ProductId"]);
-                        sale.CustomerId = Convert.ToInt32(reader["CustomerId"]);
-                        sale.DateOfSale = reader["DateOfSale"].ToString();
-                        sale.Amount = Convert.ToInt32(reader["Amount"]);
+                    sale.ProductId = Convert.ToInt32(reader["ProductId"]);
+                    sale.CustomerId = Convert.ToInt32(reader["CustomerId"]);
+                    sale.DateOfSale = reader["DateOfSale"].ToString();
+                    sale.Amount = Convert.ToInt32(reader["Amount"]);
                 }
                 return sale;
             }
@@ -81,11 +89,13 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// <param name="sale">Takes an object of Sale class.</param>
         public void Create(Sale sale)
         {
-            using (var connection = new SqlConnection(connectionString))
+
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spSaleCustomer", connection);
+                var command = new SqlCommand("INSERT INTO Sales" +
+                   "(ProductId, CustomerId, DateOfSale, Amount)" +
+                   " VALUES(@ProductId, @CustomerId, @DateOfSale, @Amount)", connection);
                 connection.Open();
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@ProductId", sale.ProductId);
                 command.Parameters.AddWithValue("@CustomerId", sale.CustomerId);
                 command.Parameters.AddWithValue("@DateOfSale", sale.DateOfSale);
@@ -101,15 +111,13 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// <param name="sale">Takes an object of Product class.</param>
         public void Update(Sale sale)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spUpdateSale", connection);
-                connection.Open();
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@FirstName", sale.ProductId);
-                command.Parameters.AddWithValue("@LastName", sale.CustomerId);
-                command.Parameters.AddWithValue("@Addres", sale.DateOfSale);
-                command.Parameters.AddWithValue("@PhoneNumber", sale.Amount);
+                var command = new SqlCommand($"UPDATE Sales SET ProductId = {sale.ProductId}," +
+                                             $"CustomerId = {sale.CustomerId}," +
+                                             $"DateOfSale = {sale.DateOfSale}," +
+                                             $"Amount = {sale.Amount}" +
+                                             $"WHERE Id = {sale.Id}", connection);            
                 command.ExecuteNonQuery();
             }
         }
@@ -121,12 +129,9 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// <param name="sale">Takes an object of Sale class.</param>
         public void Delete(Sale sale)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spDeleteSale", connection);
-                command.CommandType = CommandType.StoredProcedure;
-                connection.Open();
-                command.Parameters.AddWithValue("@Id", sale.Id);
+                var command = new SqlCommand($"DELETE FROM Sale where Id = {sale.Id}", connection);
                 command.ExecuteNonQuery();
 
             }

@@ -12,13 +12,22 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
     /// <summary>
     /// AdoCustomerRepository implementation
     /// </summary>
-    class AdoCustomerRepository : ICustomerRepository
+    public class AdoCustomerRepository : ICustomerRepository
     {
         /// <summary>
         /// The connection string that includes the source database name, 
         /// and other parameters needed to establish the initial connection. 
         /// </summary>
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        private readonly string _connectionString;
+
+        /// <summary>
+        /// Constructor for private string field _connectionString
+        /// </summary>
+        /// <param name="connectionString"></param>
+        public AdoCustomerRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         /// <summary>
         /// GetList method. 
@@ -27,10 +36,9 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         public IEnumerable<Customer> GetList()
         {
             var customers = new List<Customer>();
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spGetCustomerList", connection);
-                command.CommandType = CommandType.StoredProcedure;
+                var command = new SqlCommand("SELECT * FROM Customers", connection);
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
@@ -57,10 +65,9 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         public Customer GetEntity(int id)
         {
             var customer = new Customer();
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand command = new SqlCommand("spGetCustomer", connection);
-                command.CommandType = CommandType.StoredProcedure;
+                SqlCommand command = new SqlCommand($"SELECT * FROM Customers WHERE Id = {id}", connection);
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
@@ -82,11 +89,12 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// <param name="customer">Takes an object of Product class.</param>
         public void Create(Customer customer)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spCreateCustomer", connection);
+                var command = new SqlCommand("INSERT INTO Customers" +
+                   "(FirstName, LastName, Addres, PhoneNumber)" +
+                   " VALUES(@FirstName, @LastName, @Addres, @PhoneNumber)", connection);
                 connection.Open();
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@FirstName", customer.FirstName);
                 command.Parameters.AddWithValue("@LastName", customer.LastName);
                 command.Parameters.AddWithValue("@Addres", customer.Addres);
@@ -102,11 +110,14 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// <param name="customer">Takes an object of Product class.</param>
         public void Update(Customer customer)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spUpdateCustomer", connection);
+                var command = new SqlCommand($"UPDATE Customers SET FirstName = { customer.FirstName }," +
+                                             $"LastName = {customer.LastName}," +
+                                             $"Addres = {customer.Addres}," +
+                                             $"PhoneNumber = {customer.PhoneNumber}" +
+                                             $"WHERE Id = {customer.Id}", connection);
                 connection.Open();
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@FirstName", customer.FirstName);
                 command.Parameters.AddWithValue("@LastName", customer.LastName);
                 command.Parameters.AddWithValue("@Addres", customer.Addres);
@@ -122,14 +133,10 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// <param name="customer">Takes an object of Customer class.</param>
         public void Delete(Customer customer)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spDeleteCustomer", connection);
-                command.CommandType = CommandType.StoredProcedure;
-                connection.Open();
-                command.Parameters.AddWithValue("@Id", customer.Id);
+                var command = new SqlCommand($"DELETE FROM Customers where Id = {customer.Id}", connection);        
                 command.ExecuteNonQuery();
-
             }
         }
 

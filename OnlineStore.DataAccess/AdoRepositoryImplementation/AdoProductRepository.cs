@@ -18,7 +18,17 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// The connection string that includes the source database name, 
         /// and other parameters needed to establish the initial connection. 
         /// </summary>
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+        /// <summary>
+        /// Constructor for private string field _connectionString
+        /// </summary>
+        /// <param name="connectionString"></param>
+        private readonly string _connectionString;
+
+        public AdoProductRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         /// <summary>
         /// GetList method. 
@@ -27,10 +37,9 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         public IEnumerable<Product> GetList()
         {
             var products = new List<Product>();
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spGetProductList", connection);
-                command.CommandType = CommandType.StoredProcedure;
+                var command = new SqlCommand("SELECT * FROM Product", connection);              
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
@@ -57,10 +66,9 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         public Product GetEntity(int id)
         {
             var product = new Product();
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand command = new SqlCommand("spGetProduct", connection);
-                command.CommandType = CommandType.StoredProcedure;
+                SqlCommand command = new SqlCommand($"SELECT * FROM Product WHERE Id = {id}", connection);
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
@@ -81,11 +89,12 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// <param name="product">Takes an object of Product class.</param>
         public void Create(Product product)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spCreateProduct", connection);
+                var command = new SqlCommand("INSERT INTO Product" +
+                   "(ProductName, Price, UnitOfMeasurement)" +
+                   " VALUES(@ProductName, @Price, @UnitOfMeasurement)", connection);
                 connection.Open();
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@ProductName", product.ProductName);
                 command.Parameters.AddWithValue("@Price", product.Price);
                 command.Parameters.AddWithValue("@UnitOfMeasurement", product.UnitOfMeasurement);
@@ -100,14 +109,12 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// <param name="product">Takes an object of Product class.</param>
         public void Update(Product product)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spUpdateProduct", connection);
-                connection.Open();
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@ProductName", product.ProductName);
-                command.Parameters.AddWithValue("@Price", product.Price);
-                command.Parameters.AddWithValue("@UnitOfMeasurement", product.UnitOfMeasurement);
+                var command = new SqlCommand($"UPDATE Sales SET ProductName = {product.ProductName}," +
+                                            $"Price = {product.Price}," +
+                                            $"UnitOfMeasurement = {product.UnitOfMeasurement}," +
+                                            $"WHERE Id = {product.Id}", connection);
                 command.ExecuteNonQuery();
             }
         }
@@ -119,14 +126,10 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// <param name="product">Takes an object of Product class.</param>
         public void Delete(Product product)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("spDeleteProduct", connection);
-                command.CommandType = CommandType.StoredProcedure;
-                connection.Open();
-                command.Parameters.AddWithValue("@Id", product.Id);
+                var command = new SqlCommand($"DELETE FROM Product where Id = {product.Id}", connection);
                 command.ExecuteNonQuery();
-
             }
         }
 
