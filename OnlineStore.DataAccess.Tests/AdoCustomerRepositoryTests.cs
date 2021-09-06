@@ -3,7 +3,8 @@ using OnlineStore.DataAccess.AdoRepositoryImplementation;
 using OnlineStore.DataAccess.DataModel;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
-using Microsoft.Extensions.Configuration.Json;
+
+
 
 namespace OnlineStore.DataAccess.Tests
 {
@@ -21,16 +22,30 @@ namespace OnlineStore.DataAccess.Tests
         }
 
         [Test]
-        public void Get_CustomerById_ReturnsFirstName()
+        public void Get_CustomerById_ReturnsCustomer()
         {       
             //Arrange
-            AdoCustomerRepository customer = new AdoCustomerRepository(connectionString);
+           
+            var customer = new AdoCustomerRepository(connectionString);
 
             //Act
-            var actual = customer.GetEntity(1).FirstName;
+            var actual = customer.GetEntity(1);
+            var expected = new Customer()
+            {
+                Id = 1,
+                FirstName = "Sasha",
+                LastName = "Zhevak",
+                Addres = "Main Street",
+                PhoneNumber = "0669705219"
+            };
 
             //Assert
-            Assert.AreEqual(actual,"Sasha");
+            Assert.AreEqual(expected.Id, actual.Id);
+            Assert.AreEqual(expected.FirstName, actual.FirstName);
+            Assert.AreEqual(expected.LastName, actual.LastName);
+            Assert.AreEqual(expected.Addres, actual.Addres);
+            Assert.AreEqual(expected.PhoneNumber, actual.PhoneNumber);
+
         }
     }
 }

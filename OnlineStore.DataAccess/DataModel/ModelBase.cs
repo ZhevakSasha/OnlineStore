@@ -8,7 +8,7 @@ namespace OnlineStore.DataAccess.DataModel
     /// Abstract class to inheritance the ID field.
     /// </summary>
     public abstract class ModelBase
-    {
+    {     
         /// <summary>
         /// Property  for storing product id.
         /// </summary>

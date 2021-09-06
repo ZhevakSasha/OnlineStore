@@ -33,6 +33,5 @@ namespace OnlineStore.DataAccess.DataModel
         /// Property for getting List of sales.
         /// </summary>
         public List<Sale> Sales { get; set; } = new List<Sale>();
-
     }
 }
