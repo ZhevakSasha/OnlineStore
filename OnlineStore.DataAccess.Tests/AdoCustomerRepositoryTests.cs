@@ -9,27 +9,22 @@ namespace OnlineStore.DataAccess.Tests
 {
     public class Tests
     {
-        IConfiguration configuration = new ConfigurationBuilder()
+
+        readonly string connectionString = InitConfiguration().GetConnectionString("DefaultConnection");
+
+        public static IConfiguration InitConfiguration()
+        {
+            IConfiguration configuration = new ConfigurationBuilder()
                 .AddJsonFile(path: "appconfig.json")
                 .Build();
-        //string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=OnlineStoreDataBase4;Integrated Security=True";
-        string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-
-
-
-
-        [SetUp]
-        public void Setup()
-        {
-          
+            return configuration;
         }
 
         [Test]
         public void Get_CustomerById_ReturnsFirstName()
-        {
+        {       
             //Arrange
-            AdoCustomerRepository customer = new AdoCustomerRepository(configuration["DefaultConnection"]);
-
+            AdoCustomerRepository customer = new AdoCustomerRepository(connectionString);
 
             //Act
             var actual = customer.GetEntity(1).FirstName;
