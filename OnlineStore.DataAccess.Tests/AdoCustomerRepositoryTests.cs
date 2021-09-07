@@ -11,6 +11,7 @@ namespace OnlineStore.DataAccess.Tests
 {
     public class Tests
     {
+        private AdoCustomerRepository Customer;
 
         readonly string connectionString = InitConfiguration().GetConnectionString("DefaultConnection");
 
@@ -33,7 +34,7 @@ namespace OnlineStore.DataAccess.Tests
             _dbConfiguration.DeployTestDatabase();
 
             var connectionString = InitConfiguration().GetConnectionString("DefaultConnection");
-           // GenreRepository = new GenreRepository(connectionString);
+            Customer = new AdoCustomerRepository(connectionString);
 
         }
 
@@ -42,7 +43,7 @@ namespace OnlineStore.DataAccess.Tests
         {       
             //Arrange
            
-            var customer = new AdoCustomerRepository(connectionString);
+            Customer = new AdoCustomerRepository(connectionString);
             var expected = new Customer()
             {
                 Id = 1,
@@ -53,7 +54,7 @@ namespace OnlineStore.DataAccess.Tests
             };
 
             //Act
-            var actual = customer.GetEntity(1);
+            var actual = Customer.GetEntity(1);
 
 
             //Assert
