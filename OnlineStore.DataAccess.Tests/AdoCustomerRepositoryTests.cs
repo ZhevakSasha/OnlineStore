@@ -3,6 +3,7 @@ using OnlineStore.DataAccess.AdoRepositoryImplementation;
 using OnlineStore.DataAccess.DataModel;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
+using FluentAssertions;
 
 
 
@@ -21,15 +22,27 @@ namespace OnlineStore.DataAccess.Tests
             return configuration;
         }
 
+        private DataBaseConfiguration _dbConfiguration;
+
+
+        [SetUp]
+        public void Setup()
+        {
+
+            _dbConfiguration = new DataBaseConfiguration(InitConfiguration());
+            _dbConfiguration.DeployTestDatabase();
+
+            var connectionString = InitConfiguration().GetConnectionString("DefaultConnection");
+           // GenreRepository = new GenreRepository(connectionString);
+
+        }
+
         [Test]
         public void Get_CustomerById_ReturnsCustomer()
         {       
             //Arrange
            
             var customer = new AdoCustomerRepository(connectionString);
-
-            //Act
-            var actual = customer.GetEntity(1);
             var expected = new Customer()
             {
                 Id = 1,
@@ -39,12 +52,13 @@ namespace OnlineStore.DataAccess.Tests
                 PhoneNumber = "0669705219"
             };
 
+            //Act
+            var actual = customer.GetEntity(1);
+
+
             //Assert
-            Assert.AreEqual(expected.Id, actual.Id);
-            Assert.AreEqual(expected.FirstName, actual.FirstName);
-            Assert.AreEqual(expected.LastName, actual.LastName);
-            Assert.AreEqual(expected.Addres, actual.Addres);
-            Assert.AreEqual(expected.PhoneNumber, actual.PhoneNumber);
+
+            actual.Should().BeEquivalentTo(expected);
 
         }
     }

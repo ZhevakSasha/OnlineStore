@@ -28,6 +28,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         {
             _connectionString = connectionString;
         }
+
     
 
         /// <summary>
