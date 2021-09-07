@@ -66,5 +66,51 @@ namespace OnlineStore.DataAccess.Tests
             //Assert
             actual.Should().BeEquivalentTo(expected);
         }
+
+        [Test]
+        public void Create_Customer()
+        {
+            //Arrange
+            const int constantId = 2;
+            var expected = new Customer()
+            {
+                Id = constantId,
+                FirstName = "Andrew",
+                LastName = "Korolenko",
+                Addres = "52 Street",
+                PhoneNumber = "0669705345"
+            };
+
+            //Act
+            Customer.Create(expected);
+            var actual = Customer.GetEntity(constantId);
+
+            //Assert
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Test]
+        public void Delete_Customer() 
+        {
+            //Arrange
+            const int constantId = 2;
+            var constantCustomer = new Customer()
+            {
+                Id = constantId,
+                FirstName = "Andrew",
+                LastName = "Korolenko",
+                Addres = "52 Street",
+                PhoneNumber = "0669705345"
+            };
+
+            //Act
+            Customer.Delete(constantCustomer);
+            var actual = Customer.GetEntity(constantId).FirstName;
+
+            //Assert
+            Assert.AreEqual(null, actual);
+
+
+        }
     }
 }
