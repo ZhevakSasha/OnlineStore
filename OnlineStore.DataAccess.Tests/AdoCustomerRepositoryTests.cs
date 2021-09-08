@@ -102,14 +102,45 @@ namespace OnlineStore.DataAccess.Tests
                 Addres = "52 Street",
                 PhoneNumber = "0669705345"
             };
+            //Ñreating an empty object. 
+            var expected = new Customer();
 
             //Act
             Customer.Delete(constantCustomer);
-            var actual = Customer.GetEntity(constantId).FirstName;
+            var actual = Customer.GetEntity(constantId);
 
             //Assert
-            Assert.AreEqual(null, actual);
+            actual.Should().BeEquivalentTo(expected);
+        }
 
+        [Test]
+        public void Update_Customer()
+        {
+            //Arrange
+            const int constantId = 2;
+            var constantCustomer = new Customer()
+            {
+                Id = constantId,
+                FirstName = "Andrew",
+                LastName = "Korolenko",
+                Addres = "52 Street",
+                PhoneNumber = "0669705345"
+            };
+            var constantUpdatedCustomer = new Customer()
+            {
+                Id = constantId,
+                FirstName = "Anton",
+                LastName = "Ivanov",
+                Addres = "52 Street",
+                PhoneNumber = "0662305345"
+            };
+            var expected = constantUpdatedCustomer;
+           
+            //Act
+            Customer.Create(constantCustomer);
+            Customer.Update(constantUpdatedCustomer);
+            var actual = Customer.GetEntity(constantId);
+            actual.Should().BeEquivalentTo(expected);
 
         }
     }

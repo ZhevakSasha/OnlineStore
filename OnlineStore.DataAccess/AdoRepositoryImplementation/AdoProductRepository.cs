@@ -111,10 +111,14 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand($"UPDATE Sales SET ProductName = {product.ProductName}," +
-                                            $"Price = {product.Price}," +
-                                            $"UnitOfMeasurement = {product.UnitOfMeasurement}," +
-                                            $"WHERE Id = {product.Id}", connection);
+                var command = new SqlCommand("UPDATE Product SET ProductName = @ProductName," +
+                                             "Price = @Price," +
+                                             "UnitOfMeasurement = @UnitOfMeasurement " +
+                                             $"WHERE Id ={product.Id}", connection);
+                connection.Open();
+                command.Parameters.AddWithValue("@ProductName", product.ProductName);
+                command.Parameters.AddWithValue("@Price", product.Price);
+                command.Parameters.AddWithValue("@UnitOfMeasurement", product.UnitOfMeasurement);
                 command.ExecuteNonQuery();
             }
         }

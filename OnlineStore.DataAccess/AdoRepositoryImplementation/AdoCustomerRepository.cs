@@ -111,12 +111,13 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand($"UPDATE Customers SET FirstName = { customer.FirstName }," +
-                                             $"LastName = {customer.LastName}," +
-                                             $"Addres = {customer.Addres}," +
-                                             $"PhoneNumber = {customer.PhoneNumber}" +
-                                             $"WHERE Id = {customer.Id}", connection);
+                var command = new SqlCommand("UPDATE Customers SET FirstName = @FirstName," +
+                                             "LastName = @LastName," +
+                                             "Addres = @Addres," +
+                                             "PhoneNumber = @PhoneNumber " +
+                                             $"WHERE Id ={customer.Id}", connection);
                 connection.Open();
+                
                 command.Parameters.AddWithValue("@FirstName", customer.FirstName);
                 command.Parameters.AddWithValue("@LastName", customer.LastName);
                 command.Parameters.AddWithValue("@Addres", customer.Addres);
