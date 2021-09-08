@@ -45,6 +45,9 @@ namespace OnlineStore.DataAccess.Tests
             Customer = new AdoCustomerRepository(connectionString);
         }
 
+        /// <summary>
+        /// Testing GetEntity method.
+        /// </summary>
         [Test]
         public void Get_CustomerById_ReturnsCustomer()
         {
@@ -66,6 +69,9 @@ namespace OnlineStore.DataAccess.Tests
             actual.Should().BeEquivalentTo(expected);
         }
 
+        /// <summary>
+        /// Testing Create method
+        /// </summary>
         [Test]
         public void Create_Customer()
         {
@@ -88,6 +94,9 @@ namespace OnlineStore.DataAccess.Tests
             actual.Should().BeEquivalentTo(expected);
         }
 
+        /// <summary>
+        /// Testing Delete method.
+        /// </summary>
         [Test]
         public void Delete_Customer() 
         {
@@ -112,6 +121,9 @@ namespace OnlineStore.DataAccess.Tests
             actual.Should().BeEquivalentTo(expected);
         }
 
+        /// <summary>
+        /// Testing Update method.
+        /// </summary>
         [Test]
         public void Update_Customer()
         {
@@ -142,6 +154,10 @@ namespace OnlineStore.DataAccess.Tests
             actual.Should().BeEquivalentTo(expected);
 
         }
+
+        /// <summary>
+        /// Testing GetList method.
+        /// </summary>
         [Test]
         public void Get_CustomerList()
         {
