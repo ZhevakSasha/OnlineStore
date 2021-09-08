@@ -3,8 +3,7 @@ using OnlineStore.DataAccess.AdoRepositoryImplementation;
 using OnlineStore.DataAccess.DataModel;
 using Microsoft.Extensions.Configuration;
 using FluentAssertions;
-
-
+using System.Collections.Generic;
 
 namespace OnlineStore.DataAccess.Tests
 {
@@ -142,6 +141,42 @@ namespace OnlineStore.DataAccess.Tests
             var actual = Customer.GetEntity(constantId);
             actual.Should().BeEquivalentTo(expected);
 
+        }
+        [Test]
+        public void Get_CustomerList()
+        {
+            //Arrange
+            var expected = new List<Customer>();
+
+            //Act
+            expected.Add(new Customer()
+            {
+                Id = 1,
+                FirstName = "Sasha",
+                LastName = "Zhevak",
+                Addres = "Main Street",
+                PhoneNumber = "0669705219"
+            });
+            expected.Add(new Customer()
+            {
+                Id = 2,
+                FirstName = "Andrew",
+                LastName = "Korolenko",
+                Addres = "52 Street",
+                PhoneNumber = "0669705345"
+            });
+
+            //Assert
+            Customer.Create(new Customer()
+            {
+                Id = 2,
+                FirstName = "Andrew",
+                LastName = "Korolenko",
+                Addres = "52 Street",
+                PhoneNumber = "0669705345"
+            });
+            var actual = Customer.GetList();
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }
