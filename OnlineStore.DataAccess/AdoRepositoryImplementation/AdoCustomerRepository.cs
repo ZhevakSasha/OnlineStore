@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 {
     /// <summary>
-    /// AdoCustomerRepository implementation
+    /// AdoCustomerRepository implementation.
     /// </summary>
     public class AdoCustomerRepository : ICustomerRepository
     {
@@ -18,7 +18,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         private readonly string _connectionString;
 
         /// <summary>
-        /// Constructor for private string field _connectionString
+        /// Constructor for private string field _connectionString.
         /// </summary>
         /// <param name="connectionString"></param>
         public AdoCustomerRepository(string connectionString)
@@ -85,7 +85,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// Create method.
         /// Creates an object of Customer class.
         /// </summary>
-        /// <param name="customer">Takes an object of Product class.</param>
+        /// <param name="customer">Takes an object of Customer class.</param>
         public void Create(Customer customer)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -106,7 +106,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// Update method.
         /// Updates an object of Customer class.
         /// </summary>
-        /// <param name="customer">Takes an object of Product class.</param>
+        /// <param name="customer">Takes an object of Customer class.</param>
         public void Update(Customer customer)
         {
             using (var connection = new SqlConnection(_connectionString))

@@ -34,6 +34,9 @@ namespace OnlineStore.DataAccess.Tests
             return configuration;
         }
 
+        /// <summary>
+        /// Setup method.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
