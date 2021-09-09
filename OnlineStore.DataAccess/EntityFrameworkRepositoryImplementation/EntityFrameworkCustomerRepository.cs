@@ -6,19 +6,18 @@ using System.Collections.Generic;
 
 namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
 {
-    class EntityFrameworkCustomerRepository : ICustomerRepository, IDisposable
+    public class EntityFrameworkCustomerRepository : ICustomerRepository, IDisposable
     {
         private readonly DataBaseContext context;
-        private readonly string connectionString;
 
-        public EntityFrameworkCustomerRepository()
+        public EntityFrameworkCustomerRepository(string connectionString)
         {
             context = new DataBaseContext(connectionString);
         }
 
         public void Create(Customer customer)
         {
-            context.Customers.Add(customer);
+                context.Customers.Add(customer);
         }
 
         public void Delete(Customer customer)

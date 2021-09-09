@@ -42,6 +42,7 @@ namespace OnlineStore.DataAccess.Tests
 
             var connectionString = InitConfiguration().GetConnectionString("DefaultConnection");
             Customer = new AdoCustomerRepository(connectionString);
+            
         }
 
         /// <summary>

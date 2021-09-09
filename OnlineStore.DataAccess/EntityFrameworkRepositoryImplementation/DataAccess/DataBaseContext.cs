@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineStore.DataAccess.DataModel;
+﻿using OnlineStore.DataAccess.DataModel;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
+
 
 namespace OnlineStore.DataAccess.DataAccess
 {
