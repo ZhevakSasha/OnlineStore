@@ -21,7 +21,6 @@ namespace OnlineStore.DataAccess.Tests
         /// AdoCustomerRepository object.
         /// </summary>
         private AdoCustomerRepository Customer;
-        readonly string connectionString = InitConfiguration().GetConnectionString("DefaultConnection");
 
         /// <summary>
         /// Method for defining the configuration for .json file.

@@ -2,10 +2,7 @@
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 {

@@ -15,7 +15,7 @@ namespace OnlineStore.DataAccess.Tests
         /// <summary>
         /// Connection string.
         /// </summary>
-        private string _connectionString;
+        private readonly string _connectionString;
 
         /// <summary>
         /// Configuration properties.

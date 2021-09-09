@@ -9,11 +9,15 @@ namespace OnlineStore.DataAccess.DataAccess
 {
    public class DataBaseContext : DbContext 
     {
-        protected DataBaseContext(DbContextOptions options) : base(options) { }
+        private readonly string _connectionString;
+        public DataBaseContext(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["Def"].ConnectionString);
+            optionsBuilder.UseSqlServer(_connectionString);
         }
 
         public DbSet<Customer> Customers { get; set; }
