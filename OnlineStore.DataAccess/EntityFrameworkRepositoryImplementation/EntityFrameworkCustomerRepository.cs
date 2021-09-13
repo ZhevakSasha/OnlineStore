@@ -1,4 +1,5 @@
-﻿using OnlineStore.DataAccess.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System;
@@ -78,7 +79,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <param name="customer">Takes an object of Customer class.</param>
         public void Update(Customer customer)
         {
-            throw new NotImplementedException();
+            context.Customers.Update(customer);
         }
 
         private bool disposed = false;

@@ -23,16 +23,10 @@ namespace OnlineStore.DataAccess.Tests
         private AdoCustomerRepository Customer;
 
         /// <summary>
-        /// Method for defining the configuration for .json file.
+        /// IConfiguration field.
         /// </summary>
-        /// <returns>configuration</returns>
-        public static IConfiguration InitConfiguration()
-        {
-            IConfiguration configuration = new ConfigurationBuilder()
-                .AddJsonFile(path: "appconfig.json")
-                .Build();
-            return configuration;
-        }
+        public IConfiguration Configuration;
+
 
         /// <summary>
         /// Setup method.
@@ -40,25 +34,28 @@ namespace OnlineStore.DataAccess.Tests
         [SetUp]
         public void Setup()
         {
-            _dbConfiguration = new DataBaseConfiguration(InitConfiguration());
+            Configuration = new ConfigurationBuilder()
+             .AddJsonFile(path: "appconfig.json")
+             .Build();
+
+            _dbConfiguration = new DataBaseConfiguration(Configuration);
             _dbConfiguration.DeployTestDatabase();
 
-            var connectionString = InitConfiguration().GetConnectionString("DefaultConnection");
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             Customer = new AdoCustomerRepository(connectionString);
-            
         }
 
         /// <summary>
         /// Testing GetEntity method.
         /// </summary>
         [Test]
-        public void Get_CustomerById_ReturnsCustomer()
+        public void Get_WhereCustomerById_ThenReturnsCustomer()
         {
             //Arrange
-            const int constantId = 1;
+            const int concreteId = 1;
             var expected = new Customer()
             {
-                Id = constantId,
+                Id = concreteId,
                 FirstName = "Sasha",
                 LastName = "Zhevak",
                 Addres = "Main Street",
@@ -66,7 +63,7 @@ namespace OnlineStore.DataAccess.Tests
             };
 
             //Act
-            var actual = Customer.GetEntity(constantId);
+            var actual = Customer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -76,22 +73,22 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Create method
         /// </summary>
         [Test]
-        public void Create_Customer()
+        public void Create_WhenCustomer_ThenCreateCustomer()
         {
             //Arrange
-            const int constantId = 2;
+            const int concreteId = 3;
             var expected = new Customer()
             {
-                Id = constantId,
-                FirstName = "Andrew",
-                LastName = "Korolenko",
+                Id = concreteId,
+                FirstName = "Anton",
+                LastName = "Ivanov",
                 Addres = "52 Street",
-                PhoneNumber = "0669705345"
+                PhoneNumber = "0662305345"
             };
 
             //Act
             Customer.Create(expected);
-            var actual = Customer.GetEntity(constantId);
+            var actual = Customer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -101,24 +98,24 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Delete method.
         /// </summary>
         [Test]
-        public void Delete_Customer() 
+        public void Delete_WhereCustomer_ThenDeleteCustomer() 
         {
             //Arrange
-            const int constantId = 2;
-            var constantCustomer = new Customer()
+            const int concreteId = 3;
+            var arbitraryCustomer = new Customer()
             {
-                Id = constantId,
-                FirstName = "Andrew",
-                LastName = "Korolenko",
+                Id = concreteId,
+                FirstName = "Anton",
+                LastName = "Ivanov",
                 Addres = "52 Street",
-                PhoneNumber = "0669705345"
+                PhoneNumber = "0662305345"
             };
             //Ñreating an empty object. 
             var expected = new Customer();
 
             //Act
-            Customer.Delete(constantCustomer);
-            var actual = Customer.GetEntity(constantId);
+            Customer.Delete(arbitraryCustomer);
+            var actual = Customer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -128,32 +125,25 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Update method.
         /// </summary>
         [Test]
-        public void Update_Customer()
+        public void Update_WhenCustomer_ThenUpdateCustomer()
         {
             //Arrange
-            const int constantId = 2;
-            var constantCustomer = new Customer()
+            const int concreteId = 2;
+            var arbitraryUpdatedCustomer = new Customer()
             {
-                Id = constantId,
-                FirstName = "Andrew",
-                LastName = "Korolenko",
-                Addres = "52 Street",
-                PhoneNumber = "0669705345"
-            };
-            var constantUpdatedCustomer = new Customer()
-            {
-                Id = constantId,
+                Id = concreteId,
                 FirstName = "Anton",
                 LastName = "Ivanov",
-                Addres = "52 Street",
+                Addres = "53 Street",
                 PhoneNumber = "0662305345"
             };
-            var expected = constantUpdatedCustomer;
+            var expected = arbitraryUpdatedCustomer;
            
             //Act
-            Customer.Create(constantCustomer);
-            Customer.Update(constantUpdatedCustomer);
-            var actual = Customer.GetEntity(constantId);
+            Customer.Update(arbitraryUpdatedCustomer);
+            var actual = Customer.GetEntity(concreteId);
+
+            //Assert
             actual.Should().BeEquivalentTo(expected);
 
         }
@@ -184,17 +174,9 @@ namespace OnlineStore.DataAccess.Tests
                 Addres = "52 Street",
                 PhoneNumber = "0669705345"
             });
+            var actual = Customer.GetList();
 
             //Assert
-            Customer.Create(new Customer()
-            {
-                Id = 2,
-                FirstName = "Andrew",
-                LastName = "Korolenko",
-                Addres = "52 Street",
-                PhoneNumber = "0669705345"
-            });
-            var actual = Customer.GetList();
             actual.Should().BeEquivalentTo(expected);
         }
     }
