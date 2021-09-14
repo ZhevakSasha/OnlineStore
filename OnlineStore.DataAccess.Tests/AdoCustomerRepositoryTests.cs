@@ -70,7 +70,7 @@ namespace OnlineStore.DataAccess.Tests
         }
 
         /// <summary>
-        /// Testing Create method
+        /// Testing Create method.
         /// </summary>
         [Test]
         public void Create_WhenCustomer_ThenCreateCustomer()
@@ -101,7 +101,7 @@ namespace OnlineStore.DataAccess.Tests
         public void Delete_WhereCustomer_ThenDeleteCustomer() 
         {
             //Arrange
-            const int concreteId = 3;
+            const int concreteId = 2;
             var arbitraryCustomer = new Customer()
             {
                 Id = concreteId,
@@ -132,10 +132,10 @@ namespace OnlineStore.DataAccess.Tests
             var arbitraryUpdatedCustomer = new Customer()
             {
                 Id = concreteId,
-                FirstName = "Anton",
-                LastName = "Ivanov",
-                Addres = "53 Street",
-                PhoneNumber = "0662305345"
+                FirstName = "Andrew",
+                LastName = "Korolenko",
+                Addres = "52 Street",
+                PhoneNumber = "0669705345"
             };
             var expected = arbitraryUpdatedCustomer;
            
@@ -146,6 +146,8 @@ namespace OnlineStore.DataAccess.Tests
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
+            //Drop database.
+            _dbConfiguration.DropTestDatabase();
         }
 
         /// <summary>
@@ -155,25 +157,27 @@ namespace OnlineStore.DataAccess.Tests
         public void Get_CustomerList()
         {
             //Arrange
-            var expected = new List<Customer>();
+            var expected = new List<Customer>()
+            {
+                new Customer()
+                {
+                    Id = 1,
+                    FirstName = "Sasha",
+                    LastName = "Zhevak",
+                    Addres = "Main Street",
+                    PhoneNumber = "0669705219"
+                },
+                new Customer()
+                {
+                    Id = 2,
+                    FirstName = "Andrew",
+                    LastName = "Korolenko",
+                    Addres = "52 Street",
+                    PhoneNumber = "0669705345"
+                }
+            };
 
             //Act
-            expected.Add(new Customer()
-            {
-                Id = 1,
-                FirstName = "Sasha",
-                LastName = "Zhevak",
-                Addres = "Main Street",
-                PhoneNumber = "0669705219"
-            });
-            expected.Add(new Customer()
-            {
-                Id = 2,
-                FirstName = "Andrew",
-                LastName = "Korolenko",
-                Addres = "52 Street",
-                PhoneNumber = "0669705345"
-            });
             var actual = Customer.GetList();
 
             //Assert

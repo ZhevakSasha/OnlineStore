@@ -34,11 +34,27 @@ VALUES
 ('Keyboard',200,'pc.');
 end  
 
+if not exists (select * from dbo.Product where PruductName ='Mouse' and  Price = 120 and UnitOfMeasurement ='pc.' )
+begin
+INSERT INTO
+dbo.Product(PruductName, Price, UnitOfMeasurement)
+VALUES
+('Mouse',120,'pc.');
+end 
+
 if not exists (select * from dbo.Sales where ProductId =1 and  CustomerId = 1 and DateOfSale = '25.08.2021' and Amount =2 )
 begin
 INSERT INTO 
 dbo.Sales(ProductId, CustomerId, DateOfSale, Amount)
 VALUES 
 (1,1,'25.08.2021',2);
+end  
+
+if not exists (select * from dbo.Sales where ProductId =2 and  CustomerId = 2 and DateOfSale = '26.08.2021' and Amount =3 )
+begin
+INSERT INTO 
+dbo.Sales(ProductId, CustomerId, DateOfSale, Amount)
+VALUES 
+(2,2,'26.08.2021',3);
 end  
 
