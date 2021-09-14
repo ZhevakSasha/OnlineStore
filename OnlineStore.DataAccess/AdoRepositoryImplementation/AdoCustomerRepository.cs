@@ -136,7 +136,6 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
             using (var connection = new SqlConnection(_connectionString))
             {
                 var command = new SqlCommand($"DELETE FROM Customers where Id = {customer.Id} " , connection);
-
                 connection.Open();
                 command.ExecuteNonQuery();
             }

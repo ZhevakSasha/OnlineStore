@@ -1,16 +1,16 @@
+﻿using FluentAssertions;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using OnlineStore.DataAccess.AdoRepositoryImplementation;
 using OnlineStore.DataAccess.DataModel;
-using Microsoft.Extensions.Configuration;
-using FluentAssertions;
 using System.Collections.Generic;
 
 namespace OnlineStore.DataAccess.Tests
 {
     /// <summary>
-    /// Tests class.
+    /// AdoSaleRepository tests class.
     /// </summary>
-    public class Tests
+    class AdoSaleRepositoryTests
     {
         /// <summary>
         /// DataBaseConfiguration object.
@@ -18,9 +18,9 @@ namespace OnlineStore.DataAccess.Tests
         private DataBaseConfiguration _dbConfiguration;
 
         /// <summary>
-        /// AdoCustomerRepository object.
+        /// AdoSaleRepository object.
         /// </summary>
-        private AdoCustomerRepository Customer;
+        private AdoSaleRepository Sale;
 
         /// <summary>
         /// IConfiguration field.
@@ -42,28 +42,28 @@ namespace OnlineStore.DataAccess.Tests
             _dbConfiguration.DeployTestDatabase();
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            Customer = new AdoCustomerRepository(connectionString);
+            Sale = new AdoSaleRepository(connectionString);
         }
 
         /// <summary>
         /// Testing GetEntity method.
         /// </summary>
         [Test]
-        public void Get_WhereCustomerById_ThenReturnsCustomer()
+        public void Get_WhereSaleById_ThenReturnsSale()
         {
             //Arrange
             const int concreteId = 1;
-            var expected = new Customer()
+            var expected = new Sale()
             {
                 Id = concreteId,
-                FirstName = "Sasha",
-                LastName = "Zhevak",
-                Addres = "Main Street",
-                PhoneNumber = "0669705219"
+                ProductId = 1,
+                CustomerId = 1,
+                DateOfSale = "25.08.2021",
+                Amount = 2
             };
 
             //Act
-            var actual = Customer.GetEntity(concreteId);
+            var actual = Sale.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -73,22 +73,22 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Create method.
         /// </summary>
         [Test]
-        public void Create_WhenCustomer_ThenCreateCustomer()
+        public void Create_WhenSale_ThenCreateSale()
         {
             //Arrange
             const int concreteId = 3;
-            var expected = new Customer()
+            var expected = new Sale()
             {
                 Id = concreteId,
-                FirstName = "Anton",
-                LastName = "Ivanov",
-                Addres = "52 Street",
-                PhoneNumber = "0662305345"
+                ProductId = 1,
+                CustomerId = 2,
+                DateOfSale = "27.0",
+                Amount = 4
             };
 
             //Act
-            Customer.Create(expected);
-            var actual = Customer.GetEntity(concreteId);
+            Sale.Create(expected);
+            var actual = Sale.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -98,24 +98,24 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Delete method.
         /// </summary>
         [Test]
-        public void Delete_WhereCustomer_ThenDeleteCustomer() 
+        public void Delete_WhereSale_ThenDeleteSale()
         {
             //Arrange
             const int concreteId = 2;
-            var arbitraryCustomer = new Customer()
+            var arbitrarySale = new Sale()
             {
                 Id = concreteId,
-                FirstName = "Anton",
-                LastName = "Ivanov",
-                Addres = "52 Street",
-                PhoneNumber = "0662305345"
+                ProductId = 2,
+                CustomerId = 2,
+                DateOfSale = "26.08.2021",
+                Amount = 3
             };
-            //�reating an empty object. 
-            var expected = new Customer();
+            //Сreating an empty object. 
+            var expected = new Sale();
 
             //Act
-            Customer.Delete(arbitraryCustomer);
-            var actual = Customer.GetEntity(concreteId);
+            Sale.Delete(arbitrarySale);
+            var actual = Sale.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -125,60 +125,57 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Update method.
         /// </summary>
         [Test]
-        public void Update_WhenCustomer_ThenUpdateCustomer()
+        public void Update_WhenSale_ThenUpdateSale()
         {
             //Arrange
             const int concreteId = 2;
-            var arbitraryUpdatedCustomer = new Customer()
+            var arbitraryUpdatedSale = new Sale()
             {
                 Id = concreteId,
-                FirstName = "Andrew",
-                LastName = "Korolenko",
-                Addres = "52 Street",
-                PhoneNumber = "0669705345"
+                ProductId = 2,
+                CustomerId = 2,
+                DateOfSale = "26.08.2021",
+                Amount = 7
             };
-            var expected = arbitraryUpdatedCustomer;
-           
+            var expected = arbitraryUpdatedSale;
+
             //Act
-            Customer.Update(arbitraryUpdatedCustomer);
-            var actual = Customer.GetEntity(concreteId);
+            Sale.Update(arbitraryUpdatedSale);
+            var actual = Sale.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
-
-            //Drop database.
-            _dbConfiguration.DropTestDatabase();
         }
 
         /// <summary>
         /// Testing GetList method.
         /// </summary>
         [Test]
-        public void Get_CustomerList()
+        public void Get_SaleList()
         {
             //Arrange
-            var expected = new List<Customer>()
+            var expected = new List<Sale>()
             {
-                new Customer()
+                new Sale()
                 {
-                    Id = 1,
-                    FirstName = "Sasha",
-                    LastName = "Zhevak",
-                    Addres = "Main Street",
-                    PhoneNumber = "0669705219"
+                Id = 1,
+                ProductId = 1,
+                CustomerId = 1,
+                DateOfSale = "25.08.2021",
+                Amount = 2
                 },
-                new Customer()
+                new Sale()
                 {
-                    Id = 2,
-                    FirstName = "Andrew",
-                    LastName = "Korolenko",
-                    Addres = "52 Street",
-                    PhoneNumber = "0669705345"
+                Id = 2,
+                ProductId = 2,
+                CustomerId = 2,
+                DateOfSale = "26.08.2021",
+                Amount = 3
                 }
             };
 
             //Act
-            var actual = Customer.GetList();
+            var actual = Sale.GetList();
 
             //Assert
             actual.Should().BeEquivalentTo(expected);

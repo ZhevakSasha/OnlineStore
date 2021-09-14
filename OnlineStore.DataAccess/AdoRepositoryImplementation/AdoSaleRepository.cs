@@ -65,7 +65,6 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
             using (var connection = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand($"SELECT * FROM Sales WHERE Id = {id}", connection);
-                command.CommandType = CommandType.StoredProcedure;
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
@@ -86,8 +85,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// </summary>
         /// <param name="sale">Takes an object of Sale class.</param>
         public void Create(Sale sale)
-        {
-
+        {   
             using (var connection = new SqlConnection(_connectionString))
             {
                 var command = new SqlCommand("INSERT INTO Sales" +
@@ -134,7 +132,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand($"DELETE FROM Sale where Id = {sale.Id}", connection);
+                var command = new SqlCommand($"DELETE FROM Sales where Id = {sale.Id}", connection);
                 connection.Open();
                 command.ExecuteNonQuery();
 
