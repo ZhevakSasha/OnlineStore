@@ -1,16 +1,16 @@
-using NUnit.Framework;
-using OnlineStore.DataAccess.AdoRepositoryImplementation;
+﻿using NUnit.Framework;
 using OnlineStore.DataAccess.DataModel;
 using Microsoft.Extensions.Configuration;
 using FluentAssertions;
 using System.Collections.Generic;
+using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 
-namespace OnlineStore.DataAccess.Tests
+namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 {
     /// <summary>
-    /// AdoCustomerRepository tests class.
+    /// EntityFrameworkCustomerRepository tests class.
     /// </summary>
-    public class AdoCustomerRepositoryTests
+    class EntityFrameworkCustomerRepositoryTests
     {
         /// <summary>
         /// DataBaseConfiguration object.
@@ -18,9 +18,9 @@ namespace OnlineStore.DataAccess.Tests
         private DataBaseConfiguration _dbConfiguration;
 
         /// <summary>
-        /// AdoCustomerRepository object.
+        /// EntityFrameworkCustomerRepository object.
         /// </summary>
-        private AdoCustomerRepository Customer;
+        private EntityFrameworkCustomerRepository Customer;
 
         /// <summary>
         /// IConfiguration field.
@@ -42,7 +42,7 @@ namespace OnlineStore.DataAccess.Tests
             _dbConfiguration.DeployTestDatabase();
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            Customer = new AdoCustomerRepository(connectionString);
+            Customer = new EntityFrameworkCustomerRepository(connectionString);
         }
 
         /// <summary>
@@ -79,7 +79,6 @@ namespace OnlineStore.DataAccess.Tests
             const int concreteId = 3;
             var expected = new Customer()
             {
-                Id = concreteId,
                 FirstName = "Anton",
                 LastName = "Ivanov",
                 Addres = "52 Street",
@@ -88,6 +87,7 @@ namespace OnlineStore.DataAccess.Tests
 
             //Act
             Customer.Create(expected);
+            Customer.Save();
             var actual = Customer.GetEntity(concreteId);
 
             //Assert
@@ -98,7 +98,7 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Delete method.
         /// </summary>
         [Test]
-        public void Delete_WhereCustomer_ThenDeleteCustomer() 
+        public void Delete_WhereCustomer_ThenDeleteCustomer()
         {
             //Arrange
             const int concreteId = 2;
@@ -110,11 +110,12 @@ namespace OnlineStore.DataAccess.Tests
                 Addres = "52 Street",
                 PhoneNumber = "0662305345"
             };
-            //�reating an empty object. 
-            var expected = new Customer();
+            //Сreating an empty object. 
+            Customer expected = null;
 
             //Act
             Customer.Delete(arbitraryCustomer);
+            Customer.Save();
             var actual = Customer.GetEntity(concreteId);
 
             //Assert
@@ -138,16 +139,14 @@ namespace OnlineStore.DataAccess.Tests
                 PhoneNumber = "0669705345"
             };
             var expected = arbitraryUpdatedCustomer;
-           
+
             //Act
             Customer.Update(arbitraryUpdatedCustomer);
+            Customer.Save();
             var actual = Customer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
-
-            //Drop database.
-            _dbConfiguration.DropTestDatabase();
         }
 
         /// <summary>
