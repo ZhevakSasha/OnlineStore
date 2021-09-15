@@ -62,7 +62,7 @@
     <Folder Include="DataBaseOwner\PostDeploymentScripts" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="DataBaseOwner\Tables\Product.sql" />
+    <Build Include="DataBaseOwner\Tables\Products.sql" />
     <Build Include="DataBaseOwner\Tables\Customers.sql" />
     <Build Include="DataBaseOwner\Tables\Sales.sql" />
   </ItemGroup>

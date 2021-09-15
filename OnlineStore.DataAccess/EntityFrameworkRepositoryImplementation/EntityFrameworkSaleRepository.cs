@@ -7,9 +7,9 @@ using System.Collections.Generic;
 namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
 {
     /// <summary>
-    /// EntityFrameworkCustomerRepository implementation.
+    /// EntityFrameworkSaleRepository implementation.
     /// </summary>
-    public class EntityFrameworkCustomerRepository : ICustomerRepository, IDisposable
+    public class EntityFrameworkSaleRepository : ISaleRepository, IDisposable
     {
         /// <summary>
         /// Context field.
@@ -20,28 +20,28 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// Constructor for private string field connectionString.
         /// </summary>
         /// <param name="connectionString"></param>
-        public EntityFrameworkCustomerRepository(string connectionString)
+        public EntityFrameworkSaleRepository(string connectionString)
         {
             context = new DataBaseContext(connectionString);
         }
 
         /// <summary>
-        /// Adds an object of Customer class in the database.
+        /// Adds an object of Sale class in the database.
         /// </summary>
-        /// <param name="customer"></param>
-        public void Create(Customer customer)
+        /// <param name="sale"></param>
+        public void Create(Sale sale)
         {
-                context.Customers.Add(customer);
+            context.Sales.Add(sale);
         }
 
         /// <summary>
-        /// Deletes an object of Customer class.
+        /// Deletes an object of Sale class.
         /// </summary>
-        /// <param name="customer"></param>
-        public void Delete(Customer customer)
+        /// <param name="sale"></param>
+        public void Delete(Sale sale)
         {
-            if (customer != null)
-                context.Customers.Remove(customer);
+            if (sale != null)
+                context.Sales.Remove(sale);
         }
 
         /// <summary>
@@ -49,18 +49,18 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// </summary>
         /// <param name="Id">Takes id parameter</param>
         /// <returns>Return one object by id.</returns>
-        public Customer GetEntity(int Id)
+        public Sale GetEntity(int Id)
         {
-            return context.Customers.Find(Id);
+            return context.Sales.Find(Id);
         }
 
         /// <summary>
         /// GetList method. 
         /// </summary>
         /// <returns>Returns all objects.</returns>
-        public IEnumerable<Customer> GetList()
+        public IEnumerable<Sale> GetList()
         {
-            return context.Customers;
+            return context.Sales;
         }
 
         /// <summary>
@@ -73,12 +73,12 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
 
         /// <summary>
         /// Update method.
-        /// Updates an object of Customer class.
+        /// Updates an object of Sale class.
         /// </summary>
-        /// <param name="customer">Takes an object of Customer class.</param>
-        public void Update(Customer customer)
+        /// <param name="sale">Takes an object of Sale class.</param>
+        public void Update(Sale sale)
         {
-            context.Customers.Update(customer);
+            context.Sales.Update(sale);
         }
 
         private bool disposed = false;

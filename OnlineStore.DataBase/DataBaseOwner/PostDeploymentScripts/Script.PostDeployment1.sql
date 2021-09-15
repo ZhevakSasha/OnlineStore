@@ -26,18 +26,18 @@ VALUES
 ('Andrew','Korolenko','52 Street','0669705345');
 end
 
-if not exists (select * from dbo.Product where ProductName ='Keyboard' and  Price = 200 and UnitOfMeasurement ='pc.' )
+if not exists (select * from dbo.Products where ProductName ='Keyboard' and  Price = 200 and UnitOfMeasurement ='pc.' )
 begin
 INSERT INTO
-dbo.Product(ProductName, Price, UnitOfMeasurement)
+dbo.Products(ProductName, Price, UnitOfMeasurement)
 VALUES
 ('Keyboard',200,'pc.');
 end  
 
-if not exists (select * from dbo.Product where ProductName ='Mouse' and  Price = 120 and UnitOfMeasurement ='pc.' )
+if not exists (select * from dbo.Products where ProductName ='Mouse' and  Price = 120 and UnitOfMeasurement ='pc.' )
 begin
 INSERT INTO
-dbo.Product(ProductName, Price, UnitOfMeasurement)
+dbo.Products(ProductName, Price, UnitOfMeasurement)
 VALUES
 ('Mouse',120,'pc.');
 end 

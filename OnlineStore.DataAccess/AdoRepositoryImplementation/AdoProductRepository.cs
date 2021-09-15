@@ -36,7 +36,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
             var products = new List<Product>();
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("SELECT * FROM Product", connection);              
+                var command = new SqlCommand("SELECT * FROM Products", connection);              
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
@@ -65,7 +65,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
             var product = new Product();
             using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand command = new SqlCommand($"SELECT * FROM Product WHERE Id = {id}", connection);
+                SqlCommand command = new SqlCommand($"SELECT * FROM Products WHERE Id = {id}", connection);
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
@@ -88,7 +88,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("INSERT INTO Product" +
+                var command = new SqlCommand("INSERT INTO Products" +
                    "(ProductName, Price, UnitOfMeasurement)" +
                    " VALUES(@ProductName, @Price, @UnitOfMeasurement)", connection);
                 connection.Open();
@@ -108,7 +108,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand("UPDATE Product SET ProductName = @ProductName," +
+                var command = new SqlCommand("UPDATE Products SET ProductName = @ProductName," +
                                              "Price = @Price," +
                                              "UnitOfMeasurement = @UnitOfMeasurement " +
                                              $"WHERE Id ={product.Id}", connection);
@@ -129,7 +129,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand($"DELETE FROM Product where Id = {product.Id}", connection);
+                var command = new SqlCommand($"DELETE FROM Products where Id = {product.Id}", connection);
                 connection.Open();
                 command.ExecuteNonQuery();
             }
