@@ -105,7 +105,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         {
             //Arrange
             const int concreteId = 3;
-            var arbitraryCustomer = context.Customers.LastOrDefault();
+            var arbitraryCustomer = Customer.GetEntity(concreteId);
             //Сreating an empty object. 
             Customer expected = null;
 
