@@ -4,15 +4,17 @@ using Microsoft.Extensions.Configuration;
 using FluentAssertions;
 using System.Collections.Generic;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
+using OnlineStore.DataAccess.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 {
     class EntityFrameworkProductRepositoryTests
     {
-         /// <summary>
-        /// DataBaseConfiguration object.
+        /// <summary>
+        /// DataBaseContext object.
         /// </summary>
-        private DataBaseConfiguration _dbConfiguration;
+        private DataBaseContext context;
 
         /// <summary>
         /// EntityFrameworkProductRepository object.
@@ -20,26 +22,18 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         private EntityFrameworkProductRepository Product;
 
         /// <summary>
-        /// IConfiguration field.
-        /// </summary>
-        public IConfiguration Configuration;
-
-
-        /// <summary>
         /// Setup method.
         /// </summary>
         [SetUp]
         public void Setup()
         {
-            Configuration = new ConfigurationBuilder()
-             .AddJsonFile(path: "appconfig.json")
-             .Build();
-
-            _dbConfiguration = new DataBaseConfiguration(Configuration);
-            _dbConfiguration.DeployTestDatabase();
-
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            Product = new EntityFrameworkProductRepository(connectionString);
+            var options = new DbContextOptionsBuilder<DataBaseContext>()
+               .UseInMemoryDatabase(databaseName: "TestsDb")
+               .Options;
+            context = new DataBaseContext(options);
+            Product = new EntityFrameworkProductRepository(context);
+            context.Database.EnsureCreated();
+            SeedDatabase();
         }
 
         /// <summary>
@@ -63,6 +57,9 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+
+
+            context.Database.EnsureDeleted();
         }
 
         /// <summary>
@@ -82,11 +79,13 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Act
             Product.Create(expected);
-            Product.Save();
             var actual = Product.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+
+
+            context.Database.EnsureDeleted();
         }
 
         /// <summary>
@@ -96,24 +95,21 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         public void Delete_WhereProduct_ThenDeleteProduct()
         {
             //Arrange
-            const int concreteId = 2;
-            var arbitraryProduct = new Product()
-            {
-                Id = concreteId,
-                ProductName = "Mouse",
-                Price = 120,
-                UnitOfMeasurement = "pc."
-            };
+            const int arbitraryId = 1;
+            var arbitraryProduct = Product.GetEntity(arbitraryId);
             //Сreating an empty object. 
             Product expected = null;
 
             //Act
             Product.Delete(arbitraryProduct);
             Product.Save();
-            var actual = Product.GetEntity(concreteId);
+            var actual = Product.GetEntity(arbitraryId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+
+
+            context.Database.EnsureDeleted();
         }
 
         /// <summary>
@@ -123,23 +119,21 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         public void Update_WhenProduct_ThenUpdateProduct()
         {
             //Arrange
-            const int concreteId = 2;
-            var arbitraryUpdatedProduct = new Product()
-            {
-                Id = concreteId,
-                ProductName = "Phone2",
-                Price = 190,
-                UnitOfMeasurement = "pc."
-            };
+            const int arbitraryId = 1;
+            var arbitraryUpdatedProduct = Product.GetEntity(arbitraryId);
+            arbitraryUpdatedProduct.Price = 400;
             var expected = arbitraryUpdatedProduct;
 
             //Act
             Product.Update(arbitraryUpdatedProduct);
             Product.Save();
-            var actual = Product.GetEntity(concreteId);
+            var actual = Product.GetEntity(arbitraryId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+
+
+            context.Database.EnsureDeleted();
         }
 
         /// <summary>
@@ -172,6 +166,33 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+
+
+            context.Database.EnsureDeleted();
+        }
+
+        private void SeedDatabase()
+        {
+            var products = new List<Product>()
+            {
+                new Product()
+                {
+                    Id = 1,
+                    ProductName = "Keyboard",
+                    Price = 200,
+                    UnitOfMeasurement = "pc."
+                },
+
+                new Product()
+                {
+                    Id = 2,
+                    ProductName = "Mouse",
+                    Price = 120,
+                    UnitOfMeasurement = "pc."
+                }
+            };
+            context.Products.AddRange(products);
+            Product.Save();
         }
     }
 }

@@ -14,15 +14,15 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <summary>
         /// Context field.
         /// </summary>
-        private readonly DataBaseContext context;
+        private readonly DataBaseContext _context;
 
         /// <summary>
         /// Constructor for private string field connectionString.
         /// </summary>
         /// <param name="connectionString"></param>
-        public EntityFrameworkProductRepository(string connectionString)
+        public EntityFrameworkProductRepository(DataBaseContext context)
         {
-            context = new DataBaseContext(connectionString);
+            _context = context;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <param name="product"></param>
         public void Create(Product product)
         {
-            context.Products.Add(product);
+            _context.Products.Add(product);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         public void Delete(Product product)
         {
             if (product != null)
-                context.Products.Remove(product);
+                _context.Products.Remove(product);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Return one object by id.</returns>
         public Product GetEntity(int Id)
         {
-            return context.Products.Find(Id);
+            return _context.Products.Find(Id);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Returns all objects.</returns>
         public IEnumerable<Product> GetList()
         {
-            return context.Products;
+            return _context.Products;
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// </summary>
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <param name="product">Takes an object of Product class.</param>
         public void Update(Product product)
         {
-            context.Products.Update(product);
+            _context.Products.Update(product);
         }
 
         private bool disposed = false;
@@ -89,7 +89,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;

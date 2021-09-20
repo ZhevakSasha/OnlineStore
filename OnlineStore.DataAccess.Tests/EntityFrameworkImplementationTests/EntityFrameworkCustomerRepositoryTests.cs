@@ -82,7 +82,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Act
             Customer.Create(expected);
-
             var actual = Customer.GetEntity(concreteId);
 
             //Assert
@@ -99,16 +98,15 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         public void Delete_WhereCustomer_ThenDeleteCustomer()
         {
             //Arrange
-            const int concreteId = 3;
-            var arbitraryCustomer = Customer.GetEntity(concreteId);
+            const int arbitraryId = 1;
+            var arbitraryCustomer = Customer.GetEntity(arbitraryId);
             //Сreating an empty object. 
             Customer expected = null;
 
             //Act
             Customer.Delete(arbitraryCustomer);
             Customer.Save();
-
-            var actual = Customer.GetEntity(concreteId);
+            var actual = Customer.GetEntity(arbitraryId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -124,14 +122,14 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         public void Update_WhenCustomer_ThenUpdateCustomer()
         {
             //Arrange
-            const int concreteId = 1;
-            var arbitraryUpdatedCustomer = context.Customers.FirstOrDefault();
+            const int arbitraryId = 1;
+            var arbitraryUpdatedCustomer = Customer.GetEntity(arbitraryId);
             arbitraryUpdatedCustomer.FirstName = "Sasha2";
             var expected = arbitraryUpdatedCustomer;
 
             //Act
             Customer.Update(arbitraryUpdatedCustomer);
-            var actual = Customer.GetEntity(concreteId);
+            var actual = Customer.GetEntity(arbitraryId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);

@@ -14,15 +14,15 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <summary>
         /// Context field.
         /// </summary>
-        private readonly DataBaseContext context;
+        private readonly DataBaseContext _context;
 
         /// <summary>
         /// Constructor for private string field connectionString.
         /// </summary>
         /// <param name="connectionString"></param>
-        public EntityFrameworkSaleRepository(string connectionString)
+        public EntityFrameworkSaleRepository(DataBaseContext context)
         {
-            context = new DataBaseContext(connectionString);
+            _context = context;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <param name="sale"></param>
         public void Create(Sale sale)
         {
-            context.Sales.Add(sale);
+            _context.Sales.Add(sale);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         public void Delete(Sale sale)
         {
             if (sale != null)
-                context.Sales.Remove(sale);
+                _context.Sales.Remove(sale);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Return one object by id.</returns>
         public Sale GetEntity(int Id)
         {
-            return context.Sales.Find(Id);
+            return _context.Sales.Find(Id);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Returns all objects.</returns>
         public IEnumerable<Sale> GetList()
         {
-            return context.Sales;
+            return _context.Sales;
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// </summary>
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <param name="sale">Takes an object of Sale class.</param>
         public void Update(Sale sale)
         {
-            context.Sales.Update(sale);
+            _context.Sales.Update(sale);
         }
 
         private bool disposed = false;
@@ -89,7 +89,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;
