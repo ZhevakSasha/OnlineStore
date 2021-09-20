@@ -16,21 +16,16 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
     class EntityFrameworkCustomerRepositoryTests
     {
         /// <summary>
-        /// DataBaseConfiguration object.
+        /// DataBaseContext object.
         /// </summary>
-        private DataBaseConfiguration _dbConfiguration;
-
-        DataBaseContext context;
+        private DataBaseContext context;
 
         /// <summary>
         /// EntityFrameworkCustomerRepository object.
         /// </summary>
         private EntityFrameworkCustomerRepository Customer;
 
-        /// <summary>
-        /// Setup method.
-        /// </summary>
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             var options = new DbContextOptionsBuilder<DataBaseContext>()
@@ -40,12 +35,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             Customer = new EntityFrameworkCustomerRepository(context);
             context.Database.EnsureCreated();
             SeedDatabase();
-        }
-
-        [OneTimeTearDown]
-        public void CleanUp()
-        {
-            context.Database.EnsureDeleted();
         }
 
         /// <summary>
@@ -70,6 +59,9 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+
+
+            context.Database.EnsureDeleted();
         }
 
         /// <summary>
@@ -95,6 +87,9 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+
+
+            context.Database.EnsureDeleted();
         }
 
         /// <summary>
@@ -117,6 +112,9 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+
+
+            context.Database.EnsureDeleted();
         }
 
         /// <summary>
@@ -137,6 +135,9 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+
+
+            context.Database.EnsureDeleted();
         }
 
         /// <summary>
@@ -171,6 +172,9 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+
+
+            context.Database.EnsureDeleted();
         }
 
         private void SeedDatabase()
@@ -197,7 +201,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
             context.Customers.AddRange(customers);
             Customer.Save();
-
         }
     }
 }
