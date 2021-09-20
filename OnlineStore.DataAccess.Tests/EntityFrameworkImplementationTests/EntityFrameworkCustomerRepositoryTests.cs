@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 using Microsoft.EntityFrameworkCore;
 using OnlineStore.DataAccess.DataAccess;
+using System.Linq;
 
 namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 {
@@ -103,20 +104,14 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         public void Delete_WhereCustomer_ThenDeleteCustomer()
         {
             //Arrange
-            const int concreteId = 2;
-            var arbitraryCustomer = new Customer()
-            {
-                Id = concreteId,
-                FirstName = "Andrew",
-                LastName = "Korolenko",
-                Addres = "52 Street",
-                PhoneNumber = "0669705345"
-            };
+            const int concreteId = 3;
+            var arbitraryCustomer = context.Customers.LastOrDefault();
             //Сreating an empty object. 
             Customer expected = null;
 
             //Act
             Customer.Delete(arbitraryCustomer);
+            Customer.Save();
 
             var actual = Customer.GetEntity(concreteId);
 
@@ -131,15 +126,9 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         public void Update_WhenCustomer_ThenUpdateCustomer()
         {
             //Arrange
-            const int concreteId = 2;
-            var arbitraryUpdatedCustomer = new Customer()
-            {
-                Id = concreteId,
-                FirstName = "Andrew2",
-                LastName = "Korolenko",
-                Addres = "52 Street",
-                PhoneNumber = "0669705345"
-            };
+            const int concreteId = 1;
+            var arbitraryUpdatedCustomer = context.Customers.FirstOrDefault();
+            arbitraryUpdatedCustomer.FirstName = "Sasha2";
             var expected = arbitraryUpdatedCustomer;
 
             //Act
@@ -208,6 +197,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
             context.Customers.AddRange(customers);
             Customer.Save();
+
         }
     }
 }
