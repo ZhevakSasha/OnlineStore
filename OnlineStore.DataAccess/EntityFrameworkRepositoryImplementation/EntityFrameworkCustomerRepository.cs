@@ -14,15 +14,15 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <summary>
         /// Context field.
         /// </summary>
-        private readonly DataBaseContext context;
+        private readonly DataBaseContext _context;
 
         /// <summary>
         /// Constructor for private string field connectionString.
         /// </summary>
         /// <param name="connectionString"></param>
-        public EntityFrameworkCustomerRepository(string connectionString)
+        public EntityFrameworkCustomerRepository(DataBaseContext context)
         {
-            context = new DataBaseContext(connectionString);
+            _context = context;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <param name="customer"></param>
         public void Create(Customer customer)
         {
-                context.Customers.Add(customer);
+                _context.Customers.Add(customer);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         public void Delete(Customer customer)
         {
             if (customer != null)
-                context.Customers.Remove(customer);
+                _context.Customers.Remove(customer);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Return one object by id.</returns>
         public Customer GetEntity(int Id)
         {
-            return context.Customers.Find(Id);
+            return _context.Customers.Find(Id);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Returns all objects.</returns>
         public IEnumerable<Customer> GetList()
         {
-            return context.Customers;
+            return _context.Customers;
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// </summary>
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <param name="customer">Takes an object of Customer class.</param>
         public void Update(Customer customer)
         {
-            context.Customers.Update(customer);
+            _context.Customers.Update(customer);
         }
 
         private bool disposed = false;
@@ -89,7 +89,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;

@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using FluentAssertions;
 using System.Collections.Generic;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
+using Microsoft.EntityFrameworkCore;
+using OnlineStore.DataAccess.DataAccess;
 
 namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 {
@@ -17,32 +19,32 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         /// </summary>
         private DataBaseConfiguration _dbConfiguration;
 
+        DataBaseContext context;
+
         /// <summary>
         /// EntityFrameworkCustomerRepository object.
         /// </summary>
         private EntityFrameworkCustomerRepository Customer;
 
         /// <summary>
-        /// IConfiguration field.
-        /// </summary>
-        public IConfiguration Configuration;
-
-
-        /// <summary>
         /// Setup method.
         /// </summary>
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
-            Configuration = new ConfigurationBuilder()
-             .AddJsonFile(path: "appconfig.json")
-             .Build();
+            var options = new DbContextOptionsBuilder<DataBaseContext>()
+                .UseInMemoryDatabase(databaseName: "TestsDb")
+                .Options;
+            context = new DataBaseContext(options);
+            Customer = new EntityFrameworkCustomerRepository(context);
+            context.Database.EnsureCreated();
+            SeedDatabase();
+        }
 
-            _dbConfiguration = new DataBaseConfiguration(Configuration);
-            _dbConfiguration.DeployTestDatabase();
-
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            Customer = new EntityFrameworkCustomerRepository(connectionString);
+        [OneTimeTearDown]
+        public void CleanUp()
+        {
+            context.Database.EnsureDeleted();
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Act
             Customer.Create(expected);
-            Customer.Save();
+
             var actual = Customer.GetEntity(concreteId);
 
             //Assert
@@ -105,17 +107,17 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             var arbitraryCustomer = new Customer()
             {
                 Id = concreteId,
-                FirstName = "Anton",
-                LastName = "Ivanov",
+                FirstName = "Andrew",
+                LastName = "Korolenko",
                 Addres = "52 Street",
-                PhoneNumber = "0662305345"
+                PhoneNumber = "0669705345"
             };
             //Сreating an empty object. 
             Customer expected = null;
 
             //Act
             Customer.Delete(arbitraryCustomer);
-            Customer.Save();
+
             var actual = Customer.GetEntity(concreteId);
 
             //Assert
@@ -142,7 +144,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Act
             Customer.Update(arbitraryUpdatedCustomer);
-            Customer.Save();
             var actual = Customer.GetEntity(concreteId);
 
             //Assert
@@ -181,6 +182,32 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+        }
+
+        private void SeedDatabase()
+        {
+            var customers = new List<Customer>()
+            {
+                new Customer()
+                {
+                    Id = 1,
+                    FirstName = "Sasha",
+                    LastName = "Zhevak",
+                    Addres = "Main Street",
+                    PhoneNumber = "0669705219"
+                },
+
+                new Customer()
+                {
+                    Id = 2,
+                    FirstName = "Andrew",
+                    LastName = "Korolenko",
+                    Addres = "52 Street",
+                    PhoneNumber = "0669705345"
+                }
+            };
+            context.Customers.AddRange(customers);
+            Customer.Save();
         }
     }
 }

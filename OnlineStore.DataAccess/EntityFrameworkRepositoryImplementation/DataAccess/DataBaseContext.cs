@@ -21,13 +21,9 @@ namespace OnlineStore.DataAccess.DataAccess
             _connectionString = connectionString;
         }
 
-        /// <summary>
-        /// Method for configuring connection strings for connecting to MS SQL Server.
-        /// </summary>
-        /// <param name="optionsBuilder"></param>
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public DataBaseContext(DbContextOptions<DataBaseContext> options) : base (options)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
+
         }
 
         /// <summary>
