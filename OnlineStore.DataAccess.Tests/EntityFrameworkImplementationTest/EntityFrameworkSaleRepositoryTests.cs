@@ -17,12 +17,12 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         /// <summary>
         /// DataBaseContext object.
         /// </summary>
-        private DataBaseContext context;
+        private DataBaseContext _context;
 
         /// <summary>
         /// AdoSaleRepository object.
         /// </summary>
-        private EntityFrameworkSaleRepository Sale;
+        private EntityFrameworkSaleRepository _sale;
 
         /// <summary>
         /// Setup method.
@@ -33,9 +33,9 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             var options = new DbContextOptionsBuilder<DataBaseContext>()
                 .UseInMemoryDatabase(databaseName: "TestsDb")
                 .Options;
-            context = new DataBaseContext(options);
-            Sale = new EntityFrameworkSaleRepository(context);
-            context.Database.EnsureCreated();
+            _context = new DataBaseContext(options);
+            _sale = new EntityFrameworkSaleRepository(_context);
+            _context.Database.EnsureCreated();
             SeedDatabase();
         }
 
@@ -43,7 +43,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         /// Testing GetEntity method.
         /// </summary>
         [Test]
-        public void Get_WhereSaleById_ThenReturnsSale()
+        public void Get_WhenTakesSaleId_ThenReturnsSale()
         {
             //Arrange
             const int concreteId = 1;
@@ -57,20 +57,20 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
 
             //Act
-            var actual = Sale.GetEntity(concreteId);
+            var actual = _sale.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing Create method.
         /// </summary>
         [Test]
-        public void Create_WhenSale_ThenCreateSale()
+        public void Create_WhenTakesSale_ThenCreateSale()
         {
             //Arrange
             const int concreteId = 3;
@@ -83,69 +83,69 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
 
             //Act
-            Sale.Create(expected);
-            var actual = Sale.GetEntity(concreteId);
+            _sale.Create(expected);
+            var actual = _sale.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing Delete method.
         /// </summary>
         [Test]
-        public void Delete_WhereSale_ThenDeleteSale()
+        public void Delete_WhenTakesSale_ThenDeleteSale()
         {
             //Arrange
             const int arbitraryId = 1;
-            var arbitrarySale = Sale.GetEntity(arbitraryId);
+            var arbitrarySale = _sale.GetEntity(arbitraryId);
             //Сreating an empty object. 
             Sale expected = null;
 
             //Act
-            Sale.Delete(arbitrarySale);
-            Sale.Save();
-            var actual = Sale.GetEntity(arbitraryId);
+            _sale.Delete(arbitrarySale);
+            _sale.Save();
+            var actual = _sale.GetEntity(arbitraryId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing Update method.
         /// </summary>
         [Test]
-        public void Update_WhenSale_ThenUpdateSale()
+        public void Update_WhenTakesSale_ThenUpdateSale()
         {
             //Arrange
             const int arbitraryId = 1;
-            var arbitraryUpdatedSale = Sale.GetEntity(arbitraryId);
+            var arbitraryUpdatedSale = _sale.GetEntity(arbitraryId);
             arbitraryUpdatedSale.DateOfSale = "20.09.2021";
             var expected = arbitraryUpdatedSale;
 
             //Act
-            Sale.Update(arbitraryUpdatedSale);
-            Sale.Save();
-            var actual = Sale.GetEntity(arbitraryId);
+            _sale.Update(arbitraryUpdatedSale);
+            _sale.Save();
+            var actual = _sale.GetEntity(arbitraryId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing GetList method.
         /// </summary>
         [Test]
-        public void Get_SaleList()
+        public void Get_ReturnSaleList()
         {
             //Arrange
             var expected = new List<Sale>()
@@ -169,13 +169,13 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
 
             //Act
-            var actual = Sale.GetList();
+            var actual = _sale.GetList();
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         private void SeedDatabase()
@@ -200,8 +200,8 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 Amount = 3
                 }
             };
-            context.Sales.AddRange(sales);
-            Sale.Save();
+            _context.Sales.AddRange(sales);
+            _sale.Save();
         }
     }
 }

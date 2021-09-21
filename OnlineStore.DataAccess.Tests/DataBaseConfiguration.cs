@@ -10,7 +10,7 @@ namespace OnlineStore.DataAccess.Tests
     /// <summary>
     /// Setting configuration for a test database.
     /// </summary>
-    class DataBaseConfiguration
+    public class DataBaseConfiguration
     {
         /// <summary>
         /// Connection string.

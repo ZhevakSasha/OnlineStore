@@ -20,13 +20,12 @@ namespace OnlineStore.DataAccess.Tests
         /// <summary>
         /// AdoProductRepository object.
         /// </summary>
-        private AdoProductRepository Product;
+        private AdoProductRepository _product;
 
         /// <summary>
         /// IConfiguration field.
         /// </summary>
-        public IConfiguration Configuration;
-
+        private IConfiguration _configuration;
 
         /// <summary>
         /// Setup method.
@@ -34,22 +33,22 @@ namespace OnlineStore.DataAccess.Tests
         [SetUp]
         public void Setup()
         {
-            Configuration = new ConfigurationBuilder()
+            _configuration = new ConfigurationBuilder()
              .AddJsonFile(path: "appconfig.json")
              .Build();
 
-            _dbConfiguration = new DataBaseConfiguration(Configuration);
+            _dbConfiguration = new DataBaseConfiguration(_configuration);
             _dbConfiguration.DeployTestDatabase();
 
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            Product = new AdoProductRepository(connectionString);
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            _product = new AdoProductRepository(connectionString);
         }
 
         /// <summary>
         /// Testing GetEntity method.
         /// </summary>
         [Test]
-        public void Get_WhereProductById_ThenReturnsProduct()
+        public void Get_WhenTakesProductId_ThenReturnsProduct()
         {
             //Arrange
             const int concreteId = 1;
@@ -62,7 +61,7 @@ namespace OnlineStore.DataAccess.Tests
             };
 
             //Act
-            var actual = Product.GetEntity(concreteId);
+            var actual = _product.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -72,7 +71,7 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Create method.
         /// </summary>
         [Test]
-        public void Create_WhenProduct_ThenCreateProduct()
+        public void Create_WhenTakesProduct_ThenCreateProduct()
         {
             //Arrange
             const int concreteId = 3;
@@ -85,8 +84,8 @@ namespace OnlineStore.DataAccess.Tests
             };
 
             //Act
-            Product.Create(expected);
-            var actual = Product.GetEntity(concreteId);
+            _product.Create(expected);
+            var actual = _product.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -96,7 +95,7 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Delete method.
         /// </summary>
         [Test]
-        public void Delete_WhereProduct_ThenDeleteProduct()
+        public void Delete_WhenTakesProduct_ThenDeleteProduct()
         {
             //Arrange
             const int concreteId = 2;
@@ -111,8 +110,8 @@ namespace OnlineStore.DataAccess.Tests
             var expected = new Product();
 
             //Act
-            Product.Delete(arbitraryProduct);
-            var actual = Product.GetEntity(concreteId);
+            _product.Delete(arbitraryProduct);
+            var actual = _product.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -122,7 +121,7 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Update method.
         /// </summary>
         [Test]
-        public void Update_WhenProduct_ThenUpdateProduct()
+        public void Update_WhenTakesProduct_ThenUpdateProduct()
         {
             //Arrange
             const int concreteId = 2;
@@ -136,8 +135,8 @@ namespace OnlineStore.DataAccess.Tests
             var expected = arbitraryUpdatedProduct;
 
             //Act
-            Product.Update(arbitraryUpdatedProduct);
-            var actual = Product.GetEntity(concreteId);
+            _product.Update(arbitraryUpdatedProduct);
+            var actual = _product.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -147,7 +146,7 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing GetList method.
         /// </summary>
         [Test]
-        public void Get_ProductList()
+        public void Get_ReturnProductList()
         {
             //Arrange
             var expected = new List<Product>()
@@ -169,7 +168,7 @@ namespace OnlineStore.DataAccess.Tests
             };
 
             //Act
-            var actual = Product.GetList();
+            var actual = _product.GetList();
 
             //Assert
             actual.Should().BeEquivalentTo(expected);

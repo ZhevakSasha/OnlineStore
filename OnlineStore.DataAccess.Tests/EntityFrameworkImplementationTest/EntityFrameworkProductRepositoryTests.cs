@@ -14,12 +14,12 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         /// <summary>
         /// DataBaseContext object.
         /// </summary>
-        private DataBaseContext context;
+        private DataBaseContext _context;
 
         /// <summary>
         /// EntityFrameworkProductRepository object.
         /// </summary>
-        private EntityFrameworkProductRepository Product;
+        private EntityFrameworkProductRepository _product;
 
         /// <summary>
         /// Setup method.
@@ -30,9 +30,9 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             var options = new DbContextOptionsBuilder<DataBaseContext>()
                .UseInMemoryDatabase(databaseName: "TestsDb")
                .Options;
-            context = new DataBaseContext(options);
-            Product = new EntityFrameworkProductRepository(context);
-            context.Database.EnsureCreated();
+            _context = new DataBaseContext(options);
+            _product = new EntityFrameworkProductRepository(_context);
+            _context.Database.EnsureCreated();
             SeedDatabase();
         }
 
@@ -40,7 +40,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         /// Testing GetEntity method.
         /// </summary>
         [Test]
-        public void Get_WhereProductById_ThenReturnsProduct()
+        public void Get_WhenTakesProductId_ThenReturnsProduct()
         {
             //Arrange
             const int concreteId = 1;
@@ -53,20 +53,20 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
 
             //Act
-            var actual = Product.GetEntity(concreteId);
+            var actual = _product.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing Create method.
         /// </summary>
         [Test]
-        public void Create_WhenProduct_ThenCreateProduct()
+        public void Create_WhenTakesProduct_ThenCreateProduct()
         {
             //Arrange
             const int concreteId = 3;
@@ -78,69 +78,69 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
 
             //Act
-            Product.Create(expected);
-            var actual = Product.GetEntity(concreteId);
+            _product.Create(expected);
+            var actual = _product.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing Delete method.
         /// </summary>
         [Test]
-        public void Delete_WhereProduct_ThenDeleteProduct()
+        public void Delete_WhenTakesProduct_ThenDeleteProduct()
         {
             //Arrange
             const int arbitraryId = 1;
-            var arbitraryProduct = Product.GetEntity(arbitraryId);
+            var arbitraryProduct = _product.GetEntity(arbitraryId);
             //Сreating an empty object. 
             Product expected = null;
 
             //Act
-            Product.Delete(arbitraryProduct);
-            Product.Save();
-            var actual = Product.GetEntity(arbitraryId);
+            _product.Delete(arbitraryProduct);
+            _product.Save();
+            var actual = _product.GetEntity(arbitraryId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing Update method.
         /// </summary>
         [Test]
-        public void Update_WhenProduct_ThenUpdateProduct()
+        public void Update_WhenTakesProduct_ThenUpdateProduct()
         {
             //Arrange
             const int arbitraryId = 1;
-            var arbitraryUpdatedProduct = Product.GetEntity(arbitraryId);
+            var arbitraryUpdatedProduct = _product.GetEntity(arbitraryId);
             arbitraryUpdatedProduct.Price = 400;
             var expected = arbitraryUpdatedProduct;
 
             //Act
-            Product.Update(arbitraryUpdatedProduct);
-            Product.Save();
-            var actual = Product.GetEntity(arbitraryId);
+            _product.Update(arbitraryUpdatedProduct);
+            _product.Save();
+            var actual = _product.GetEntity(arbitraryId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing GetList method.
         /// </summary>
         [Test]
-        public void Get_ProductList()
+        public void Get_ReturnProductList()
         {
             //Arrange
             var expected = new List<Product>()
@@ -162,13 +162,13 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
 
             //Act
-            var actual = Product.GetList();
+            var actual = _product.GetList();
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         private void SeedDatabase()
@@ -191,8 +191,8 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                     UnitOfMeasurement = "pc."
                 }
             };
-            context.Products.AddRange(products);
-            Product.Save();
+            _context.Products.AddRange(products);
+            _product.Save();
         }
     }
 }

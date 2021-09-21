@@ -18,12 +18,12 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         /// <summary>
         /// DataBaseContext object.
         /// </summary>
-        private DataBaseContext context;
+        private DataBaseContext _context;
 
         /// <summary>
         /// EntityFrameworkCustomerRepository object.
         /// </summary>
-        private EntityFrameworkCustomerRepository Customer;
+        private EntityFrameworkCustomerRepository _customer;
 
         [SetUp]
         public void Setup()
@@ -31,9 +31,9 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             var options = new DbContextOptionsBuilder<DataBaseContext>()
                 .UseInMemoryDatabase(databaseName: "TestsDb")
                 .Options;
-            context = new DataBaseContext(options);
-            Customer = new EntityFrameworkCustomerRepository(context);
-            context.Database.EnsureCreated();
+            _context = new DataBaseContext(options);
+            _customer = new EntityFrameworkCustomerRepository(_context);
+            _context.Database.EnsureCreated();
             SeedDatabase();
         }
 
@@ -41,7 +41,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         /// Testing GetEntity method.
         /// </summary>
         [Test]
-        public void Get_WhereCustomerById_ThenReturnsCustomer()
+        public void Get_WhenTakesCustomerId_ThenReturnsCustomer()
         {
             //Arrange
             const int concreteId = 1;
@@ -55,20 +55,20 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
 
             //Act
-            var actual = Customer.GetEntity(concreteId);
+            var actual = _customer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing Create method.
         /// </summary>
         [Test]
-        public void Create_WhenCustomer_ThenCreateCustomer()
+        public void Create_WhenTakesCustomer_ThenCreateCustomer()
         {
             //Arrange
             const int concreteId = 3;
@@ -81,68 +81,68 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
 
             //Act
-            Customer.Create(expected);
-            var actual = Customer.GetEntity(concreteId);
+            _customer.Create(expected);
+            var actual = _customer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing Delete method.
         /// </summary>
         [Test]
-        public void Delete_WhereCustomer_ThenDeleteCustomer()
+        public void Delete_WhenTakesCustomer_ThenDeleteCustomer()
         {
             //Arrange
             const int arbitraryId = 1;
-            var arbitraryCustomer = Customer.GetEntity(arbitraryId);
+            var arbitraryCustomer = _customer.GetEntity(arbitraryId);
             //Сreating an empty object. 
             Customer expected = null;
 
             //Act
-            Customer.Delete(arbitraryCustomer);
-            Customer.Save();
-            var actual = Customer.GetEntity(arbitraryId);
+            _customer.Delete(arbitraryCustomer);
+            _customer.Save();
+            var actual = _customer.GetEntity(arbitraryId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing Update method.
         /// </summary>
         [Test]
-        public void Update_WhenCustomer_ThenUpdateCustomer()
+        public void Update_WhenTakesCustomer_ThenUpdateCustomer()
         {
             //Arrange
             const int arbitraryId = 1;
-            var arbitraryUpdatedCustomer = Customer.GetEntity(arbitraryId);
+            var arbitraryUpdatedCustomer = _customer.GetEntity(arbitraryId);
             arbitraryUpdatedCustomer.FirstName = "Sasha2";
             var expected = arbitraryUpdatedCustomer;
 
             //Act
-            Customer.Update(arbitraryUpdatedCustomer);
-            var actual = Customer.GetEntity(arbitraryId);
+            _customer.Update(arbitraryUpdatedCustomer);
+            var actual = _customer.GetEntity(arbitraryId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
+            
 
-
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         /// <summary>
         /// Testing GetList method.
         /// </summary>
         [Test]
-        public void Get_CustomerList()
+        public void Get_ReturnCustomerList()
         {
             //Arrange
             var expected = new List<Customer>()
@@ -166,13 +166,13 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             };
 
             //Act
-            var actual = Customer.GetList();
+            var actual = _customer.GetList();
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
 
-            context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
 
         private void SeedDatabase()
@@ -197,8 +197,8 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                     PhoneNumber = "0669705345"
                 }
             };
-            context.Customers.AddRange(customers);
-            Customer.Save();
+            _context.Customers.AddRange(customers);
+            _customer.Save();
         }
     }
 }

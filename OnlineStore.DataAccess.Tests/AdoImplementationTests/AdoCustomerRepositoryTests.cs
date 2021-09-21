@@ -20,13 +20,12 @@ namespace OnlineStore.DataAccess.Tests
         /// <summary>
         /// AdoCustomerRepository object.
         /// </summary>
-        private AdoCustomerRepository Customer;
+        private AdoCustomerRepository _ñustomer;
 
         /// <summary>
         /// IConfiguration field.
         /// </summary>
-        public IConfiguration Configuration;
-
+        private IConfiguration _ñonfiguration;
 
         /// <summary>
         /// Setup method.
@@ -34,22 +33,22 @@ namespace OnlineStore.DataAccess.Tests
         [SetUp]
         public void Setup()
         {
-            Configuration = new ConfigurationBuilder()
+            _ñonfiguration = new ConfigurationBuilder()
              .AddJsonFile(path: "appconfig.json")
              .Build();
 
-            _dbConfiguration = new DataBaseConfiguration(Configuration);
+            _dbConfiguration = new DataBaseConfiguration(_ñonfiguration);
             _dbConfiguration.DeployTestDatabase();
 
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            Customer = new AdoCustomerRepository(connectionString);
+            var connectionString = _ñonfiguration.GetConnectionString("DefaultConnection");
+            _ñustomer = new AdoCustomerRepository(connectionString);
         }
 
         /// <summary>
         /// Testing GetEntity method.
         /// </summary>
         [Test]
-        public void Get_WhereCustomerById_ThenReturnsCustomer()
+        public void Get_WhenTakesCustomerId_ThenReturnsCustomer()
         {
             //Arrange
             const int concreteId = 1;
@@ -63,7 +62,7 @@ namespace OnlineStore.DataAccess.Tests
             };
 
             //Act
-            var actual = Customer.GetEntity(concreteId);
+            var actual = _ñustomer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -73,7 +72,7 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Create method.
         /// </summary>
         [Test]
-        public void Create_WhenCustomer_ThenCreateCustomer()
+        public void Create_WhenTakesCustomer_ThenCreateCustomer()
         {
             //Arrange
             const int concreteId = 3;
@@ -87,8 +86,8 @@ namespace OnlineStore.DataAccess.Tests
             };
 
             //Act
-            Customer.Create(expected);
-            var actual = Customer.GetEntity(concreteId);
+            _ñustomer.Create(expected);
+            var actual = _ñustomer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -98,7 +97,7 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Delete method.
         /// </summary>
         [Test]
-        public void Delete_WhereCustomer_ThenDeleteCustomer() 
+        public void Delete_WhenTakesCustomer_ThenDeleteCustomer() 
         {
             //Arrange
             const int concreteId = 2;
@@ -114,8 +113,8 @@ namespace OnlineStore.DataAccess.Tests
             var expected = new Customer();
 
             //Act
-            Customer.Delete(arbitraryCustomer);
-            var actual = Customer.GetEntity(concreteId);
+            _ñustomer.Delete(arbitraryCustomer);
+            var actual = _ñustomer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -125,7 +124,7 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing Update method.
         /// </summary>
         [Test]
-        public void Update_WhenCustomer_ThenUpdateCustomer()
+        public void Update_WhenTakesCustomer_ThenUpdateCustomer()
         {
             //Arrange
             const int concreteId = 2;
@@ -138,10 +137,10 @@ namespace OnlineStore.DataAccess.Tests
                 PhoneNumber = "0669705345"
             };
             var expected = arbitraryUpdatedCustomer;
-           
+
             //Act
-            Customer.Update(arbitraryUpdatedCustomer);
-            var actual = Customer.GetEntity(concreteId);
+            _ñustomer.Update(arbitraryUpdatedCustomer);
+            var actual = _ñustomer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -154,7 +153,7 @@ namespace OnlineStore.DataAccess.Tests
         /// Testing GetList method.
         /// </summary>
         [Test]
-        public void Get_CustomerList()
+        public void Get_ReturnCustomerList()
         {
             //Arrange
             var expected = new List<Customer>()
@@ -174,11 +173,11 @@ namespace OnlineStore.DataAccess.Tests
                     LastName = "Korolenko",
                     Addres = "52 Street",
                     PhoneNumber = "0669705345"
-                }
+                }           
             };
 
             //Act
-            var actual = Customer.GetList();
+            var actual = _ñustomer.GetList();
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
