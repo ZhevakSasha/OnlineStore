@@ -23,7 +23,7 @@ namespace OnlineStore.MvcApplication.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult CustomerTable()
         {
             return View();
         }
