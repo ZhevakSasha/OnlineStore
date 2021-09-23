@@ -28,6 +28,28 @@ namespace OnlineStore.BusinessLogic
             return _customer.GetList();
         }
 
+        public void CreateCustomer(Customer customer)
+        {
+            _customer.Create(customer);
+            _customer.Save();
+        }
+
+        public void UpdateCustomer(Customer customer)
+        {
+            _customer.Update(customer);
+            _customer.Save();
+        }
+
+        public Customer FindCustomerById(int id)
+        {
+            return _customer.GetEntity(id);
+        }
+
+        public void DeleteCustomer(Customer customer)
+        {
+            _customer.Delete(customer);
+            _customer.Save();
+        }
 
 
     }
