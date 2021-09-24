@@ -1,0 +1,59 @@
+﻿@model IEnumerable<OnlineStore.DataAccess.DataModel.Sale>
+
+@{
+    ViewData["Title"] = "SaleTable";
+}
+
+<h1>SaleTable</h1>
+
+<table class="table table-bordered table-sm table-striped">
+    <thead>
+        <tr class="text-center">
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfSale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="text-center">
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfSale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                <button asp-action="SaleUpdating" class="btn btn-sm btn-outline-primary">@Html.ActionLink("Edit", "SaleUpdating", new { id = item.Id })</button>
+                <button class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you shure you want to delete product : @item.Id ')">@Html.ActionLink("Delete", "SaleDeleting", new { id = item.Id })</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<p align="right">
+    <a asp-action="SaleCreating" class="btn btn-sm btn-secondary">Create New</a>
+</p>

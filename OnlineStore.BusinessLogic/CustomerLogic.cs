@@ -48,7 +48,5 @@ namespace OnlineStore.BusinessLogic
             _customer.Delete(customer);
             _customer.Save();
         }
-
-
     }
 }

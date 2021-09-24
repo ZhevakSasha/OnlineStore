@@ -54,7 +54,7 @@ namespace OnlineStore.MvcApplication
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Sale}/{action=SaleTable}/{id?}");
                 endpoints.MapControllers();
             });
         }
