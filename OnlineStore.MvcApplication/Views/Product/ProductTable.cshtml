@@ -1,0 +1,56 @@
+﻿@model IEnumerable<OnlineStore.DataAccess.DataModel.Product>
+
+@{
+    ViewData["Title"] = "ProductTable";
+}
+
+<h1>ProductTable</h1>
+
+
+<table class="table table-bordered table-sm table-striped">
+    <thead>
+        <tr class="text-center">
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitOfMeasurement)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="text-center">
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitOfMeasurement)
+            </td>
+
+            <td>
+                <button asp-action="ProductUpdating" class="btn btn-sm btn-outline-primary">@Html.ActionLink("Edit", "ProductUpdating", new { id = item.Id })</button>
+                <button class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you shure you want to delete product : @item.Id ')">@Html.ActionLink("Delete", "ProductDeleting", new { id = item.Id })</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<p align="right">
+    <a asp-action="ProductCreating" class="btn btn-sm btn-secondary">Create New</a>
+</p>

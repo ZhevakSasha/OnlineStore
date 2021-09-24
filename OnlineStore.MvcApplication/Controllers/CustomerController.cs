@@ -2,10 +2,6 @@
 using OnlineStore.BusinessLogic;
 using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OnlineStore.MvcApplication.Controllers
 {

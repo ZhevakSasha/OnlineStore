@@ -1,9 +1,7 @@
 ﻿using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace OnlineStore.BusinessLogic
 {
