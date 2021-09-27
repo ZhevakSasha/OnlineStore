@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineStore.BusinessLogic;
 using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
-using OnlineStore.DataAccess.RepositoryPatterns;
 
 namespace OnlineStore.MvcApplication.Controllers
 {

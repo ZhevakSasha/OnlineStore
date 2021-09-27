@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineStore.BusinessLogic;
+using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
 
@@ -7,14 +8,11 @@ namespace OnlineStore.MvcApplication.Controllers
 {
     public class SaleController : Controller
     {
-        private SaleLogic _sale;
+        private ISaleService _sale;
 
-        private DataBaseContext _context;
-
-        public SaleController(DataBaseContext context)
+        public SaleController(ISaleService sale)
         {
-            _context = context;
-            _sale = new SaleLogic(_context);
+            _sale = sale;
         }
 
         

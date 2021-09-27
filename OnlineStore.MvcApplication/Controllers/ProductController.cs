@@ -1,24 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineStore.BusinessLogic;
-using OnlineStore.DataAccess.DataAccess;
+using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.DataModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
     public class ProductController : Controller
     {
-        private ProductLogic _product;
+        private IProductService _product;
 
-        private DataBaseContext _context;
-
-        public ProductController(DataBaseContext context)
+        public ProductController(IProductService product)
         {
-            _context = context;
-            _product = new ProductLogic(_context);
+            _product = product;
         }
         public IActionResult ProductTable()
         {

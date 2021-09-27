@@ -1,7 +1,5 @@
 ﻿using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
-using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
 

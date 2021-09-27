@@ -1,23 +1,19 @@
-﻿using OnlineStore.DataAccess.DataAccess;
+﻿using OnlineStore.BusinessLogic.IServices;
+using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
+using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic
 {
-    public class SaleLogic
+    public class SaleService : ISaleService
     {
-        /// <summary>
-        /// Context field.
-        /// </summary>
-        private readonly DataBaseContext _context;
+        private ISaleRepository _sale;
 
-        private EntityFrameworkSaleRepository _sale;
-
-        public SaleLogic(DataBaseContext context)
+        public SaleService(ISaleRepository sale)
         {
-            _context = context;
-            _sale = new EntityFrameworkSaleRepository(_context);
+            _sale = sale;
         }
 
         public IEnumerable<Sale> GetAllSales()

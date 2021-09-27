@@ -1,25 +1,18 @@
-﻿using OnlineStore.DataAccess.DataAccess;
+﻿using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.DataModel;
-using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
-using System;
+using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace OnlineStore.BusinessLogic
 {
-    public class ProductLogic
+    public class ProductService : IProductService
     {
-        /// <summary>
-        /// Context field.
-        /// </summary>
-        private readonly DataBaseContext _context;
+        private IProductRepository _product;
 
-        private EntityFrameworkProductRepository _product;
-
-        public ProductLogic(DataBaseContext context)
+        public ProductService(IProductRepository product)
         {
-            _context = context;
-            _product = new EntityFrameworkProductRepository(_context);
+            _product = product;
         }
 
         public IEnumerable<Product> GetAllProducts()

@@ -33,8 +33,14 @@ namespace OnlineStore.MvcApplication
             services.AddControllersWithViews();
             services.AddDbContext<DataBaseContext>(options =>
     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddScoped<ICustomerRepository,EntityFrameworkCustomerRepository>();
+            services.AddScoped<IProductRepository, EntityFrameworkProductRepository>();
+            services.AddScoped<ISaleRepository, EntityFrameworkSaleRepository>();
+
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ISaleService, SaleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
