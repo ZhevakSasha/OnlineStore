@@ -5,11 +5,21 @@ using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic
 {
+    /// <summary>
+    /// Customer service.
+    /// </summary>
     public class CustomerService : ICustomerService
     {
 
+        /// <summary>
+        /// Customer repository.
+        /// </summary>
         private ICustomerRepository _customer;
 
+        /// <summary>
+        /// CustomerService constructor.
+        /// </summary>
+        /// <param name="customer">Customer repository</param>
         public CustomerService(ICustomerRepository customer)
         {
             _customer = customer;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic.IServices
 {
+    /// <summary>
+    /// CustomerService interface.
+    /// </summary>
     public interface ICustomerService
     {
         IEnumerable<Customer> GetAllCustomers();

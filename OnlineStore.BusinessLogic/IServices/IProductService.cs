@@ -1,10 +1,12 @@
 ﻿using OnlineStore.DataAccess.DataModel;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace OnlineStore.BusinessLogic.IServices
 {
+
+    /// <summary>
+    /// ProductService interface.
+    /// </summary>
     public interface IProductService
     {
         IEnumerable<Product> GetAllProducts();

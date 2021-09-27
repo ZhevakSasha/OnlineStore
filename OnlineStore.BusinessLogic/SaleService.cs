@@ -1,16 +1,25 @@
 ﻿using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
-using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic
 {
+    /// <summary>
+    /// Sale service.
+    /// </summary>
     public class SaleService : ISaleService
     {
+
+        /// <summary>
+        /// Sale repository.
+        /// </summary>
         private ISaleRepository _sale;
 
+        /// <summary>
+        /// SaleService constructor.
+        /// </summary>
+        /// <param name="sale">Sale repository</param>
         public SaleService(ISaleRepository sale)
         {
             _sale = sale;

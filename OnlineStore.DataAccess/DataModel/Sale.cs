@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineStore.DataAccess.DataModel
+﻿namespace OnlineStore.DataAccess.DataModel
 {
     /// <summary>
     /// Data model for Sales a table. 

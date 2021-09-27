@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineStore.BusinessLogic;
 using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
     public class SaleController : Controller
     {
+        /// <summary>
+        /// Sale service.
+        /// </summary>
         private ISaleService _sale;
 
+        /// <summary>
+        /// SaleController constructor.
+        /// </summary>
+        /// <param name="sale">Sales service</param>
         public SaleController(ISaleService sale)
         {
             _sale = sale;
         }
-
-        
 
         public IActionResult SaleTable()
         {

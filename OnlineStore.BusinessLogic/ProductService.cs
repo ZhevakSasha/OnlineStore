@@ -6,10 +6,21 @@ using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic
 {
+    /// <summary>
+    /// Product service.
+    /// </summary>
     public class ProductService : IProductService
     {
+
+        /// <summary>
+        /// Product repository.
+        /// </summary>
         private IProductRepository _product;
 
+        /// <summary>
+        /// ProductService constructor.
+        /// </summary>
+        /// <param name="product">Product repository</param>
         public ProductService(IProductRepository product)
         {
             _product = product;

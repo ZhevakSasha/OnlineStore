@@ -4,16 +4,25 @@ using OnlineStore.DataAccess.DataModel;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
+    /// <summary>
+    /// Customer controller.
+    /// </summary>
     public class CustomerController : Controller
     {
+
+        /// <summary>
+        /// Customer service.
+        /// </summary>
         private ICustomerService _customer;
 
-
+        /// <summary>
+        /// CustomerController constructor.
+        /// </summary>
+        /// <param name="customer">Customer service</param>
         public CustomerController(ICustomerService customer)
         {
             _customer = customer;
         }
-
 
         public IActionResult CustomerTable()
         {
@@ -56,6 +65,5 @@ namespace OnlineStore.MvcApplication.Controllers
             _customer.DeleteCustomer(customer);
             return RedirectToAction("CustomerTable");
         }
-
     }
 }

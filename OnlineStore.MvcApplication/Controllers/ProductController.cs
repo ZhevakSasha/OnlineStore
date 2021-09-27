@@ -4,10 +4,21 @@ using OnlineStore.DataAccess.DataModel;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
+    /// <summary>
+    /// Product controller.
+    /// </summary>
     public class ProductController : Controller
     {
+
+        /// <summary>
+        /// Product service.
+        /// </summary>
         private IProductService _product;
 
+        /// <summary>
+        /// ProductController constructor.
+        /// </summary>
+        /// <param name="product">Product service</param>
         public ProductController(IProductService product)
         {
             _product = product;
