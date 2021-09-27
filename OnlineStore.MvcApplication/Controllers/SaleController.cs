@@ -16,6 +16,9 @@ namespace OnlineStore.MvcApplication.Controllers
             _context = context;
             _sale = new SaleLogic(_context);
         }
+
+        
+
         public IActionResult SaleTable()
         {
             var results = _sale.GetAllSales();

@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineStore.BusinessLogic;
+using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
+using OnlineStore.DataAccess.RepositoryPatterns;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
     public class CustomerController : Controller
     {
-        private CustomerLogic _customer;
+        private ICustomerService _customer;
 
-        private DataBaseContext _context;
 
-        public CustomerController(DataBaseContext context)
+        public CustomerController(ICustomerService customer)
         {
-            _context = context;
-            _customer = new CustomerLogic(_context);
+            _customer = customer;
         }
+
+
         public IActionResult CustomerTable()
         {
             var results = _customer.GetAllCustomers();

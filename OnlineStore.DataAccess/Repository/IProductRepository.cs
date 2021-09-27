@@ -8,7 +8,7 @@ namespace OnlineStore.DataAccess.RepositoryPatterns
     /// <summary>
     /// Product repository interface. 
     /// </summary>
-    interface IProductRepository : IRepository<Product>
+    public interface IProductRepository : IRepository<Product>
     {
      
     }

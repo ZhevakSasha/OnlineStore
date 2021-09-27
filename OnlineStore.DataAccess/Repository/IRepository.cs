@@ -6,7 +6,7 @@ namespace OnlineStore.DataAccess.RepositoryPatterns
     /// General interface repository.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    interface IRepository<T> 
+    public interface IRepository<T> 
         where T : class
     {
         /// <summary>

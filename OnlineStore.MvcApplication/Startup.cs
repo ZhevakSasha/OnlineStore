@@ -5,7 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OnlineStore.BusinessLogic;
+using OnlineStore.BusinessLogic.IServices;
+using OnlineStore.DataAccess.AdoRepositoryImplementation;
 using OnlineStore.DataAccess.DataAccess;
+using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
+using OnlineStore.DataAccess.RepositoryPatterns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +33,8 @@ namespace OnlineStore.MvcApplication
             services.AddControllersWithViews();
             services.AddDbContext<DataBaseContext>(options =>
     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ICustomerRepository,EntityFrameworkCustomerRepository>();
+            services.AddScoped<ICustomerService, CustomerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

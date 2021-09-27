@@ -1,24 +1,20 @@
-﻿using OnlineStore.DataAccess.DataAccess;
+﻿using OnlineStore.BusinessLogic.IServices;
+using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
+using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic
 {
-    public class CustomerLogic
+    public class CustomerService : ICustomerService
     {
 
-        /// <summary>
-        /// Context field.
-        /// </summary>
-        private readonly DataBaseContext _context;
+        private ICustomerRepository _customer;
 
-        private EntityFrameworkCustomerRepository _customer;
-
-        public CustomerLogic(DataBaseContext context)
+        public CustomerService(ICustomerRepository customer)
         {
-            _context = context;
-            _customer = new EntityFrameworkCustomerRepository(_context);
+            _customer = customer;
         }
 
         public IEnumerable<Customer> GetAllCustomers()
