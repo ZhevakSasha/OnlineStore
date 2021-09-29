@@ -1,4 +1,6 @@
-﻿using OnlineStore.BusinessLogic.IServices;
+﻿using AutoMapper;
+using OnlineStore.BusinessLogic.DtoModels;
+using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
@@ -17,38 +19,49 @@ namespace OnlineStore.BusinessLogic
         private ICustomerRepository _customer;
 
         /// <summary>
+        /// Mapper.
+        /// </summary>
+        private IMapper _mapper;
+
+        /// <summary>
         /// CustomerService constructor.
         /// </summary>
         /// <param name="customer">Customer repository</param>
-        public CustomerService(ICustomerRepository customer)
+        public CustomerService(ICustomerRepository customer, IMapper mapper)
         {
             _customer = customer;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Customer> GetAllCustomers()
+        public IEnumerable<CustomerDto> GetAllCustomers()
         {
-            return _customer.GetList();
+            var customers = _customer.GetList();
+            return _mapper.Map<IEnumerable<CustomerDto>>(customers);
         }
 
-        public void CreateCustomer(Customer customer)
+        public void CreateCustomer(CustomerDto customerModel)
         {
+            var customer = _mapper.Map<Customer>(customerModel);
             _customer.Create(customer);
             _customer.Save();
         }
 
-        public void UpdateCustomer(Customer customer)
+        public void UpdateCustomer(CustomerDto customerModel)
         {
+            var customer = _mapper.Map<Customer>(customerModel);
             _customer.Update(customer);
             _customer.Save();
         }
 
-        public Customer FindCustomerById(int id)
+        public CustomerDto FindCustomerById(int id)
         {
-            return _customer.GetEntity(id);
+            var customer = _customer.GetEntity(id);
+            return _mapper.Map<CustomerDto>(customer);
         }
 
-        public void DeleteCustomer(Customer customer)
+        public void DeleteCustomer(CustomerDto customerModel)
         {
+            var customer = _mapper.Map<Customer>(customerModel);
             _customer.Delete(customer);
             _customer.Save();
         }

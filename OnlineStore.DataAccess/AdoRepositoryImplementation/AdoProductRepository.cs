@@ -15,13 +15,12 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// The connection string that includes the source database name, 
         /// and other parameters needed to establish the initial connection. 
         /// </summary>
+        /// <param name="connectionString"></param>
+        private readonly string _connectionString;
 
         /// <summary>
         /// Constructor for private string field _connectionString
         /// </summary>
-        /// <param name="connectionString"></param>
-        private readonly string _connectionString;
-
         public AdoProductRepository(string connectionString)
         {
             _connectionString = connectionString;

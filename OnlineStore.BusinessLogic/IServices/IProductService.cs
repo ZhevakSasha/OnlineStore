@@ -1,4 +1,5 @@
-﻿using OnlineStore.DataAccess.DataModel;
+﻿using OnlineStore.BusinessLogic.DtoModels;
+using OnlineStore.DataAccess.DataModel;
 using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic.IServices
@@ -9,10 +10,10 @@ namespace OnlineStore.BusinessLogic.IServices
     /// </summary>
     public interface IProductService
     {
-        IEnumerable<Product> GetAllProducts();
-        void CreateProduct(Product product);
-        void UpdateProduct(Product product);
-        Product FindProductById(int id);
-        void DeleteProduct(Product product);
+        IEnumerable<ProductDto> GetAllProducts();
+        void CreateProduct(ProductDto product);
+        void UpdateProduct(ProductDto product);
+        ProductDto FindProductById(int id);
+        void DeleteProduct(ProductDto product);
     }
 }

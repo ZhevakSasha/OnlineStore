@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.DataModel;
 
@@ -32,24 +33,24 @@ namespace OnlineStore.MvcApplication.Controllers
 
         public IActionResult CustomerUpdating(int id)
         {
-            Customer customer = _customer.FindCustomerById(id);
+            CustomerDto customer = _customer.FindCustomerById(id);
             return View(customer);
         }
 
         [HttpPost]
-        public IActionResult CustomerUpdating(Customer customer)
+        public IActionResult CustomerUpdating(CustomerDto customer)
         {
             _customer.UpdateCustomer(customer);
             return RedirectToAction("CustomerTable");
         }
-
+        
         public IActionResult CustomerCreating()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult CustomerCreating(Customer customer)
+        public IActionResult CustomerCreating(CustomerDto customer)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +62,7 @@ namespace OnlineStore.MvcApplication.Controllers
 
         public IActionResult CustomerDeleting(int id)
         {
-            Customer customer = _customer.FindCustomerById(id);
+            CustomerDto customer = _customer.FindCustomerById(id);
             _customer.DeleteCustomer(customer);
             return RedirectToAction("CustomerTable");
         }

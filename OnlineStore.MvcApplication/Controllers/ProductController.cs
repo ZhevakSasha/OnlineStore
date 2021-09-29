@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.DataModel;
+using OnlineStore.MvcApplication.Models;
+using System.Collections.Generic;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
@@ -31,12 +35,12 @@ namespace OnlineStore.MvcApplication.Controllers
 
         public IActionResult ProductUpdating(int id)
         {
-            Product product = _product.FindProductById(id);
+            ProductDto product = _product.FindProductById(id);
             return View(product);
         }
 
         [HttpPost]
-        public IActionResult ProductUpdating(Product product)
+        public IActionResult ProductUpdating(ProductDto product)
         {
             _product.UpdateProduct(product);
             return RedirectToAction("ProductTable");
@@ -48,7 +52,7 @@ namespace OnlineStore.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProductCreating(Product product)
+        public IActionResult ProductCreating(ProductDto product)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +65,7 @@ namespace OnlineStore.MvcApplication.Controllers
 
         public IActionResult ProductDeleting(int id)
         {
-            Product product = _product.FindProductById(id);
+            ProductDto product = _product.FindProductById(id);
             _product.DeleteProduct(product);
             return RedirectToAction("ProductTable");
         }

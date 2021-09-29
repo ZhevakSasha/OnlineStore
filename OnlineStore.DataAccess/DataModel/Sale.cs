@@ -5,6 +5,7 @@
     /// </summary>
     public class Sale : ModelBase
     {
+
         /// <summary>
         /// Property  for storing product id.
         /// </summary>

@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace OnlineStore.MvcApplication
 {
@@ -33,6 +34,8 @@ namespace OnlineStore.MvcApplication
             services.AddControllersWithViews();
             services.AddDbContext<DataBaseContext>(options =>
     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddScoped<ICustomerRepository,EntityFrameworkCustomerRepository>();
             services.AddScoped<IProductRepository, EntityFrameworkProductRepository>();

@@ -27,7 +27,7 @@ namespace OnlineStore.MvcApplication.Controllers
         }
 
         public IActionResult SaleUpdating(int id)
-        {
+        {  
             Sale sale = _sale.FindSaleById(id);
             return View(sale);
         }
