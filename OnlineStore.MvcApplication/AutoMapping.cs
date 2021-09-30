@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.DataAccess.DataModel;
+using OnlineStore.MvcApplication.Models;
+using System.Collections.Generic;
 
 namespace OnlineStore.MvcApplication
 {
@@ -8,10 +10,10 @@ namespace OnlineStore.MvcApplication
     {
         public AutoMapping()
         {
-            CreateMap<Product, ProductDto>();
-            CreateMap<ProductDto, Product>();
-            CreateMap<Customer, CustomerDto>();
-            CreateMap<CustomerDto, Customer>();
+            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<ProductDto, ProductViewModel>().ReverseMap();
+            CreateMap<CustomerDto, CustomerViewModel>().ReverseMap();
         }
     }
 }

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.DataModel;
 using OnlineStore.MvcApplication.Models;
 using System.Collections.Generic;
 
@@ -20,30 +19,43 @@ namespace OnlineStore.MvcApplication.Controllers
         private IProductService _product;
 
         /// <summary>
+        /// Mapper.
+        /// </summary>
+        private IMapper _mapper;
+
+        /// <summary>
         /// ProductController constructor.
         /// </summary>
         /// <param name="product">Product service</param>
-        public ProductController(IProductService product)
+        public ProductController(IProductService product, IMapper mapper)
         {
             _product = product;
+            _mapper = mapper;
         }
+
         public IActionResult ProductTable()
         {
             var results = _product.GetAllProducts();
-            return View(results);
+            var products = _mapper.Map<IEnumerable<ProductViewModel>>(results);
+            return View(products);
         }
 
         public IActionResult ProductUpdating(int id)
         {
-            ProductDto product = _product.FindProductById(id);
-            return View(product);
+            var product = _product.FindProductById(id);
+            return View(_mapper.Map<ProductViewModel>(product));
         }
 
         [HttpPost]
-        public IActionResult ProductUpdating(ProductDto product)
+        public IActionResult ProductUpdating(ProductViewModel product)
         {
-            _product.UpdateProduct(product);
-            return RedirectToAction("ProductTable");
+            if (ModelState.IsValid)
+            {
+                _product.UpdateProduct(_mapper.Map<ProductDto>(product));
+                return RedirectToAction("ProductTable");
+            }
+            else
+                return View();
         }
 
         public IActionResult ProductCreating()
@@ -52,11 +64,11 @@ namespace OnlineStore.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProductCreating(ProductDto product)
+        public IActionResult ProductCreating(ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
-                _product.CreateProduct(product);
+                _product.CreateProduct(_mapper.Map<ProductDto>(product));
                 return RedirectToAction("ProductTable");
             }
             else
@@ -65,7 +77,7 @@ namespace OnlineStore.MvcApplication.Controllers
 
         public IActionResult ProductDeleting(int id)
         {
-            ProductDto product = _product.FindProductById(id);
+            var product = _product.FindProductById(id);
             _product.DeleteProduct(product);
             return RedirectToAction("ProductTable");
         }

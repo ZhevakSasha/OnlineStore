@@ -61,7 +61,7 @@ namespace OnlineStore.BusinessLogic
         {
             var product = _mapper.Map<Product>(productModel);
             _product.Delete(product);
-            _product.Save();
+            _product.Save();  
         }
     }
 }

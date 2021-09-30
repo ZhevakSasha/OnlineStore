@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnlineStore.BusinessLogic.DtoModels.ProductDto>
+﻿@model IEnumerable<ProductViewModel>
 
 @{
     ViewData["Title"] = "ProductTable";
@@ -10,6 +10,7 @@
 <table class="table table-bordered table-sm table-striped">
     <thead>
         <tr class="text-center">
+
             <th>
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
@@ -44,6 +45,7 @@
 }
     </tbody>
 </table>
+
 
 <p align="right">
     <a asp-action="ProductCreating" class="btn btn-sm btn-secondary">Create New</a>
