@@ -19,6 +19,9 @@ namespace OnlineStore.BusinessLogic
         /// </summary>
         private IProductRepository _product;
 
+        /// <summary>
+        /// Mapper.
+        /// </summary>
         private IMapper _mapper;
 
         /// <summary>
@@ -57,10 +60,9 @@ namespace OnlineStore.BusinessLogic
             return _mapper.Map<ProductDto>(product);
         }
 
-        public void DeleteProduct(ProductDto productModel)
+        public void DeleteProduct(int id)
         {
-            var product = _mapper.Map<Product>(productModel);
-            _product.Delete(product);
+            _product.Delete(id);
             _product.Save();  
         }
     }

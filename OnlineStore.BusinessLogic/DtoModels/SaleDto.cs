@@ -50,5 +50,6 @@ namespace OnlineStore.BusinessLogic.DtoModels
         /// Property  for storing amount of sales.
         /// </summary>
         public int Amount { get; set; }
+
     }
 }

@@ -113,7 +113,7 @@ namespace OnlineStore.DataAccess.Tests
             var expected = new Customer();
 
             //Act
-            _ñustomer.Delete(arbitraryCustomer);
+            _ñustomer.Delete(concreteId);
             var actual = _ñustomer.GetEntity(concreteId);
 
             //Assert

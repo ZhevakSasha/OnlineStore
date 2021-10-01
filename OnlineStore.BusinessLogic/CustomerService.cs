@@ -59,10 +59,9 @@ namespace OnlineStore.BusinessLogic
             return _mapper.Map<CustomerDto>(customer);
         }
 
-        public void DeleteCustomer(CustomerDto customerModel)
+        public void DeleteCustomer(int id)
         {
-            var customer = _mapper.Map<Customer>(customerModel);
-            _customer.Delete(customer);
+            _customer.Delete(id);
             _customer.Save();
         }
     }

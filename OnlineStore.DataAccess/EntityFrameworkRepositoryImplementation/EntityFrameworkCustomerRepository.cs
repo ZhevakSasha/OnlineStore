@@ -3,6 +3,7 @@ using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
 {
@@ -38,10 +39,10 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// Deletes an object of Customer class.
         /// </summary>
         /// <param name="customer"></param>
-        public void Delete(Customer customer)
+        public void Delete(int Id)
         {
-            if (customer != null)
-                _context.Customers.Remove(customer);
+            var customer = _context.Customers.Local.First(c => c.Id == Id);
+            _context.Customers.Remove(customer);
         }
 
         /// <summary>

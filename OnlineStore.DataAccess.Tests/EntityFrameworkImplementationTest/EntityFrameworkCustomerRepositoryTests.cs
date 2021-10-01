@@ -102,7 +102,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             Customer expected = null;
 
             //Act
-            _customer.Delete(arbitraryCustomer);
+            _customer.Delete(arbitraryId);
             _customer.Save();
             var actual = _customer.GetEntity(arbitraryId);
 

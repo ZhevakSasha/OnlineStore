@@ -14,6 +14,6 @@ namespace OnlineStore.BusinessLogic.IServices
         void CreateProduct(ProductDto product);
         void UpdateProduct(ProductDto product);
         ProductDto FindProductById(int id);
-        void DeleteProduct(ProductDto product);
+        void DeleteProduct(int id);
     }
 }

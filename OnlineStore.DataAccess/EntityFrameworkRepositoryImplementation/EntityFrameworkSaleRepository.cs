@@ -1,8 +1,10 @@
-﻿using OnlineStore.DataAccess.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
 {
@@ -38,10 +40,10 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// Deletes an object of Sale class.
         /// </summary>
         /// <param name="sale"></param>
-        public void Delete(Sale sale)
+        public void Delete(int Id)
         {
-            if (sale != null)
-                _context.Sales.Remove(sale);
+            var sale = _context.Sales.Local.First(c => c.Id == Id);
+            _context.Sales.Remove(sale);
         }
 
         /// <summary>

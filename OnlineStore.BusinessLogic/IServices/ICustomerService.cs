@@ -13,7 +13,7 @@ namespace OnlineStore.BusinessLogic.IServices
         void CreateCustomer(CustomerDto customer);
         void UpdateCustomer(CustomerDto customer);
         CustomerDto FindCustomerById(int id);
-        void DeleteCustomer(CustomerDto customer);
+        void DeleteCustomer(int id);
 
     }
 }

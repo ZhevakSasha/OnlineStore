@@ -78,7 +78,7 @@ namespace OnlineStore.MvcApplication.Controllers
         public IActionResult ProductDeleting(int id)
         {
             var product = _product.FindProductById(id);
-            _product.DeleteProduct(product);
+            _product.DeleteProduct(id);
             return RedirectToAction("ProductTable");
         }
     }

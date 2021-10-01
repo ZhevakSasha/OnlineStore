@@ -105,7 +105,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             Sale expected = null;
 
             //Act
-            _sale.Delete(arbitrarySale);
+            _sale.Delete(arbitraryId);
             _sale.Save();
             var actual = _sale.GetEntity(arbitraryId);
 

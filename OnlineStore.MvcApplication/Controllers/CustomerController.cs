@@ -79,7 +79,7 @@ namespace OnlineStore.MvcApplication.Controllers
         public IActionResult CustomerDeleting(int id)
         {
             var customer = _customer.FindCustomerById(id);
-            _customer.DeleteCustomer(customer);
+            _customer.DeleteCustomer(id);
             return RedirectToAction("CustomerTable");
         }
     }

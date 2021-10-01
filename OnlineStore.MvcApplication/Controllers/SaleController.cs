@@ -59,7 +59,7 @@ namespace OnlineStore.MvcApplication.Controllers
         public IActionResult SaleDeleting(int id)
         {
             Sale sale = _sale.FindSaleById(id);
-            _sale.DeleteSale(sale);
+            _sale.DeleteSale(id);
             return RedirectToAction("SaleTable");
         }
     }

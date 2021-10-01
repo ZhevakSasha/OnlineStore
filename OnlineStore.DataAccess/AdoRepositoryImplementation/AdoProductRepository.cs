@@ -124,11 +124,11 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// Deletes an object of Product class.
         /// </summary>
         /// <param name="product">Takes an object of Product class.</param>
-        public void Delete(Product product)
+        public void Delete(int Id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand($"DELETE FROM Products where Id = {product.Id}", connection);
+                var command = new SqlCommand($"DELETE FROM Products where Id = {Id}", connection);
                 connection.Open();
                 command.ExecuteNonQuery();
             }

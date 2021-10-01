@@ -100,7 +100,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             Product expected = null;
 
             //Act
-            _product.Delete(arbitraryProduct);
+            _product.Delete(arbitraryId);
             _product.Save();
             var actual = _product.GetEntity(arbitraryId);
 
