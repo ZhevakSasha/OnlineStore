@@ -4,7 +4,7 @@ using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
 using AutoMapper;
-
+using System.Linq;
 
 namespace OnlineStore.BusinessLogic
 {
@@ -36,7 +36,7 @@ namespace OnlineStore.BusinessLogic
 
         public IEnumerable<ProductDto> GetAllProducts()
         {
-            var products = _product.GetList();
+            var products = _product.GetList();         
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
 

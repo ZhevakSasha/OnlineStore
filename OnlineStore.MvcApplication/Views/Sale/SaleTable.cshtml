@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnlineStore.DataAccess.DataModel.Sale>
+﻿@model IEnumerable<SaleViewModel>
 
 @{
     ViewData["Title"] = "SaleTable";
@@ -10,10 +10,10 @@
     <thead>
         <tr class="text-center">
             <th>
-                @Html.DisplayNameFor(model => model.ProductId)
+                @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CustomerId)
+                @Html.DisplayNameFor(model => model.CustomerName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateOfSale)
@@ -28,10 +28,10 @@
 @foreach (var item in Model) {
         <tr class="text-center">
             <td>
-                @Html.DisplayFor(modelItem => item.ProductId)
+                @Html.DisplayFor(modelItem => item.ProductName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CustomerId)
+                @Html.DisplayFor(modelItem => item.CustomerName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateOfSale)
@@ -40,8 +40,8 @@
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                <button asp-action="SaleUpdating" class="btn btn-sm btn-outline-primary">@Html.ActionLink("Edit", "SaleUpdating", new { id = item.Id })</button>
-                <button class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you shure you want to delete product : @item.Id ')">@Html.ActionLink("Delete", "SaleDeleting", new { id = item.Id })</button>
+                <button asp-action="SaleUpdating" class="btn btn-sm btn-outline-primary">@Html.ActionLink("Edit", "SaleUpdating", new { id = item.SaleId })</button>
+                <button class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you shure you want to delete product : @item.SaleId ')">@Html.ActionLink("Delete", "SaleDeleting", new { id = item.SaleId })</button>
             </td>
         </tr>
 }

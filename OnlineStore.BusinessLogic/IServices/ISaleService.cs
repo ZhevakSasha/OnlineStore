@@ -1,5 +1,4 @@
 ﻿using OnlineStore.BusinessLogic.DtoModels;
-using OnlineStore.DataAccess.DataModel;
 using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic.IServices

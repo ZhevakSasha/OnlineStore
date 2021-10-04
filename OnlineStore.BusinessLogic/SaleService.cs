@@ -4,6 +4,7 @@ using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineStore.BusinessLogic
 {
@@ -27,28 +28,46 @@ namespace OnlineStore.BusinessLogic
         public SaleService(ISaleRepository sale, IMapper mapper)
         {
             _sale = sale;
+            _mapper = mapper;
         }
 
         public IEnumerable<SaleDto> GetAllSales()
         {
-            return _sale.GetList();
+            var sales = _sale
+                .GetList()
+                .Select(s => new SaleDto
+                {
+                    SaleId = s.Id,
+                    CustomerId = s.CustomerId,
+                    ProductId = s.ProductId,
+                    CustomerName = $"{s.Customer.FirstName.Substring(0, 1)}. {s.Customer.LastName}",
+                    ProductName = s.Product.ProductName,
+                    DateOfSale = s.DateOfSale,
+                    Amount = s.Amount
+                }) ;
+            ; 
+
+            return _mapper.Map<IEnumerable<SaleDto>>(sales);
         }
 
-        public void CreateSale(Sale sale)
+        public void CreateSale(SaleDto saleModel)
         {
+            var sale = _mapper.Map<Sale>(saleModel);
             _sale.Create(sale);
             _sale.Save();
         }
 
-        public void UpdateSale(Sale sale)
+        public void UpdateSale(SaleDto saleModel)
         {
+            var sale = _mapper.Map<Sale>(saleModel);
             _sale.Update(sale);
             _sale.Save();
         }
 
-        public Sale FindSaleById(int id)
+        public SaleDto FindSaleById(int id)
         {
-            return _sale.GetEntity(id);
+            var sale = _sale.GetEntity(id);
+            return _mapper.Map<SaleDto>(sale);
         }
 
         public void DeleteSale(int id)

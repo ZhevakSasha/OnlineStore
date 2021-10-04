@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace OnlineStore.BusinessLogic.DtoModels
+namespace OnlineStore.MvcApplication.Models
 {
-    public class SaleDto
+    public class SaleViewModel
     {
         public int SaleId { get; set; }
 
@@ -28,6 +29,5 @@ namespace OnlineStore.BusinessLogic.DtoModels
         /// Property  for storing amount of sales.
         /// </summary>
         public int Amount { get; set; }
-
     }
 }

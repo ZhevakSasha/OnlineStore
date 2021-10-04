@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.DataModel;
+using OnlineStore.MvcApplication.Models;
+using System.Collections.Generic;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
@@ -12,31 +16,44 @@ namespace OnlineStore.MvcApplication.Controllers
         private ISaleService _sale;
 
         /// <summary>
+        /// Mapper.
+        /// </summary>
+        private IMapper _mapper;
+
+
+        /// <summary>
         /// SaleController constructor.
         /// </summary>
         /// <param name="sale">Sales service</param>
-        public SaleController(ISaleService sale)
+        public SaleController(ISaleService sale, IMapper mapper)
         {
+            _mapper = mapper;
             _sale = sale;
         }
 
         public IActionResult SaleTable()
         {
             var results = _sale.GetAllSales();
-            return View(results);
+            var sales = _mapper.Map<IEnumerable<SaleViewModel>>(results);
+            return View(sales);
         }
 
         public IActionResult SaleUpdating(int id)
         {  
-            Sale sale = _sale.FindSaleById(id);
-            return View(sale);
+            var sale = _sale.FindSaleById(id);
+            return View(_mapper.Map<SaleViewModel>(sale));
         }
 
         [HttpPost]
         public IActionResult SaleUpdating(Sale sale)
         {
-            _sale.UpdateSale(sale);
-            return RedirectToAction("SaleTable");
+            if (ModelState.IsValid)
+            {
+                _sale.UpdateSale(_mapper.Map<SaleDto>(sale));
+                return RedirectToAction("SaleTable");
+            }
+            else
+                return View();
         }
 
         public IActionResult SaleCreating()
@@ -49,7 +66,7 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                _sale.CreateSale(sale);
+                _sale.CreateSale(_mapper.Map<SaleDto>(sale));
                 return RedirectToAction("SaleTable");
             }
             else
@@ -58,7 +75,7 @@ namespace OnlineStore.MvcApplication.Controllers
 
         public IActionResult SaleDeleting(int id)
         {
-            Sale sale = _sale.FindSaleById(id);
+            var sale = _sale.FindSaleById(id);
             _sale.DeleteSale(id);
             return RedirectToAction("SaleTable");
         }

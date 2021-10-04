@@ -11,9 +11,13 @@ namespace OnlineStore.MvcApplication
         public AutoMapping()
         {
             CreateMap<Product, ProductDto>().ReverseMap();
-            CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<ProductDto, ProductViewModel>().ReverseMap();
+
+            CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<CustomerDto, CustomerViewModel>().ReverseMap();
+
+            CreateMap<Sale, SaleDto>().ReverseMap();
+            CreateMap<SaleDto, SaleViewModel>().ReverseMap();
         }
     }
 }

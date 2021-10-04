@@ -72,8 +72,9 @@ namespace OnlineStore.MvcApplication.Controllers
             {
                 _customer.CreateCustomer(_mapper.Map<CustomerDto>(customer));
                 return RedirectToAction("CustomerTable");
-            } else
-            return View();
+            } 
+            else
+                return View();
         }
 
         public IActionResult CustomerDeleting(int id)

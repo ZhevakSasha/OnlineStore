@@ -62,7 +62,10 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Returns all objects.</returns>
         public IEnumerable<Sale> GetList()
         {
-            return _context.Sales;
+            return _context
+                .Sales
+                .Include(c=>c.Customer)
+                .Include(p=>p.Product);
         }
 
         /// <summary>
