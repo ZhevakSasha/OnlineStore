@@ -45,8 +45,7 @@ namespace OnlineStore.BusinessLogic
                     DateOfSale = s.DateOfSale,
                     Amount = s.Amount
                 }) ;
-            ; 
-
+            
             return _mapper.Map<IEnumerable<SaleDto>>(sales);
         }
 
@@ -67,7 +66,11 @@ namespace OnlineStore.BusinessLogic
         public SaleDto FindSaleById(int id)
         {
             var sale = _sale.GetEntity(id);
-            return _mapper.Map<SaleDto>(sale);
+            var saleDto = _mapper.Map<SaleDto>(sale);
+            saleDto.ProductName = sale.Product.ProductName;
+            saleDto.CustomerName = sale.Customer.FirstName;
+
+            return saleDto;
         }
 
         public void DeleteSale(int id)
@@ -75,5 +78,6 @@ namespace OnlineStore.BusinessLogic
             _sale.Delete(id);
             _sale.Save();
         }
+
     }
 }

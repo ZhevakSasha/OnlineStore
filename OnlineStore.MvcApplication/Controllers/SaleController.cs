@@ -75,7 +75,6 @@ namespace OnlineStore.MvcApplication.Controllers
 
         public IActionResult SaleDeleting(int id)
         {
-            var sale = _sale.FindSaleById(id);
             _sale.DeleteSale(id);
             return RedirectToAction("SaleTable");
         }
