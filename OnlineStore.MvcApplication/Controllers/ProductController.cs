@@ -27,12 +27,17 @@ namespace OnlineStore.MvcApplication.Controllers
         /// ProductController constructor.
         /// </summary>
         /// <param name="product">Product service</param>
+        /// <param name="mapper">Mapper</param>
         public ProductController(IProductService product, IMapper mapper)
         {
             _product = product;
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Takes a list of all products from the table and passes them into view.
+        /// </summary>
+        /// <returns>View with products</returns>
         public IActionResult ProductTable()
         {
             var results = _product.GetAllProducts();
@@ -40,12 +45,22 @@ namespace OnlineStore.MvcApplication.Controllers
             return View(products);
         }
 
+        /// <summary>
+        /// Takes product data by id from the table and passes them into view.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>View with product</returns>
         public IActionResult ProductUpdating(int id)
         {
             var product = _product.FindProductById(id);
             return View(_mapper.Map<ProductViewModel>(product));
         }
 
+        /// <summary>
+        /// Updates product data.
+        /// </summary>
+        /// <param name="product">Takes productViewModel object</param>
+        /// <returns>ProductTable view</returns>
         [HttpPost]
         public IActionResult ProductUpdating(ProductViewModel product)
         {
@@ -58,11 +73,20 @@ namespace OnlineStore.MvcApplication.Controllers
                 return View();
         }
 
+        /// <summary>
+        /// ProductCreating.
+        /// </summary>
+        /// <returns>ProductCreating View</returns>
         public IActionResult ProductCreating()
         {
             return View();
         }
 
+        /// <summary>
+        /// Saves product data.
+        /// </summary>
+        /// <param name="product">Takes productViewModel object</param>
+        /// <returns>Table view</returns>
         [HttpPost]
         public IActionResult ProductCreating(ProductViewModel product)
         {
@@ -75,6 +99,11 @@ namespace OnlineStore.MvcApplication.Controllers
                 return View();
         }
 
+        /// <summary>
+        /// Removes product.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>ProductTable view</returns>
         public IActionResult ProductDeleting(int id)
         {
             var product = _product.FindProductById(id);

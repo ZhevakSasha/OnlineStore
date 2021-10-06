@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.DataModel;
 using AutoMapper;
 using OnlineStore.MvcApplication.Models;
 using System.Collections.Generic;
@@ -28,12 +27,17 @@ namespace OnlineStore.MvcApplication.Controllers
         /// CustomerController constructor.
         /// </summary>
         /// <param name="customer">Customer service</param>
+        /// <param name="mapper">Mapper</param>
         public CustomerController(ICustomerService customer, IMapper mapper)
         {
             _customer = customer;
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Takes a list of all customers from the table and passes them into view.
+        /// </summary>
+        /// <returns>View with customers</returns>
         public IActionResult CustomerTable()
         {
             var results = _customer.GetAllCustomers();
@@ -41,12 +45,22 @@ namespace OnlineStore.MvcApplication.Controllers
             return View(customers);
         }
 
+        /// <summary>
+        /// Takes customer data by id from the table and passes them into view.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>View with customer</returns>
         public IActionResult CustomerUpdating(int id)
         {
             var customer = _customer.FindCustomerById(id);
             return View(_mapper.Map<CustomerViewModel>(customer));
         }
 
+        /// <summary>
+        /// Updates customer data.
+        /// </summary>
+        /// <param name="customer">Takes customerViewModel object</param>
+        /// <returns>CustomerTable view</returns>
         [HttpPost]
         public IActionResult CustomerUpdating(CustomerViewModel customer)
         {
@@ -57,14 +71,22 @@ namespace OnlineStore.MvcApplication.Controllers
             }
             else
                 return View();
-
         }
         
+        /// <summary>
+        /// CustomerCreating.
+        /// </summary>
+        /// <returns>CustomerCreating view.</returns>
         public IActionResult CustomerCreating()
         {
             return View();
         }
 
+        /// <summary>
+        /// Saves customer data.
+        /// </summary>
+        /// <param name="customer">Takes customerViewModel object</param>
+        /// <returns>CustomerTable view</returns>
         [HttpPost]
         public IActionResult CustomerCreating(CustomerViewModel customer)
         {
@@ -77,6 +99,11 @@ namespace OnlineStore.MvcApplication.Controllers
                 return View();
         }
 
+        /// <summary>
+        /// Removes customer.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>CustomerTable view</returns>
         public IActionResult CustomerDeleting(int id)
         {
             var customer = _customer.FindCustomerById(id);

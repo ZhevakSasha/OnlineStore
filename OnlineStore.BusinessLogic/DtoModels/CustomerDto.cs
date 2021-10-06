@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OnlineStore.BusinessLogic.DtoModels
 {
+    /// <summary>
+    /// CustomerDto model.
+    /// </summary>
     public class CustomerDto
     {
         /// <summary>

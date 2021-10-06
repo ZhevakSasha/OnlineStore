@@ -40,8 +40,8 @@
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                <button asp-action="SaleUpdating" class="btn btn-sm btn-outline-primary">@Html.ActionLink("Edit", "SaleUpdating", new { id = item.SaleId })</button>
-                <button class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you shure you want to delete product : @item.SaleId ')">@Html.ActionLink("Delete", "SaleDeleting", new { id = item.SaleId })</button>
+                <button asp-action="SaleUpdating" class="btn btn-sm btn-outline-primary">@Html.ActionLink("Edit", "SaleUpdating", new { id = item.Id })</button>
+                <button class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you shure you want to delete product : @item.Id ')">@Html.ActionLink("Delete", "SaleDeleting", new { id = item.Id })</button>
             </td>
         </tr>
 }

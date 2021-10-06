@@ -44,6 +44,7 @@ namespace OnlineStore.MvcApplication
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ISaleService, SaleService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

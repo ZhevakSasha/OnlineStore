@@ -4,12 +4,24 @@ using System.Text;
 
 namespace OnlineStore.BusinessLogic.DtoModels
 {
+    /// <summary>
+    /// SaleDto model.
+    /// </summary>
     public class SaleDto
     {
-        public int SaleId { get; set; }
+        /// <summary>
+        /// Property for storing sale id.
+        /// </summary>
+        public int Id { get; set; }
 
+        /// <summary>
+        /// Property for storing product id.
+        /// </summary>
         public int ProductId { get; set; }
 
+        /// <summary>
+        /// Property for storing customer id.
+        /// </summary>
         public int CustomerId { get; set; }
 
         /// <summary>
@@ -17,6 +29,9 @@ namespace OnlineStore.BusinessLogic.DtoModels
         /// </summary>
         public string ProductName { get; set; }
 
+        /// <summary>
+        /// Property for storing customer name.
+        /// </summary>
         public string CustomerName { get; set; }
 
         /// <summary>

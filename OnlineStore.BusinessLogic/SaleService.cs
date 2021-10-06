@@ -19,6 +19,9 @@ namespace OnlineStore.BusinessLogic
         /// </summary>
         private ISaleRepository _sale;
 
+        /// <summary>
+        /// Mapper.
+        /// </summary>
         private IMapper _mapper;
 
         /// <summary>
@@ -31,13 +34,17 @@ namespace OnlineStore.BusinessLogic
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// GetAllSales method.
+        /// </summary>
+        /// <returns>All sale objects from table</returns>
         public IEnumerable<SaleDto> GetAllSales()
         {
             var sales = _sale
                 .GetList()
                 .Select(s => new SaleDto
                 {
-                    SaleId = s.Id,
+                    Id = s.Id,
                     CustomerId = s.CustomerId,
                     ProductId = s.ProductId,
                     CustomerName = $"{s.Customer.FirstName.Substring(0, 1)}. {s.Customer.LastName}",
@@ -49,6 +56,10 @@ namespace OnlineStore.BusinessLogic
             return _mapper.Map<IEnumerable<SaleDto>>(sales);
         }
 
+        /// <summary>
+        /// CreateSale method.
+        /// </summary>
+        /// <param name="saleModel">Takes saleDto object</param>
         public void CreateSale(SaleDto saleModel)
         {
             var sale = _mapper.Map<Sale>(saleModel);
@@ -56,6 +67,10 @@ namespace OnlineStore.BusinessLogic
             _sale.Save();
         }
 
+        /// <summary>
+        /// UpdateSale method.
+        /// </summary>
+        /// <param name="saleModel">Takes saleDto object</param>
         public void UpdateSale(SaleDto saleModel)
         {
             var sale = _mapper.Map<Sale>(saleModel);
@@ -63,16 +78,26 @@ namespace OnlineStore.BusinessLogic
             _sale.Save();
         }
 
+        /// <summary>
+        /// FindSaleById method.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>SaleDto object.</returns>
         public SaleDto FindSaleById(int id)
         {
             var sale = _sale.GetEntity(id);
             var saleDto = _mapper.Map<SaleDto>(sale);
             saleDto.ProductName = sale.Product.ProductName;
-            saleDto.CustomerName = sale.Customer.FirstName;
+            saleDto.CustomerName = $"{sale.Customer.FirstName.Substring(0, 1)}." +
+                $" {sale.Customer.LastName}";
 
             return saleDto;
         }
 
+        /// <summary>
+        /// DeleteSale method.
+        /// </summary>
+        /// <param name="id">id</param>
         public void DeleteSale(int id)
         {
             _sale.Delete(id);

@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace OnlineStore.MvcApplication
 {
+    /// <summary>
+    /// AutoMapper profile.
+    /// </summary>
     public class AutoMapping : Profile 
     {
         public AutoMapping()
