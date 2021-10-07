@@ -1,11 +1,13 @@
 ﻿@model ProductViewModel
+@inject IViewLocalizer Localizer
+
 @{
-    ViewData["Title"] = "ProductUpdating";
+    ViewData["Title"] = @Localizer["ProductUpdating"];
 }
 
-<h1>ProductUpdating</h1>
+<h1>@Localizer["ProductUpdating"]</h1>
 
-<h4>Product</h4>
+<h4>@Localizer["Product"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -27,13 +29,13 @@
                 <span asp-validation-for="UnitOfMeasurement" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="@Localizer["Save"]" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="ProductTable">Back to List</a>
+    <a asp-action="ProductTable">@Localizer["Back to List"]</a>
 </div>
 

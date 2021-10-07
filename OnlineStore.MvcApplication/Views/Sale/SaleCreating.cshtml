@@ -1,12 +1,14 @@
 ﻿@model SaleViewModel
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "SaleCreating";
+    ViewData["Title"] = @Localizer["SaleCreating"];
 }
 
-<h1>SaleCreating</h1>
+<h1>@Localizer["SaleCreating"]</h1>
 
-<h4>Sale</h4>
+<h4>
+    @Localizer["Sale"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -37,13 +39,13 @@
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="@Localizer["Create"]" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="SaleTable">Back to List</a>
+    <a asp-action="SaleTable">@Localizer["Back to List"]</a>
 </div>
 

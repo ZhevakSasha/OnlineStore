@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<ProductViewModel>
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "ProductTable";
 }
 
-<h1>ProductTable</h1>
+<h1>@Localizer["ProductTable"]</h1>
 
 
 <table class="table table-bordered table-sm table-striped">
@@ -12,41 +13,51 @@
         <tr class="text-center">
 
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+                @Localizer[@Html.DisplayNameFor(model => model.ProductName)]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Localizer[@Html.DisplayNameFor(model => model.Price)]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UnitOfMeasurement)
+                @Localizer[@Html.DisplayNameFor(model => model.UnitOfMeasurement)]
             </th>
 
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr class="text-center">
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitOfMeasurement)
-            </td>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitOfMeasurement)
+                    </td>
 
-            <td>
-                <button asp-action="ProductUpdating" class="btn btn-sm btn-outline-primary">@Html.ActionLink("Edit", "ProductUpdating", new { id = item.Id })</button>
-                <button class="btn btn-sm btn-outline-primary" onclick="return confirm('Are you shure you want to delete product : @item.Id ')">@Html.ActionLink("Delete", "ProductDeleting", new { id = item.Id })</button>
-            </td>
-        </tr>
-}
+                    <td>
+                        <a asp-action="ProductUpdating" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">@Localizer["Edit"]</a>
+                        <a asp-action="ProductDeleting" asp-route-id="@item.Id" onclick="return confirm('@Localizer["Are you shure you want to delete this product?"]')" class="btn btn-sm btn-secondary">@Localizer["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">@Localizer["NoRecordsFound"]</td>
+            </tr>
+        }
     </tbody>
 </table>
 
 
 <p align="right">
-    <a asp-action="ProductCreating" class="btn btn-sm btn-secondary">Create New</a>
+    <a asp-action="ProductCreating" class="btn btn-sm btn-secondary">@Localizer["Create New"]</a>
 </p>

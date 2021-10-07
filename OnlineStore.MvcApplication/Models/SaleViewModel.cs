@@ -5,11 +5,20 @@ namespace OnlineStore.MvcApplication.Models
 {
     public class SaleViewModel
     {
+        /// <summary>
+        /// Property  for storing sale id.
+        /// </summary>
         [ScaffoldColumn(false)]
         public int Id { get; set; }
 
+        /// <summary>
+        /// Property  for storing product id.
+        /// </summary>
         public int ProductId { get; set; }
 
+        /// <summary>
+        /// Property  for storing customer id.
+        /// </summary>
         public int CustomerId { get; set; }
 
         /// <summary>
@@ -18,9 +27,11 @@ namespace OnlineStore.MvcApplication.Models
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
 
+        /// <summary>
+        /// Property  for storing customer name.
+        /// </summary>
         [Display(Name = "Customer Name")]
         public string CustomerName { get; set; }
-
 
         /// <summary>
         /// Property  for storing date of sale.
@@ -38,6 +49,5 @@ namespace OnlineStore.MvcApplication.Models
         [Required(ErrorMessage = "Amount required")]
         [Range(1, 1000000000, ErrorMessage = "Amount must be less than a ten-digit number")]
         public int Amount { get; set; }
-
     }
 }

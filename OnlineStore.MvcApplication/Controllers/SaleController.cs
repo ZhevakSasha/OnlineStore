@@ -1,13 +1,20 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.MvcApplication.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
+    /// <summary>
+    /// Sale controller.
+    /// </summary>
     public class SaleController : Controller
     {
         /// <summary>
@@ -45,14 +52,32 @@ namespace OnlineStore.MvcApplication.Controllers
             _product = product;
         }
 
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return LocalRedirect(returnUrl);
+        }
+
         /// <summary>
         /// Takes a list of all sales from the table and passes them into view.
         /// </summary>
         /// <returns>View with sales</returns>
-        public IActionResult SaleTable()
+        public IActionResult SaleTable(string searchString)
         {
+
             var results = _sale.GetAllSales();
             var sales = _mapper.Map<IEnumerable<SaleViewModel>>(results);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                sales = sales.Where(s => s.ProductName.Contains(searchString)
+                                       || s.CustomerName.Contains(searchString));
+            }
             return View(sales);
         }
 

@@ -1,9 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OnlineStore</title>
+    <title>@ViewData["Title"] - @Localizer["OnlineStore"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -19,15 +21,17 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Sale" asp-action="SaleTable">SaleTable</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Sale" asp-action="SaleTable">@Localizer["SaleTable"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="CustomerTable">CustomerTable</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="CustomerTable">@Localizer["CustomerTable"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="ProductTable">ProductTable</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="ProductTable">@Localizer["ProductTable"]</a>
                         </li>
+
                     </ul>
+                  <div>  @await Html.PartialAsync("_SelectLanguagePartial")</div>
                 </div>
             </div>
         </nav>
@@ -40,7 +44,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - OnlineStore.MvcApplication - <a asp-area="" asp-controller="Customer" asp-action="CustomerTable">CustomerTable</a>
+            &copy; 2021 - OnlineStore.MvcApplication 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
