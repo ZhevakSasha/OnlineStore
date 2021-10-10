@@ -120,13 +120,25 @@
   <data name="Addres" xml:space="preserve">
     <value>Адрес</value>
   </data>
+  <data name="Addres required" xml:space="preserve">
+    <value>Введите адрес</value>
+  </data>
   <data name="First Name" xml:space="preserve">
     <value>Имя</value>
+  </data>
+  <data name="First name required" xml:space="preserve">
+    <value>Введите имя</value>
   </data>
   <data name="Last Name" xml:space="preserve">
     <value>Фамилия</value>
   </data>
+  <data name="Last name required" xml:space="preserve">
+    <value>Введите фамилию</value>
+  </data>
   <data name="Phone Number" xml:space="preserve">
     <value>Номер телефона</value>
+  </data>
+  <data name="Phone number required" xml:space="preserve">
+    <value>Введите номер телефона</value>
   </data>
 </root>

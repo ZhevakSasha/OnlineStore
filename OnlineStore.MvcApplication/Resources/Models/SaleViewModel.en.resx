@@ -120,13 +120,28 @@
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
   </data>
+  <data name="Amount required" xml:space="preserve">
+    <value>Amount required</value>
+  </data>
+  <data name="AmountRange" xml:space="preserve">
+    <value>The quantity should not exceed 100</value>
+  </data>
   <data name="Customer Name" xml:space="preserve">
     <value>Customer name</value>
+  </data>
+  <data name="CustomerRequired" xml:space="preserve">
+    <value>Customer required</value>
+  </data>
+  <data name="Data required" xml:space="preserve">
+    <value>Data required</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
   <data name="Product Name" xml:space="preserve">
     <value>Product name</value>
+  </data>
+  <data name="ProductRequired" xml:space="preserve">
+    <value>Product required</value>
   </data>
 </root>

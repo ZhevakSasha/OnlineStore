@@ -14,18 +14,20 @@ namespace OnlineStore.MvcApplication.Models
         /// <summary>
         /// Property  for storing product id.
         /// </summary>
-        public int ProductId { get; set; }
-
-        /// <summary>
-        /// Property  for storing customer id.
-        /// </summary>
-        public int CustomerId { get; set; }
+        [Required(ErrorMessage = "ProductRequired")]
+        public int? ProductId { get; set; }
 
         /// <summary>
         /// Property  for storing product name.
         /// </summary>
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
+
+        /// <summary>
+        /// Property  for storing customer id.
+        /// </summary>
+        [Required(ErrorMessage = "CustomerRequired")]
+        public int? CustomerId { get; set; }
 
         /// <summary>
         /// Property  for storing customer name.
@@ -47,7 +49,7 @@ namespace OnlineStore.MvcApplication.Models
         /// </summary>
         [Display(Name = "Amount")]
         [Required(ErrorMessage = "Amount required")]
-        [Range(1, 1000000000, ErrorMessage = "Amount must be less than a ten-digit number")]
-        public int Amount { get; set; }
+        [Range(1, 100, ErrorMessage = "AmountRange")]
+        public int? Amount { get; set; }
     }
 }

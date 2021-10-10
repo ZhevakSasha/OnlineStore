@@ -68,8 +68,21 @@ namespace OnlineStore.MvcApplication.Controllers
         /// Takes a list of all sales from the table and passes them into view.
         /// </summary>
         /// <returns>View with sales</returns>
+        public IActionResult SaleTable()
+        {
+            var results = _sale.GetAllSales();
+            var sales = _mapper.Map<IEnumerable<SaleViewModel>>(results);
+            return View(sales);
+        }
+
+        /// <summary>
+        /// Takes a list of all sales from the table and passes them into view.
+        /// </summary>
+        /// <returns>View with sales</returns>
+        [HttpGet]
         public IActionResult SaleTable(string searchString)
         {
+            ViewData["GetDetails"] = searchString;
 
             var results = _sale.GetAllSales();
             var sales = _mapper.Map<IEnumerable<SaleViewModel>>(results);
@@ -161,9 +174,20 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         /// <param name="id">id</param>
         /// <returns>SaleTable view</returns>
-        public IActionResult SaleDeleting(int id)
+        public IActionResult SaleDeleting()
         {
-            _sale.DeleteSale(id);
+            return View();
+        }
+
+        /// <summary>
+        /// Removes sale.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>SaleTable view</returns>
+        [HttpPost]
+        public IActionResult SaleDeleting(SaleViewModel sale)
+        {
+            _sale.DeleteSale(sale.Id);
             return RedirectToAction("SaleTable");
         }
     }

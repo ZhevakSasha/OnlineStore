@@ -15,7 +15,7 @@ namespace OnlineStore.MvcApplication.Models
         /// Property  for storing product name.
         /// </summary>
         [Display(Name = "Product Name")]
-        [Required]
+        [Required(ErrorMessage = "Product required")]
         [StringLength(30)]
         public string ProductName { get; set; }
 
@@ -24,8 +24,8 @@ namespace OnlineStore.MvcApplication.Models
         /// </summary>
         [Display(Name = "Price")]
         [Required(ErrorMessage = "Price required")]
-        [Range(1, 1000000000, ErrorMessage = "Value must be less than a ten-digit number")]
-        public int Price { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Value must be less than a ten-digit number")]
+        public int? Price { get; set; }
 
         /// <summary>
         /// Property for storing product unit of measurement.
