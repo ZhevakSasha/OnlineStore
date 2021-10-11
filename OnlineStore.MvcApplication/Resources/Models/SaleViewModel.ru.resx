@@ -129,9 +129,6 @@
   <data name="Customer Name" xml:space="preserve">
     <value>Имя покупателя</value>
   </data>
-  <data name="Customer required" xml:space="preserve">
-    <value>Выберите покупателя</value>
-  </data>
   <data name="Data required" xml:space="preserve">
     <value>Выберите дату</value>
   </data>
@@ -141,7 +138,10 @@
   <data name="Product Name" xml:space="preserve">
     <value>Имя продукта</value>
   </data>
-  <data name="Product required" xml:space="preserve">
+  <data name="SelectCustomer" xml:space="preserve">
+    <value>Выберите покупателя</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
     <value>Выберите продукт</value>
   </data>
 </root>

@@ -129,4 +129,10 @@
   <data name="SaleCreating" xml:space="preserve">
     <value>Создание продажи</value>
   </data>
+  <data name="Select customer" xml:space="preserve">
+    <value>Выберите покупателя</value>
+  </data>
+  <data name="Select product" xml:space="preserve">
+    <value>Выберите продукт</value>
+  </data>
 </root>

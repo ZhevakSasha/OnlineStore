@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnlineStore.MvcApplication.Models
@@ -15,7 +14,7 @@ namespace OnlineStore.MvcApplication.Models
         /// <summary>
         /// Property  for storing product id.
         /// </summary>
-        [BindRequired]
+        [Required(ErrorMessage = "SelectProduct")]
         public int? ProductId { get; set; }
 
         /// <summary>
@@ -27,7 +26,7 @@ namespace OnlineStore.MvcApplication.Models
         /// <summary>
         /// Property  for storing customer id.
         /// </summary>
-        [BindRequired]
+        [Required(ErrorMessage ="SelectCustomer")]
         public int? CustomerId { get; set; }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace OnlineStore.MvcApplication.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Data required")]
-        public string DateOfSale { get; set; }
+        public DateTime? DateOfSale { get; set; }
 
         /// <summary>
         /// Property  for storing amount of sales.

@@ -144,4 +144,10 @@
   <data name="ProductRequired" xml:space="preserve">
     <value>Product required</value>
   </data>
+  <data name="SelectCustomer" xml:space="preserve">
+    <value>Select customer</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Select product</value>
+  </data>
 </root>

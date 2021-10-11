@@ -129,4 +129,10 @@
   <data name="SaleCreating" xml:space="preserve">
     <value>Sale creating</value>
   </data>
+  <data name="Select customer" xml:space="preserve">
+    <value>Select customer</value>
+  </data>
+  <data name="Select product" xml:space="preserve">
+    <value>Select product</value>
+  </data>
 </root>
