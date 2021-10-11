@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnlineStore.MvcApplication.Models
@@ -14,7 +15,7 @@ namespace OnlineStore.MvcApplication.Models
         /// <summary>
         /// Property  for storing product id.
         /// </summary>
-        [Required(ErrorMessage = "ProductRequired")]
+        [BindRequired]
         public int? ProductId { get; set; }
 
         /// <summary>
@@ -26,7 +27,7 @@ namespace OnlineStore.MvcApplication.Models
         /// <summary>
         /// Property  for storing customer id.
         /// </summary>
-        [Required(ErrorMessage = "CustomerRequired")]
+        [BindRequired]
         public int? CustomerId { get; set; }
 
         /// <summary>
