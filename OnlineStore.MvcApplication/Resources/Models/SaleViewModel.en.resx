@@ -124,7 +124,7 @@
     <value>Amount required</value>
   </data>
   <data name="AmountRange" xml:space="preserve">
-    <value>The quantity should not exceed 100</value>
+    <value>The quantity should not be less then 1 and exceed 100</value>
   </data>
   <data name="Customer Name" xml:space="preserve">
     <value>Customer name</value>

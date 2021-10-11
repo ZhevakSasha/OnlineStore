@@ -124,7 +124,7 @@
     <value>Выберите количество</value>
   </data>
   <data name="AmountRange" xml:space="preserve">
-    <value>Количество не должно превышать 100</value>
+    <value>Количество не должно быть меньше 1 и превышать 100</value>
   </data>
   <data name="Customer Name" xml:space="preserve">
     <value>Имя покупателя</value>
