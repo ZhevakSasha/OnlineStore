@@ -42,7 +42,7 @@ namespace OnlineStore.MvcApplication.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Data required")]
-        public DateTime? DateOfSale { get; set; }
+        public string DateOfSale { get; set; }
 
         /// <summary>
         /// Property  for storing amount of sales.
