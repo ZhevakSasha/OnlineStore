@@ -41,7 +41,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <param name="customer"></param>
         public void Delete(int Id)
         {
-            var customer = _context.Customers.Local.First(c => c.Id == Id);
+            var customer = _context.Customers.First(c => c.Id == Id);
             _context.Customers.Remove(customer);
         }
 

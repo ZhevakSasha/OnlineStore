@@ -106,8 +106,19 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>CustomerTable view</returns>
         public IActionResult CustomerDeleting(int id)
         {
-            var customer = _customer.FindCustomerById(id);
-            _customer.DeleteCustomer(id);
+            var customer = _mapper.Map<CustomerViewModel>(_customer.FindCustomerById(id));
+            return View(customer);
+        }
+
+        /// <summary>
+        /// Removes customer.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>CustomerTable view</returns>
+        [HttpPost]
+        public IActionResult CustomerDeleting(CustomerViewModel customer)
+        {
+            _customer.DeleteCustomer(customer.Id);
             return RedirectToAction("CustomerTable");
         }
     }

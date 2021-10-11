@@ -174,9 +174,10 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         /// <param name="id">id</param>
         /// <returns>SaleTable view</returns>
-        public IActionResult SaleDeleting()
+        public IActionResult SaleDeleting(int id)
         {
-            return View();
+            var sale = _mapper.Map<SaleViewModel>(_sale.FindSaleById(id));
+            return View(sale);
         }
 
         /// <summary>
