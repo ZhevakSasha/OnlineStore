@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Addres" xml:space="preserve">
+  <data name="Address" xml:space="preserve">
     <value>Адрес</value>
   </data>
-  <data name="Addres required" xml:space="preserve">
+  <data name="Address required" xml:space="preserve">
     <value>Введите адрес</value>
   </data>
   <data name="First Name" xml:space="preserve">

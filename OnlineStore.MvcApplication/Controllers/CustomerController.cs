@@ -69,8 +69,7 @@ namespace OnlineStore.MvcApplication.Controllers
                 _customer.UpdateCustomer(_mapper.Map<CustomerDto>(customer));
                 return RedirectToAction("CustomerTable");
             }
-            else
-                return View();
+            return View();
         }
         
         /// <summary>
@@ -95,8 +94,7 @@ namespace OnlineStore.MvcApplication.Controllers
                 _customer.CreateCustomer(_mapper.Map<CustomerDto>(customer));
                 return RedirectToAction("CustomerTable");
             } 
-            else
-                return View();
+            return View();
         }
 
         /// <summary>

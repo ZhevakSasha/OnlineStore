@@ -41,17 +41,7 @@ namespace OnlineStore.BusinessLogic
         public IEnumerable<SaleDto> GetAllSales()
         {
             var sales = _sale
-                .GetList()
-                .Select(s => new SaleDto
-                {
-                    Id = s.Id,
-                    CustomerId = s.CustomerId,
-                    ProductId = s.ProductId,
-                    CustomerName = $"{s.Customer.FirstName.Substring(0, 1)}. {s.Customer.LastName}",
-                    ProductName = s.Product.ProductName,
-                    DateOfSale = s.DateOfSale,
-                    Amount = s.Amount
-                }) ;
+                .GetList();
             
             return _mapper.Map<IEnumerable<SaleDto>>(sales);
         }
@@ -87,9 +77,6 @@ namespace OnlineStore.BusinessLogic
         {
             var sale = _sale.GetEntity(id);
             var saleDto = _mapper.Map<SaleDto>(sale);
-            saleDto.ProductName = sale.Product.ProductName;
-            saleDto.CustomerName = $"{sale.Customer.FirstName.Substring(0, 1)}." +
-                $" {sale.Customer.LastName}";
 
             return saleDto;
         }

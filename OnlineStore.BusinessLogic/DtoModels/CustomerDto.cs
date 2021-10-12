@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineStore.BusinessLogic.DtoModels
+﻿namespace OnlineStore.BusinessLogic.DtoModels
 {
     /// <summary>
     /// CustomerDto model.
@@ -27,7 +23,7 @@ namespace OnlineStore.BusinessLogic.DtoModels
         /// <summary>
         /// Property  for storing customer addres.
         /// </summary>
-        public string Addres { get; set; }
+        public string Address { get; set; }
 
         /// <summary>
         /// Property  for storing customer phone number.

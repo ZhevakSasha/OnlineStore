@@ -48,7 +48,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 Id = concreteId,
                 FirstName = "Sasha",
                 LastName = "Zhevak",
-                Addres = "Main Street",
+                Address = "Main Street",
                 PhoneNumber = "0669705219"
             };
 
@@ -74,7 +74,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             {
                 FirstName = "Anton",
                 LastName = "Ivanov",
-                Addres = "52 Street",
+                Address = "52 Street",
                 PhoneNumber = "0662305345"
             };
 
@@ -150,7 +150,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                     Id = 1,
                     FirstName = "Sasha",
                     LastName = "Zhevak",
-                    Addres = "Main Street",
+                    Address = "Main Street",
                     PhoneNumber = "0669705219"
                 },
                 new Customer()
@@ -158,7 +158,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                     Id = 2,
                     FirstName = "Andrew",
                     LastName = "Korolenko",
-                    Addres = "52 Street",
+                    Address = "52 Street",
                     PhoneNumber = "0669705345"
                 }
             };
@@ -182,7 +182,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                     Id = 1,
                     FirstName = "Sasha",
                     LastName = "Zhevak",
-                    Addres = "Main Street",
+                    Address = "Main Street",
                     PhoneNumber = "0669705219"
                 },
 
@@ -191,7 +191,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                     Id = 2,
                     FirstName = "Andrew",
                     LastName = "Korolenko",
-                    Addres = "52 Street",
+                    Address = "52 Street",
                     PhoneNumber = "0669705345"
                 }
             };

@@ -45,7 +45,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
                         Id = Convert.ToInt32(reader["Id"]),
                         FirstName = reader["FirstName"].ToString(),
                         LastName = reader["LastName"].ToString(),
-                        Addres = reader["Addres"].ToString(),
+                        Address = reader["Address"].ToString(),
                         PhoneNumber = reader["PhoneNumber"].ToString()
                     };
                     customers.Add(customer);
@@ -72,7 +72,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
                     customer.Id = Convert.ToInt32(reader["Id"]);
                     customer.FirstName = reader["FirstName"].ToString();
                     customer.LastName = reader["LastName"].ToString();
-                    customer.Addres = reader["Addres"].ToString();
+                    customer.Address = reader["Address"].ToString();
                     customer.PhoneNumber = reader["PhoneNumber"].ToString();
                 }
                 return customer;
@@ -89,12 +89,12 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
             using (var connection = new SqlConnection(_connectionString))
             {
                 var command = new SqlCommand("INSERT INTO Customers" +
-                   "(FirstName, LastName, Addres, PhoneNumber)" +
-                   " VALUES(@FirstName, @LastName, @Addres, @PhoneNumber)", connection);
+                   "(FirstName, LastName, Address, PhoneNumber)" +
+                   " VALUES(@FirstName, @LastName, @Address, @PhoneNumber)", connection);
                 connection.Open();
                 command.Parameters.AddWithValue("@FirstName", customer.FirstName);
                 command.Parameters.AddWithValue("@LastName", customer.LastName);
-                command.Parameters.AddWithValue("@Addres", customer.Addres);
+                command.Parameters.AddWithValue("@Address", customer.Address);
                 command.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
                 command.ExecuteNonQuery();
             }
@@ -111,14 +111,14 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
             {
                 var command = new SqlCommand("UPDATE Customers SET FirstName = @FirstName," +
                                              "LastName = @LastName," +
-                                             "Addres = @Addres," +
+                                             "Address = @Address," +
                                              "PhoneNumber = @PhoneNumber " +
                                              $"WHERE Id ={customer.Id}", connection);
                 connection.Open();
                 
                 command.Parameters.AddWithValue("@FirstName", customer.FirstName);
                 command.Parameters.AddWithValue("@LastName", customer.LastName);
-                command.Parameters.AddWithValue("@Addres", customer.Addres);
+                command.Parameters.AddWithValue("@Address", customer.Address);
                 command.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
                 command.ExecuteNonQuery();
             }

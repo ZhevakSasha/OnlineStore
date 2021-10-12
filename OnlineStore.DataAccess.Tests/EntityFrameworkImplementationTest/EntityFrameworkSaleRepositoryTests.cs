@@ -51,7 +51,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 Id = concreteId,
                 ProductId = 1,
                 CustomerId = 1,
-                DateOfSale = "25.08.2021",
+                DateOfSale = "25-08-2021",
                 Amount = 2
             };
 
@@ -77,7 +77,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             {
                 ProductId = 1,
                 CustomerId = 2,
-                DateOfSale = "27.0",
+                DateOfSale = "27-08-2021",
                 Amount = 4
             };
 
@@ -125,7 +125,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             //Arrange
             const int arbitraryId = 1;
             var arbitraryUpdatedSale = _sale.GetEntity(arbitraryId);
-            arbitraryUpdatedSale.DateOfSale = "20.09.2021";
+            arbitraryUpdatedSale.DateOfSale = "20-09-2021";
             var expected = arbitraryUpdatedSale;
 
             //Act
@@ -154,7 +154,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 Id = 1,
                 ProductId = 1,
                 CustomerId = 1,
-                DateOfSale = "25.08.2021",
+                DateOfSale = "25-08-2021",
                 Amount = 2
                 },
                 new Sale()
@@ -162,7 +162,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 Id = 2,
                 ProductId = 2,
                 CustomerId = 2,
-                DateOfSale = "26.08.2021",
+                DateOfSale = "26-08-2021",
                 Amount = 3
                 }
             };
@@ -186,7 +186,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 Id = 1,
                 ProductId = 1,
                 CustomerId = 1,
-                DateOfSale = "25.08.2021",
+                DateOfSale = "25-08-2021",
                 Amount = 2
                 },
 
@@ -195,7 +195,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 Id = 2,
                 ProductId = 2,
                 CustomerId = 2,
-                DateOfSale = "26.08.2021",
+                DateOfSale = "26-08-2021",
                 Amount = 3
                 }
             };

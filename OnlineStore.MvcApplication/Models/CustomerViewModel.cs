@@ -30,10 +30,10 @@ namespace OnlineStore.MvcApplication.Models
         /// <summary>
         /// Property  for storing customer addres.
         /// </summary>
-        [Display(Name = "Addres")]
-        [Required(ErrorMessage = "Addres required")]
+        [Display(Name = "Address")]
+        [Required(ErrorMessage = "Address required")]
         [StringLength(30)]
-        public string Addres { get; set; }
+        public string Address { get; set; }
 
         /// <summary>
         /// Property  for storing customer phone number.

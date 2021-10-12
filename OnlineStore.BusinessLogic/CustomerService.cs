@@ -88,8 +88,7 @@ namespace OnlineStore.BusinessLogic
                 .Select(s => new SelectDto
                 {
                     Id = s.Id,
-                    Name = $"{s.FirstName.Substring(0, 1)}." +
-                $" {s.LastName}"
+                    Name = $"{s.FirstName.Substring(0, 1)}. {s.LastName}"
                 }
                     ) ;
             return customerNames;

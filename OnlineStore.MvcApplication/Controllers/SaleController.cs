@@ -129,7 +129,7 @@ namespace OnlineStore.MvcApplication.Controllers
                 var customerNames = _customer.GetAllCustomerNames();
                 ViewBag.ProductNames = new SelectList(productNames,"Id","Name");
                 ViewBag.CustomerNames = new SelectList(customerNames,"Id","Name");
-                  return View(sale);
+                return View(sale);
             }
         }
 

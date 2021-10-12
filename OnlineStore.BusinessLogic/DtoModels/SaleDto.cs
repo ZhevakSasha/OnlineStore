@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineStore.BusinessLogic.DtoModels
+﻿namespace OnlineStore.BusinessLogic.DtoModels
 {
     /// <summary>
     /// SaleDto model.

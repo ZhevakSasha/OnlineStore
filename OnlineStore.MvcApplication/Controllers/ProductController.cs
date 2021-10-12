@@ -69,8 +69,7 @@ namespace OnlineStore.MvcApplication.Controllers
                 _product.UpdateProduct(_mapper.Map<ProductDto>(product));
                 return RedirectToAction("ProductTable");
             }
-            else
-                return View();
+            return View();
         }
 
         /// <summary>
@@ -95,8 +94,7 @@ namespace OnlineStore.MvcApplication.Controllers
                 _product.CreateProduct(_mapper.Map<ProductDto>(product));
                 return RedirectToAction("ProductTable");
             }
-            else
-                return View();
+            return View();
         }
 
         /// <summary>
