@@ -15,11 +15,11 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
     public class CustomerControllerTests
     {
 
-        private readonly Mock<ICustomerService> _mockService;
+        private Mock<ICustomerService> _mockService;
 
-        private readonly CustomerController _customerController;
+        private CustomerController _customerController;
 
-        private readonly IMapper _mapper;
+        private IMapper _mapper;
 
         public CustomerControllerTests()
         {
@@ -37,6 +37,7 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
         {
             // Arrange
             _mockService.Setup(repo => repo.GetAllCustomers()).Returns(GetTestCustomers());
+
 
             // Act
             var result = _customerController.CustomerTable();
