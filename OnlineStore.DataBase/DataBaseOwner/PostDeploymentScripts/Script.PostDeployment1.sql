@@ -42,19 +42,19 @@ VALUES
 ('Mouse',120,'pc.');
 end 
 
-if not exists (select * from dbo.Sales where ProductId =1 and  CustomerId = 1 and DateOfSale = '25-08-2021' and Amount =2 )
+if not exists (select * from dbo.Sales where ProductId =1 and  CustomerId = 1 and DateOfSale = '2021-08-25' and Amount =2 )
 begin
 INSERT INTO 
 dbo.Sales(ProductId, CustomerId, DateOfSale, Amount)
 VALUES 
-(1,1,'25-08-2021',2);
+(1,1,'2021-08-25',2);
 end  
 
-if not exists (select * from dbo.Sales where ProductId =2 and  CustomerId = 2 and DateOfSale = '26-08-2021' and Amount =3 )
+if not exists (select * from dbo.Sales where ProductId =2 and  CustomerId = 2 and DateOfSale = '2021-08-26' and Amount =3 )
 begin
 INSERT INTO 
 dbo.Sales(ProductId, CustomerId, DateOfSale, Amount)
 VALUES 
-(2,2,'26-08-2021',3);
+(2,2,'2021-08-26',3);
 end  
 
