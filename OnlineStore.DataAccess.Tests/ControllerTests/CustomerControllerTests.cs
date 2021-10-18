@@ -66,12 +66,13 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             
             _customerController.ModelState.AddModelError("FirstName", "Required");
             CustomerViewModel newCustomer = new CustomerViewModel();
+
             // Act
             var result = _customerController.CustomerCreating(newCustomer);
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal(newCustomer, viewResult?.Model);
+            Assert.Equal(It.IsAny<CustomerViewModel>(), viewResult?.Model);
         }
 
         [Fact]
@@ -79,6 +80,7 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
         {
             // Arrange
             var newCustomer = new CustomerViewModel() { FirstName = "c", LastName = "c1", Address = "a1", PhoneNumber = "0669705219" };
+            _mockService.Setup(r => r.CreateCustomer(It.IsAny<CustomerDto>())).Verifiable();
 
             // Act
             var result = _customerController.CustomerCreating(newCustomer);
@@ -86,9 +88,54 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             // Assert
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("CustomerTable", redirectToActionResult.ActionName);
-            _mockService.Verify(r => r.CreateCustomer(_mapper.Map<CustomerDto>(newCustomer)));
+            _mockService.Verify(r => r.CreateCustomer(It.IsAny<CustomerDto>()));
         }
 
+        [Fact]
+        public void UpdateCutomerReturnsARedirectAndUpdatesCustomer()
+        {
+            // Arrange
+            var newCustomer = new CustomerViewModel() { FirstName = "c", LastName = "c1", Address = "a1", PhoneNumber = "0669705219" };
+            _mockService.Setup(r => r.UpdateCustomer(It.IsAny<CustomerDto>())).Verifiable();
 
+            // Act
+            var result = _customerController.CustomerUpdating(newCustomer);
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("CustomerTable", redirectToActionResult.ActionName);
+            _mockService.Verify(r => r.UpdateCustomer(It.IsAny<CustomerDto>()));
+        }
+
+        [Fact]
+        public void UpdateCustomerReturnsViewResultWithCustomerModel()
+        {
+            // Arrange
+            _customerController.ModelState.AddModelError("FirstName", "Required");
+            CustomerViewModel newCustomer = new CustomerViewModel();
+
+            // Act
+            var result = _customerController.CustomerUpdating(newCustomer);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal(It.IsAny<CustomerViewModel>(), viewResult?.Model);
+        }
+
+        [Fact]
+        public void DeleteCutomerReturnsARedirectAndDeletesCustomer()
+        {
+            // Arrange
+            var newCustomer = new CustomerViewModel();
+            _mockService.Setup(r => r.DeleteCustomer(It.IsAny<int>())).Verifiable();
+
+            // Act
+            var result = _customerController.CustomerDeleting(newCustomer);
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("CustomerTable", redirectToActionResult.ActionName);
+            _mockService.Verify(r => r.DeleteCustomer(It.IsAny<int>()));
+        }
     }
 }
