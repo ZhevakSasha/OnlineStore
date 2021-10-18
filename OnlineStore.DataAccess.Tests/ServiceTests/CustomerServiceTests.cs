@@ -81,7 +81,7 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
         }
 
         [Test]
-        public void CreateCustomer_ReturnsCreatedCustomerDto()
+        public void CreateCustomer_ChecksTheCallOfCreatingMethod()
         {
             // Arrange
             const int arbitraryId = 1;
@@ -93,17 +93,53 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
                 Address = "ad1",
                 PhoneNumber = "0669705219"
             };
-            _mockRepository.Setup(repo => repo.Create(expected));
-
+            _mockRepository.Setup(repo => repo.Create(It.IsAny<Customer>())).Verifiable();
+            
             // Act
             _customerService.CreateCustomer(_mapper.Map<CustomerDto>(expected));
 
-
             // Assert
-            _mockRepository.Verify(repo => repo.Create(expected));
+            _mockRepository.Verify(repo => repo.Create(It.IsAny<Customer>()), Times.Once);
 
         }
-        
+
+        [Test]
+        public void DeleteCustomer_ChecksTheCallOfDeletingMethod()
+        {
+            // Arrange
+            const int arbitraryId = 1;
+            _mockRepository.Setup(repo => repo.Delete(It.IsAny<int>())).Verifiable();
+
+            // Act
+            _customerService.DeleteCustomer(arbitraryId);
+
+            // Assert
+            _mockRepository.Verify(repo => repo.Delete(It.IsAny<int>()), Times.Once);
+        }
+
+        [Test]
+        public void UpdateCustomer_ChecksTheCallOfUpdateMethod()
+        {
+            // Arrange
+            const int arbitraryId = 1;
+            var expected = new Customer()
+            {
+                Id = arbitraryId,
+                FirstName = "c",
+                LastName = "cus1",
+                Address = "ad1",
+                PhoneNumber = "0669705219"
+            };
+            _mockRepository.Setup(repo => repo.Update(It.IsAny<Customer>())).Verifiable();
+
+            // Act
+            _customerService.UpdateCustomer(_mapper.Map<CustomerDto>(expected));
+
+            // Assert
+            _mockRepository.Verify(repo => repo.Update(It.IsAny<Customer>()), Times.Once);
+
+        }
+
 
     }
 }
