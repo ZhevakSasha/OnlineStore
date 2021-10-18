@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
+using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using OnlineStore.BusinessLogic;
+using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.RepositoryPatterns;
@@ -22,7 +21,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
         private IMapper _mapper;
 
-
         [SetUp]
         public void Setup()
         {
@@ -36,7 +34,7 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
         }
 
         [Test]
-        public void GetAllCustomers_ReturnsAIEnumerable<CustomerDto>()
+        public void GetAllCustomers_ReturnsAIEnumerableCustomersDto()
         {
             // Arrange
             _mockRepository.Setup(repo => repo.GetList()).Returns(GetTestCustomers());
@@ -45,7 +43,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             var result = _customerService.GetAllCustomers();
 
             // Assert
-
             Assert.AreEqual(GetTestCustomers().Count(),result.Count());
 
         }
@@ -60,6 +57,53 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             };
             return customers;
         }
+
+        [Test]
+        public void GetCustomerById_ReturnsCustomerDtoById()
+        {
+            // Arrange
+            const int arbitraryId = 1;
+            var expected = new Customer()
+            {
+                Id = arbitraryId,
+                FirstName = "c",
+                LastName = "cus1",
+                Address = "ad1",
+                PhoneNumber = "0669705219"
+            };
+            _mockRepository.Setup(repo => repo.GetEntity(arbitraryId)).Returns(expected);
+
+            // Act
+            var result = _customerService.FindCustomerById(arbitraryId);
+
+            // Assert
+            result.Should().BeEquivalentTo(_mapper.Map<CustomerDto>(expected));
+        }
+
+        [Test]
+        public void CreateCustomer_ReturnsCreatedCustomerDto()
+        {
+            // Arrange
+            const int arbitraryId = 1;
+            var expected = new Customer()
+            {
+                Id = arbitraryId,
+                FirstName = "c",
+                LastName = "cus1",
+                Address = "ad1",
+                PhoneNumber = "0669705219"
+            };
+            _mockRepository.Setup(repo => repo.Create(expected));
+
+            // Act
+            _customerService.CreateCustomer(_mapper.Map<CustomerDto>(expected));
+
+
+            // Assert
+            _mockRepository.Verify(repo => repo.Create(expected));
+
+        }
+        
 
     }
 }

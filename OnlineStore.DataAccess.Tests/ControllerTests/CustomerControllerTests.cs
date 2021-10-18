@@ -29,6 +29,7 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
                 cfg.AddProfile(new AutoMapping());
             });
             _mapper = mockMapper.CreateMapper();
+
             _customerController = new CustomerController(_mockService.Object, _mapper);
         }
 
@@ -38,14 +39,13 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             // Arrange
             _mockService.Setup(repo => repo.GetAllCustomers()).Returns(GetTestCustomers());
 
-
             // Act
             var result = _customerController.CustomerTable();
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<IEnumerable<CustomerViewModel>>(viewResult.Model);
-            Assert.Equal(GetTestCustomers().Count, model.Count());
+            Assert.Equal(GetTestCustomers().Count(), model.Count());
         }
 
         private List<CustomerDto> GetTestCustomers()
@@ -54,7 +54,7 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             {
                 new CustomerDto() { Id=1, FirstName="c", LastName="cus1", Address="ad1", PhoneNumber="0669705219"},
                 new CustomerDto() { Id=2, FirstName="c", LastName="cus2", Address="ad2", PhoneNumber="0669705219"},
-                new CustomerDto { Id=3, FirstName="c", LastName="cus3", Address="ad3", PhoneNumber="0669705219"}
+                new CustomerDto() { Id=3, FirstName="c", LastName="cus3", Address="ad3", PhoneNumber="0669705219"}
             };
             return customers;
         }
