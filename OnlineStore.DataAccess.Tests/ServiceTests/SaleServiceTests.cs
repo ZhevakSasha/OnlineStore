@@ -13,14 +13,30 @@ using OnlineStore.MvcApplication;
 
 namespace OnlineStore.DataAccess.Tests.ServiceTests
 {
+    /// <summary>
+    /// Sale service tests.
+    /// </summary>
     public class SaleServiceTests
     {
+
+        /// <summary>
+        /// Sale service object.
+        /// </summary>
         private ISaleService _saleService;
 
+        /// <summary>
+        /// Mock sale repository object.
+        /// </summary>
         private Mock<ISaleRepository> _mockRepository;
 
+        /// <summary>
+        /// Mapper.
+        /// </summary>
         private IMapper _mapper;
 
+        /// <summary>
+        /// Setup method.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -33,6 +49,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             _saleService = new SaleService(_mockRepository.Object, _mapper);
         }
 
+        /// <summary>
+        /// Testing GetAllSales method.
+        /// </summary>
         [Test]
         public void GetAllSales_ReturnsAIEnumerableSalesDto()
         {
@@ -47,6 +66,10 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
         }
 
+        /// <summary>
+        /// Fake GetList method.
+        /// </summary>
+        /// <returns>Sales list</returns>
         private List<Sale> GetTestSales()
         {
             var sales = new List<Sale>
@@ -58,6 +81,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             return sales;
         }
 
+        /// <summary>
+        /// Testing GetSaleById method.
+        /// </summary>
         [Test]
         public void GetSaleById_ReturnsSaleDtoById()
         {
@@ -80,6 +106,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             result.Should().BeEquivalentTo(_mapper.Map<SaleDto>(expected));
         }
 
+        /// <summary>
+        /// Testing CreateSale method.
+        /// </summary>
         [Test]
         public void CreateSale_ChecksTheCallOfCreatingMethod()
         {
@@ -103,6 +132,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
         }
 
+        /// <summary>
+        /// Testing DeleteSale method.
+        /// </summary>
         [Test]
         public void DeleteSale_ChecksTheCallOfDeletingMethod()
         {
@@ -117,6 +149,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             _mockRepository.Verify(repo => repo.Delete(It.IsAny<int>()), Times.Once);
         }
 
+        /// <summary>
+        /// Testing UpdateSale method.
+        /// </summary>
         [Test]
         public void UpdateSale_ChecksTheCallOfUpdateMethod()
         {

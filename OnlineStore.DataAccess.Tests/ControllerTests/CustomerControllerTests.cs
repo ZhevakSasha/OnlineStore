@@ -12,15 +12,30 @@ using OnlineStore.MvcApplication.Models;
 
 namespace OnlineStore.DataAccess.Tests.ControllerTests
 {
+    /// <summary>
+    /// Customer controller tests.
+    /// </summary>
     public class CustomerControllerTests
     {
 
+        /// <summary>
+        /// Mock service object.
+        /// </summary>
         private Mock<ICustomerService> _mockService;
 
+        /// <summary>
+        /// Customer controller object.
+        /// </summary>
         private CustomerController _customerController;
 
+        /// <summary>
+        /// Mapper.
+        /// </summary>
         private IMapper _mapper;
 
+        /// <summary>
+        /// Customer controller constructor.
+        /// </summary>
         public CustomerControllerTests()
         {
             _mockService = new Mock<ICustomerService>();
@@ -33,6 +48,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             _customerController = new CustomerController(_mockService.Object, _mapper);
         }
 
+        /// <summary>
+        /// Customer table View test.
+        /// </summary>
         [Fact]
         public void CustomerTableReturnsAViewResultWithAListOfCustomers()
         {
@@ -48,6 +66,10 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             Assert.Equal(GetTestCustomers().Count(), model.Count());
         }
 
+        /// <summary>
+        /// Fake GetAllCustomers method.
+        /// </summary>
+        /// <returns>CustomersDto list</returns>
         private List<CustomerDto> GetTestCustomers()
         {
             var customers = new List<CustomerDto>
@@ -59,6 +81,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             return customers;
         }
 
+        /// <summary>
+        /// Testing operability of error model when customer creating.
+        /// </summary>
         [Fact]
         public void AddCustomerReturnsViewResultWithCustomerModel()
         {
@@ -75,6 +100,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             Assert.Equal(It.IsAny<CustomerViewModel>(), viewResult?.Model);
         }
 
+        /// <summary>
+        /// Testing customer creating and redirecting to CustomerTable view.
+        /// </summary>
         [Fact]
         public void AddCutomerReturnsARedirectAndAddsCustomer()
         {
@@ -91,6 +119,10 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             _mockService.Verify(r => r.CreateCustomer(It.IsAny<CustomerDto>()));
         }
 
+       
+        /// <summary>
+        /// Testing customer updating and redirecting to CustomerTable view.
+        /// </summary>
         [Fact]
         public void UpdateCutomerReturnsARedirectAndUpdatesCustomer()
         {
@@ -107,6 +139,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             _mockService.Verify(r => r.UpdateCustomer(It.IsAny<CustomerDto>()));
         }
 
+        /// <summary>
+        /// Testing operability of error model when customer updating.
+        /// </summary>
         [Fact]
         public void UpdateCustomerReturnsViewResultWithCustomerModel()
         {
@@ -122,6 +157,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             Assert.Equal(It.IsAny<CustomerViewModel>(), viewResult?.Model);
         }
 
+        /// <summary>
+        /// Testing customer deleting and redirecting to CustomerTable view.
+        /// </summary>
         [Fact]
         public void DeleteCutomerReturnsARedirectAndDeletesCustomer()
         {

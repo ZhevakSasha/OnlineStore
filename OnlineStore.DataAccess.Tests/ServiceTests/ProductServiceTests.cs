@@ -13,14 +13,30 @@ using OnlineStore.MvcApplication;
 
 namespace OnlineStore.DataAccess.Tests.ServiceTests
 {
+    /// <summary>
+    /// Product service tests.
+    /// </summary>
     public class ProductServiceTests
     {
+
+        /// <summary>
+        /// Product service object.
+        /// </summary>
         private IProductService _productService;
 
+        /// <summary>
+        /// Mock product repository object.
+        /// </summary>
         private Mock<IProductRepository> _mockRepository;
 
+        /// <summary>
+        /// Mapper.
+        /// </summary>
         private IMapper _mapper;
 
+        /// <summary>
+        /// Setup method.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -33,6 +49,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             _productService = new ProductService(_mockRepository.Object, _mapper);
         }
 
+        /// <summary>
+        /// Testing GetAllProducts method.
+        /// </summary>
         [Test]
         public void GetAllProducts_ReturnsAIEnumerableProductsDto()
         {
@@ -47,6 +66,10 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
         }
 
+        /// <summary>
+        /// Fake GetList method.
+        /// </summary>
+        /// <returns>Products list</returns>
         private List<Product> GetTestProducts()
         {
             var products = new List<Product>
@@ -58,6 +81,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             return products;
         }
 
+        /// <summary>
+        /// Testing GetProductById method.
+        /// </summary>
         [Test]
         public void GetProductById_ReturnsProductDtoById()
         {
@@ -78,6 +104,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             // Assert
             result.Should().BeEquivalentTo(_mapper.Map<ProductDto>(expected));
         }
+        /// <summary>
+        /// Testing CreateProduct method.
+        /// </summary>
 
         [Test]
         public void CreateProduct_ChecksTheCallOfCreatingMethod()
@@ -101,6 +130,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
         }
 
+        /// <summary>
+        /// Testing DeleteProduct method.
+        /// </summary>
         [Test]
         public void DeleteProduct_ChecksTheCallOfDeletingMethod()
         {
@@ -115,6 +147,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             _mockRepository.Verify(repo => repo.Delete(It.IsAny<int>()), Times.Once);
         }
 
+        /// <summary>
+        /// Testing UpdateProduct method.
+        /// </summary>
         [Test]
         public void UpdateProduct_ChecksTheCallOfUpdateMethod()
         {
@@ -134,7 +169,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
             // Assert
             _mockRepository.Verify(repo => repo.Update(It.IsAny<Product>()), Times.Once);
-
         }
     }
 }

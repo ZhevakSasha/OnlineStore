@@ -13,14 +13,30 @@ using OnlineStore.MvcApplication;
 
 namespace OnlineStore.DataAccess.Tests.ServiceTests
 {
+    /// <summary>
+    /// Customer service tests.
+    /// </summary>
     public class CustomerServiceTests
     {
+
+        /// <summary>
+        /// Customer service object.
+        /// </summary>
         private ICustomerService _customerService;
 
+        /// <summary>
+        /// Mock customer repository object.
+        /// </summary>
         private Mock<ICustomerRepository> _mockRepository;
 
+        /// <summary>
+        /// Mapper.
+        /// </summary>
         private IMapper _mapper;
 
+        /// <summary>
+        /// Setup method.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -33,6 +49,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             _customerService = new CustomerService(_mockRepository.Object, _mapper);
         }
 
+        /// <summary>
+        /// Testing GetAllCustomers method.
+        /// </summary>
         [Test]
         public void GetAllCustomers_ReturnsAIEnumerableCustomersDto()
         {
@@ -47,6 +66,10 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
         }
 
+        /// <summary>
+        /// Fake GetList method.
+        /// </summary>
+        /// <returns>Customers list</returns>
         private List<Customer> GetTestCustomers()
         {
             var customers = new List<Customer>
@@ -58,6 +81,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             return customers;
         }
 
+        /// <summary>
+        /// Testing GetCustomerById method.
+        /// </summary>
         [Test]
         public void GetCustomerById_ReturnsCustomerDtoById()
         {
@@ -80,6 +106,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             result.Should().BeEquivalentTo(_mapper.Map<CustomerDto>(expected));
         }
 
+        /// <summary>
+        /// Testing CreateCustomer method.
+        /// </summary>
         [Test]
         public void CreateCustomer_ChecksTheCallOfCreatingMethod()
         {
@@ -103,6 +132,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
         }
 
+        /// <summary>
+        /// Testing DeleteCustomer method.
+        /// </summary>
         [Test]
         public void DeleteCustomer_ChecksTheCallOfDeletingMethod()
         {
@@ -117,6 +149,9 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             _mockRepository.Verify(repo => repo.Delete(It.IsAny<int>()), Times.Once);
         }
 
+        /// <summary>
+        /// Testing UpdateCustomer method.
+        /// </summary>
         [Test]
         public void UpdateCustomer_ChecksTheCallOfUpdateMethod()
         {
@@ -137,9 +172,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
             // Assert
             _mockRepository.Verify(repo => repo.Update(It.IsAny<Customer>()), Times.Once);
-
         }
-
-
     }
 }

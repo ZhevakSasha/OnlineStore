@@ -86,6 +86,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
             //Act
             _sale.Create(expected);
+            _sale.Save();
             var actual = _sale.GetEntity(concreteId);
 
             //Assert

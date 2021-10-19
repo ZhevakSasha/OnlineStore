@@ -17,6 +17,7 @@ namespace OnlineStore.MvcApplication.Controllers
     /// </summary>
     public class SaleController : Controller
     {
+
         /// <summary>
         /// Sale service.
         /// </summary>

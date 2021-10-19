@@ -12,19 +12,40 @@ using OnlineStore.MvcApplication.Models;
 
 namespace OnlineStore.DataAccess.Tests.ControllerTests
 {
+    /// <summary>
+    /// Sale controller tests.
+    /// </summary>
     public class SaleControllerTests
     {
 
+        /// <summary>
+        /// Mock sale service object.
+        /// </summary>
         private Mock<ISaleService> _mockSaleService;
 
+        /// <summary>
+        /// Mock product service object.
+        /// </summary>
         private Mock<IProductService> _mockProductService;
 
+        /// <summary>
+        /// Mock customer service object.
+        /// </summary>
         private Mock<ICustomerService> _mockCustomerService;
 
+        /// <summary>
+        /// Sale controller object.
+        /// </summary>
         private SaleController _saleController;
 
+        /// <summary>
+        /// Mapper.
+        /// </summary>
         private IMapper _mapper;
 
+        /// <summary>
+        /// Sale controller constructor.
+        /// </summary>
         public SaleControllerTests()
         {
             _mockSaleService = new Mock<ISaleService>();
@@ -39,6 +60,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             _saleController = new SaleController(_mockSaleService.Object, _mockProductService.Object, _mockCustomerService.Object, _mapper);
         }
 
+        /// <summary>
+        /// Sale table View test.
+        /// </summary>
         [Fact]
         public void SaleTableReturnsAViewResultWithAListOfSales()
         {
@@ -54,6 +78,10 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             Assert.Equal(GetTestSales().Count(), model.Count());
         }
 
+        /// <summary>
+        /// Fake GetAllSales method.
+        /// </summary>
+        /// <returns>SalesDto list</returns>
         private List<SaleDto> GetTestSales()
         {
             var sales = new List<SaleDto>
@@ -65,6 +93,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             return sales;
         }
 
+        /// <summary>
+        /// Testing operability of error model when sale creating.
+        /// </summary>
         [Fact]
         public void AddSaleReturnsViewResultWithSaleModel()
         {
@@ -81,6 +112,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             Assert.Equal(viewResult?.Model, newSale);
         }
 
+        /// <summary>
+        /// Testing sale creating and redirecting to SaleTable view.
+        /// </summary>
         [Fact]
         public void AddCutomerReturnsARedirectAndAddsSale()
         {
@@ -97,6 +131,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             _mockSaleService.Verify(r => r.CreateSale(It.IsAny<SaleDto>()));
         }
 
+        /// <summary>
+        /// Testing sale updating and redirecting to SaleTable view.
+        /// </summary>
         [Fact]
         public void UpdateCutomerReturnsARedirectAndUpdatesSale()
         {
@@ -113,6 +150,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             _mockSaleService.Verify(r => r.UpdateSale(It.IsAny<SaleDto>()));
         }
 
+        /// <summary>
+        /// Testing operability of error model when sale updating.
+        /// </summary>
         [Fact]
         public void UpdateSaleReturnsViewResultWithSaleModel()
         {
@@ -128,6 +168,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             Assert.Equal(newSale, viewResult?.Model);
         }
 
+        /// <summary>
+        /// Testing sale deleting and redirecting to SaleTable view.
+        /// </summary>
         [Fact]
         public void DeleteCutomerReturnsARedirectAndDeletesSale()
         {

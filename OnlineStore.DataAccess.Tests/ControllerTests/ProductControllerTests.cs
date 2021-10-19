@@ -12,15 +12,30 @@ using OnlineStore.MvcApplication.Models;
 
 namespace OnlineStore.DataAccess.Tests.ControllerTests
 {
+    /// <summary>
+    /// Product controller tests.
+    /// </summary>
     public class ProductControllerTests
     {
 
+        /// <summary>
+        /// Mock service object.
+        /// </summary>
         private Mock<IProductService> _mockService;
 
+        /// <summary>
+        /// Product controller object.
+        /// </summary>
         private ProductController _productController;
 
+        /// <summary>
+        /// Mapper.
+        /// </summary>
         private IMapper _mapper;
 
+        /// <summary>
+        /// Product controller constructor.
+        /// </summary>
         public ProductControllerTests()
         {
             _mockService = new Mock<IProductService>();
@@ -33,6 +48,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             _productController = new ProductController(_mockService.Object, _mapper);
         }
 
+        /// <summary>
+        /// Product table View test.
+        /// </summary>
         [Fact]
         public void ProductTableReturnsAViewResultWithAListOfProducts()
         {
@@ -48,6 +66,10 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             Assert.Equal(GetTestProducts().Count(), model.Count());
         }
 
+        /// <summary>
+        /// Fake GetAllProducts method.
+        /// </summary>
+        /// <returns>ProductsDto list</returns>
         private List<ProductDto> GetTestProducts()
         {
             var products = new List<ProductDto>
@@ -59,6 +81,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             return products;
         }
 
+        /// <summary>
+        /// Testing operability of error model when product creating.
+        /// </summary>
         [Fact]
         public void AddProductReturnsViewResultWithProductModel()
         {
@@ -75,6 +100,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             Assert.Equal(It.IsAny<ProductViewModel>(), viewResult?.Model);
         }
 
+        /// <summary>
+        /// Testing product creating and redirecting to ProductTable view.
+        /// </summary>
         [Fact]
         public void AddCutomerReturnsARedirectAndAddsProduct()
         {
@@ -91,6 +119,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             _mockService.Verify(r => r.CreateProduct(It.IsAny<ProductDto>()));
         }
 
+        /// <summary>
+        /// Testing product updating and redirecting to ProductTable view.
+        /// </summary>
         [Fact]
         public void UpdateCutomerReturnsARedirectAndUpdatesProduct()
         {
@@ -107,6 +138,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             _mockService.Verify(r => r.UpdateProduct(It.IsAny<ProductDto>()));
         }
 
+        /// <summary>
+        /// Testing operability of error model when product updating.
+        /// </summary>
         [Fact]
         public void UpdateProductReturnsViewResultWithProductModel()
         {
@@ -122,6 +156,9 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             Assert.Equal(It.IsAny<ProductViewModel>(), viewResult?.Model);
         }
 
+        /// <summary>
+        /// Testing product deleting and redirecting to ProductTable view.
+        /// </summary>
         [Fact]
         public void DeleteCutomerReturnsARedirectAndDeletesProduct()
         {
