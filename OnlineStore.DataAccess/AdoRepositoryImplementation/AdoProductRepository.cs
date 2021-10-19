@@ -15,13 +15,12 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// The connection string that includes the source database name, 
         /// and other parameters needed to establish the initial connection. 
         /// </summary>
+        /// <param name="connectionString"></param>
+        private readonly string _connectionString;
 
         /// <summary>
         /// Constructor for private string field _connectionString
         /// </summary>
-        /// <param name="connectionString"></param>
-        private readonly string _connectionString;
-
         public AdoProductRepository(string connectionString)
         {
             _connectionString = connectionString;
@@ -125,11 +124,11 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// Deletes an object of Product class.
         /// </summary>
         /// <param name="product">Takes an object of Product class.</param>
-        public void Delete(Product product)
+        public void Delete(int Id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand($"DELETE FROM Products where Id = {product.Id}", connection);
+                var command = new SqlCommand($"DELETE FROM Products where Id = {Id}", connection);
                 connection.Open();
                 command.ExecuteNonQuery();
             }

@@ -57,7 +57,7 @@ namespace OnlineStore.DataAccess.Tests
                 Id = concreteId,
                 FirstName = "Sasha",
                 LastName = "Zhevak",
-                Addres = "Main Street",
+                Address = "Main Street",
                 PhoneNumber = "0669705219"
             };
 
@@ -81,7 +81,7 @@ namespace OnlineStore.DataAccess.Tests
                 Id = concreteId,
                 FirstName = "Anton",
                 LastName = "Ivanov",
-                Addres = "52 Street",
+                Address = "52 Street",
                 PhoneNumber = "0662305345"
             };
 
@@ -106,14 +106,14 @@ namespace OnlineStore.DataAccess.Tests
                 Id = concreteId,
                 FirstName = "Anton",
                 LastName = "Ivanov",
-                Addres = "52 Street",
+                Address = "52 Street",
                 PhoneNumber = "0662305345"
             };
             //Ñreating an empty object. 
             var expected = new Customer();
 
             //Act
-            _ñustomer.Delete(arbitraryCustomer);
+            _ñustomer.Delete(concreteId);
             var actual = _ñustomer.GetEntity(concreteId);
 
             //Assert
@@ -133,7 +133,7 @@ namespace OnlineStore.DataAccess.Tests
                 Id = concreteId,
                 FirstName = "Andrew2",
                 LastName = "Korolenko",
-                Addres = "52 Street",
+                Address = "52 Street",
                 PhoneNumber = "0669705345"
             };
             var expected = arbitraryUpdatedCustomer;
@@ -163,7 +163,7 @@ namespace OnlineStore.DataAccess.Tests
                     Id = 1,
                     FirstName = "Sasha",
                     LastName = "Zhevak",
-                    Addres = "Main Street",
+                    Address = "Main Street",
                     PhoneNumber = "0669705219"
                 },
                 new Customer()
@@ -171,7 +171,7 @@ namespace OnlineStore.DataAccess.Tests
                     Id = 2,
                     FirstName = "Andrew",
                     LastName = "Korolenko",
-                    Addres = "52 Street",
+                    Address = "52 Street",
                     PhoneNumber = "0669705345"
                 }           
             };

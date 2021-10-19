@@ -1,0 +1,50 @@
+﻿@model SaleViewModel
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = @Localizer["SaleCreating"];
+}
+
+<h1>@Localizer["SaleCreating"]</h1>
+
+<h4> @Localizer["Sale"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SaleCreating">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <select asp-for="ProductId" asp-items="ViewBag.ProductNames" class="form-control">
+                    <option value="" selected hidden style="display:none">@Localizer["Select product"]</option>
+                </select>
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label>
+                <select asp-for="CustomerId" asp-items="ViewBag.CustomerNames" class="form-control">
+                    <option value="" selected hidden style="display:none">@Localizer["Select customer"]</option>
+</select>
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfSale" class="control-label"></label>
+                <input asp-for="DateOfSale" class="form-control" />
+                <span asp-validation-for="DateOfSale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" value="1" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="@Localizer["Create"]" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="SaleTable">@Localizer["Back to List"]</a>
+</div>
+

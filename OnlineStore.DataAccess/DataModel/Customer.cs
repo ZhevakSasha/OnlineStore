@@ -20,7 +20,7 @@ namespace OnlineStore.DataAccess.DataModel
         /// <summary>
         /// Property  for storing customer addres.
         /// </summary>
-        public string Addres { get; set; }
+        public string Address { get; set; }
 
         /// <summary>
         /// Property  for storing customer phone number.

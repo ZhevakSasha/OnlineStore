@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ProductViewModel>
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "ProductTable";
+}
+
+<h1>@Localizer["ProductTable"]</h1>
+
+
+<table class="table table-bordered table-sm table-striped">
+    <thead>
+        <tr class="text-center">
+
+            <th>
+                @Localizer[@Html.DisplayNameFor(model => model.ProductName)]
+            </th>
+            <th>
+                @Localizer[@Html.DisplayNameFor(model => model.Price)]
+            </th>
+            <th>
+                @Localizer[@Html.DisplayNameFor(model => model.UnitOfMeasurement)]
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitOfMeasurement)
+                    </td>
+
+                    <td>
+                        <a asp-action="ProductUpdating" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">@Localizer["Edit"]</a>
+                        <a asp-action="ProductDeleting" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">@Localizer["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">@Localizer["NoRecordsFound"]</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<p align="right">
+    <a asp-action="ProductCreating" class="btn btn-sm btn-secondary">@Localizer["Create New"]</a>
+</p>

@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using OnlineStore.DataAccess.DataModel;
-using Microsoft.Extensions.Configuration;
 using FluentAssertions;
 using System.Collections.Generic;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
@@ -101,7 +100,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             Product expected = null;
 
             //Act
-            _product.Delete(arbitraryProduct);
+            _product.Delete(arbitraryId);
             _product.Save();
             var actual = _product.GetEntity(arbitraryId);
 
@@ -177,7 +176,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             {
                 new Product()
                 {
-                    Id = 1,
                     ProductName = "Keyboard",
                     Price = 200,
                     UnitOfMeasurement = "pc."
@@ -185,7 +183,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
                 new Product()
                 {
-                    Id = 2,
                     ProductName = "Mouse",
                     Price = 120,
                     UnitOfMeasurement = "pc."

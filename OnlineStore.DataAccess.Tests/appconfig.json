@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TestOnlineStore;Integrated Security=True"
+    "DefaultConnection": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TestOnlineStore1;Integrated Security=True"
   },
   "appSettings": {
     "dacpacFilePath": "..\\..\\..\\..\\OnlineStore.DataBase\\bin\\Debug\\OnlineStore.DataBase.dacpac"

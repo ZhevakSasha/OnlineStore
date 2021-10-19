@@ -1,12 +1,10 @@
 ﻿using NUnit.Framework;
 using OnlineStore.DataAccess.DataModel;
-using Microsoft.Extensions.Configuration;
 using FluentAssertions;
 using System.Collections.Generic;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 using Microsoft.EntityFrameworkCore;
 using OnlineStore.DataAccess.DataAccess;
-using System.Linq;
 
 namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 {
@@ -50,7 +48,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 Id = concreteId,
                 FirstName = "Sasha",
                 LastName = "Zhevak",
-                Addres = "Main Street",
+                Address = "Main Street",
                 PhoneNumber = "0669705219"
             };
 
@@ -76,7 +74,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             {
                 FirstName = "Anton",
                 LastName = "Ivanov",
-                Addres = "52 Street",
+                Address = "52 Street",
                 PhoneNumber = "0662305345"
             };
 
@@ -104,7 +102,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             Customer expected = null;
 
             //Act
-            _customer.Delete(arbitraryCustomer);
+            _customer.Delete(arbitraryId);
             _customer.Save();
             var actual = _customer.GetEntity(arbitraryId);
 
@@ -152,7 +150,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                     Id = 1,
                     FirstName = "Sasha",
                     LastName = "Zhevak",
-                    Addres = "Main Street",
+                    Address = "Main Street",
                     PhoneNumber = "0669705219"
                 },
                 new Customer()
@@ -160,7 +158,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                     Id = 2,
                     FirstName = "Andrew",
                     LastName = "Korolenko",
-                    Addres = "52 Street",
+                    Address = "52 Street",
                     PhoneNumber = "0669705345"
                 }
             };
@@ -181,19 +179,17 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             {
                 new Customer()
                 {
-                    Id = 1,
                     FirstName = "Sasha",
                     LastName = "Zhevak",
-                    Addres = "Main Street",
+                    Address = "Main Street",
                     PhoneNumber = "0669705219"
                 },
 
                 new Customer()
                 {
-                    Id = 2,
                     FirstName = "Andrew",
                     LastName = "Korolenko",
-                    Addres = "52 Street",
+                    Address = "52 Street",
                     PhoneNumber = "0669705345"
                 }
             };

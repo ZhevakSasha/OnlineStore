@@ -6,7 +6,7 @@ namespace OnlineStore.DataAccess.RepositoryPatterns
     /// General interface repository.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    interface IRepository<T> 
+    public interface IRepository<T> 
         where T : class
     {
         /// <summary>
@@ -41,7 +41,7 @@ namespace OnlineStore.DataAccess.RepositoryPatterns
         /// Deletes an object of Product class.
         /// </summary>
         /// <param name="product">Takes an object of Product class.</param>
-        void Delete(T item);
+        void Delete(int Id);
 
         void Save();
 

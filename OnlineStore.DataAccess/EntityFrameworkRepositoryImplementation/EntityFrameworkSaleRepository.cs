@@ -1,8 +1,10 @@
-﻿using OnlineStore.DataAccess.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
 {
@@ -38,10 +40,10 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// Deletes an object of Sale class.
         /// </summary>
         /// <param name="sale"></param>
-        public void Delete(Sale sale)
+        public void Delete(int Id)
         {
-            if (sale != null)
-                _context.Sales.Remove(sale);
+            var sale = _context.Sales.First(c => c.Id == Id);
+            _context.Sales.Remove(sale);
         }
 
         /// <summary>
@@ -51,7 +53,13 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Return one object by id.</returns>
         public Sale GetEntity(int Id)
         {
-            return _context.Sales.Find(Id);
+            var  sale = _context
+                .Sales
+                .Where(x => x.Id == Id)
+                .Include(c => c.Customer)
+                .Include(p => p.Product)
+                .SingleOrDefault();
+            return sale;
         }
 
         /// <summary>
@@ -60,7 +68,10 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Returns all objects.</returns>
         public IEnumerable<Sale> GetList()
         {
-            return _context.Sales;
+            return _context
+                .Sales
+                .Include(c=>c.Customer)
+                .Include(p=>p.Product);
         }
 
         /// <summary>

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineStore.DataAccess.DataModel
+﻿namespace OnlineStore.DataAccess.DataModel
 {
     /// <summary>
     /// Data model for Sales a table. 
     /// </summary>
     public class Sale : ModelBase
     {
+
         /// <summary>
         /// Property  for storing product id.
         /// </summary>
@@ -32,12 +29,12 @@ namespace OnlineStore.DataAccess.DataModel
         /// <summary>
         /// Property  for getting product.
         /// </summary>
-        public Product Products { get; set; }
+        public Product Product { get; set; }
 
         /// <summary>
         /// Property  for getting customer.
         /// </summary>
-        public Customer Customers { get; set; }
+        public Customer Customer { get; set; }
 
     }
 }

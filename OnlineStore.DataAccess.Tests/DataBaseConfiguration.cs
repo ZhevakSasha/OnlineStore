@@ -47,7 +47,7 @@ namespace OnlineStore.DataAccess.Tests
             {
                 using (var dacPackage = DacPackage.Load(dacPacPath))
                 {
-                    dacService.Deploy(dacPackage, "TestOnlineStore", true, dacOptions);
+                    dacService.Deploy(dacPackage, "TestOnlineStore1", true, dacOptions);
                 }
             }
             else
@@ -68,7 +68,7 @@ namespace OnlineStore.DataAccess.Tests
                     connection.Open();
                     command.CommandText = @"
                         USE master;
-                        drop database[TestOnlineStore]";
+                        drop database[TestOnlineStore1]";
                     command.ExecuteNonQuery();
                 }
             }

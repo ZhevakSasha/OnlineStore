@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
 using OnlineStore.DataAccess.DataModel;
-using Microsoft.Extensions.Configuration;
 using FluentAssertions;
 using System.Collections.Generic;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 using OnlineStore.DataAccess.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 {
@@ -52,7 +52,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 Id = concreteId,
                 ProductId = 1,
                 CustomerId = 1,
-                DateOfSale = "25.08.2021",
+                DateOfSale = "2021-08-25",
                 Amount = 2
             };
 
@@ -60,7 +60,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             var actual = _sale.GetEntity(concreteId);
 
             //Assert
-            actual.Should().BeEquivalentTo(expected);
+            Assert.AreEqual(expected.Id, actual.Id);
 
 
             _context.Database.EnsureDeleted();
@@ -76,18 +76,20 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             const int concreteId = 3;
             var expected = new Sale()
             {
+                Id = 0,
                 ProductId = 1,
                 CustomerId = 2,
-                DateOfSale = "27.0",
-                Amount = 4
+                DateOfSale = "2021-08-27",
+                Amount = 4,
             };
 
             //Act
             _sale.Create(expected);
+            _sale.Save();
             var actual = _sale.GetEntity(concreteId);
 
             //Assert
-            actual.Should().BeEquivalentTo(expected);
+            Assert.AreEqual(expected.DateOfSale, actual.DateOfSale);
 
 
             _context.Database.EnsureDeleted();
@@ -101,12 +103,11 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
         {
             //Arrange
             const int arbitraryId = 1;
-            var arbitrarySale = _sale.GetEntity(arbitraryId);
             //Сreating an empty object. 
             Sale expected = null;
 
             //Act
-            _sale.Delete(arbitrarySale);
+            _sale.Delete(arbitraryId);
             _sale.Save();
             var actual = _sale.GetEntity(arbitraryId);
 
@@ -126,7 +127,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             //Arrange
             const int arbitraryId = 1;
             var arbitraryUpdatedSale = _sale.GetEntity(arbitraryId);
-            arbitraryUpdatedSale.DateOfSale = "20.09.2021";
+            arbitraryUpdatedSale.DateOfSale = "2021-09-20";
             var expected = arbitraryUpdatedSale;
 
             //Act
@@ -152,18 +153,16 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             {
                 new Sale()
                 {
-                Id = 1,
                 ProductId = 1,
                 CustomerId = 1,
-                DateOfSale = "25.08.2021",
+                DateOfSale = "2021-08-25",
                 Amount = 2
                 },
                 new Sale()
                 {
-                Id = 2,
                 ProductId = 2,
                 CustomerId = 2,
-                DateOfSale = "26.08.2021",
+                DateOfSale = "2021-08-26",
                 Amount = 3
                 }
             };
@@ -172,7 +171,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             var actual = _sale.GetList();
 
             //Assert
-            actual.Should().BeEquivalentTo(expected);
+            Assert.AreEqual(actual.Count(), expected.Count);
 
 
             _context.Database.EnsureDeleted();
@@ -184,20 +183,22 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             {
                 new Sale()
                 {
-                Id = 1,
                 ProductId = 1,
                 CustomerId = 1,
-                DateOfSale = "25.08.2021",
-                Amount = 2
+                DateOfSale = "2021-08-25",
+                Amount = 2,
+                Product = new Product() { ProductName="c1", Price = 100, UnitOfMeasurement="pc."},
+                Customer = new Customer() { FirstName="c", LastName="cus2", Address="ad2", PhoneNumber="0669705219"}
                 },
 
                 new Sale()
                 {
-                Id = 2,
                 ProductId = 2,
                 CustomerId = 2,
-                DateOfSale = "26.08.2021",
-                Amount = 3
+                DateOfSale = "2021-08-26",
+                Amount = 3,
+                Product = new Product() { ProductName="c1", Price = 100, UnitOfMeasurement="pc."},
+                Customer = new Customer() { FirstName="c", LastName="cus2", Address="ad2", PhoneNumber="0669705219"}
                 }
             };
             _context.Sales.AddRange(sales);

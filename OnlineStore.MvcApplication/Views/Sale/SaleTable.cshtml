@@ -1,0 +1,76 @@
+﻿@model IEnumerable<SaleViewModel>
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "SaleTable";
+}
+
+<h1>@Localizer["SaleTable"]</h1>
+
+<form method="get" asp-action="SaleTable">
+    <p>
+        <input type="search" value="@ViewData["GetDetails"]" name="searchString" style="width:300px">
+
+    </p>
+    <p>
+        <input type="submit" value=@Localizer["Search"] class="btn btn-sm btn-primary">
+        <a asp-action="SaleTable" class="btn btn-sm btn-primary">@Localizer["Clean"]</a>
+    </p>
+</form>
+
+
+<table class="table table-bordered table-sm table-striped">
+    <thead> 
+        <tr class="text-center">
+            <th>
+                @Localizer[@Html.DisplayNameFor(model => model.ProductName)]
+            </th>
+            <th>
+                @Localizer[@Html.DisplayNameFor(model => model.CustomerName)]
+            </th>
+            <th>
+                @Localizer[@Html.DisplayNameFor(model => model.DateOfSale)]
+            </th>
+            <th>
+                @Localizer[@Html.DisplayNameFor(model => model.Amount)]
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfSale)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        <a asp-action="SaleUpdating" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">@Localizer["Edit"]</a>
+                        <a asp-action="SaleDeleting"  asp-route-id="@item.Id" class="btn btn-sm btn-secondary">@Localizer["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        }
+            else 
+                {
+            <tr>
+                <td colspan="5" class="text-center">@Localizer["NoRecordsFound"]</td>
+            </tr>
+                }
+    </tbody>
+</table>
+
+<p align="right">
+    <a asp-action="SaleCreating" class="btn btn-sm btn-secondary">@Localizer["Create New"]</a>
+</p>
