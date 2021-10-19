@@ -13,7 +13,6 @@ namespace OnlineStore.BusinessLogic
     /// </summary>
     public class ProductService : IProductService
     {
-
         /// <summary>
         /// Product repository.
         /// </summary>

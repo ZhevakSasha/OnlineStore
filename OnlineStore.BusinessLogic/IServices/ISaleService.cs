@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic.IServices
 {
-
     /// <summary>
     /// SaleService interface.
     /// </summary>

@@ -79,7 +79,6 @@ namespace OnlineStore.MvcApplication
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-          
 
             app.UseRequestLocalization();
 
@@ -97,8 +96,6 @@ namespace OnlineStore.MvcApplication
                     pattern: "{controller=Sale}/{action=SaleTable}/{id?}");
                 endpoints.MapControllers();
             });
-
-            
         }
     }
 }

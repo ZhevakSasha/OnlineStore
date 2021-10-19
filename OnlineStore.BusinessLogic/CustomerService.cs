@@ -13,7 +13,6 @@ namespace OnlineStore.BusinessLogic
     /// </summary>
     public class CustomerService : ICustomerService
     {
-
         /// <summary>
         /// Customer repository.
         /// </summary>

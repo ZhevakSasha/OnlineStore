@@ -13,7 +13,6 @@ namespace OnlineStore.BusinessLogic
     /// </summary>
     public class SaleService : ISaleService
     {
-
         /// <summary>
         /// Sale repository.
         /// </summary>

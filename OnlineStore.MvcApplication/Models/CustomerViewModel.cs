@@ -4,7 +4,6 @@ namespace OnlineStore.MvcApplication.Models
 {
     public class CustomerViewModel
     {
-
         /// <summary>
         /// Property  for storing customer id.
         /// </summary>
