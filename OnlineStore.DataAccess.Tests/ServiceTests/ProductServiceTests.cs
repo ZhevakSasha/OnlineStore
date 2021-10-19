@@ -102,10 +102,10 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
             // Assert
             result.Should().BeEquivalentTo(_mapper.Map<ProductDto>(expected));
         }
+
         /// <summary>
         /// Testing CreateProduct method.
         /// </summary>
-
         [Test]
         public void CreateProduct_ChecksTheCallOfCreatingMethod()
         {
