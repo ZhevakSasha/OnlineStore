@@ -81,7 +81,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 CustomerId = 2,
                 DateOfSale = "2021-08-27",
                 Amount = 4,
-
             };
 
             //Act
@@ -139,6 +138,7 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             //Assert
             actual.Should().BeEquivalentTo(expected);
 
+
             _context.Database.EnsureDeleted();
         }
 
@@ -153,7 +153,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             {
                 new Sale()
                 {
-               
                 ProductId = 1,
                 CustomerId = 1,
                 DateOfSale = "2021-08-25",
@@ -161,7 +160,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
                 },
                 new Sale()
                 {
-               
                 ProductId = 2,
                 CustomerId = 2,
                 DateOfSale = "2021-08-26",

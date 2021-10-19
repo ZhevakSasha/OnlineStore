@@ -17,7 +17,6 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
     /// </summary>
     public class ProductControllerTests
     {
-
         /// <summary>
         /// Mock service object.
         /// </summary>

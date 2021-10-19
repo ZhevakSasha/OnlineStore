@@ -18,7 +18,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
     /// </summary>
     public class ProductServiceTests
     {
-
         /// <summary>
         /// Product service object.
         /// </summary>
@@ -63,7 +62,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
             // Assert
             Assert.AreEqual(GetTestProducts().Count(), result.Count());
-
         }
 
         /// <summary>
@@ -127,7 +125,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
             // Assert
             _mockRepository.Verify(repo => repo.Create(It.IsAny<Product>()), Times.Once);
-
         }
 
         /// <summary>

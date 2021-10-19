@@ -89,6 +89,5 @@ namespace OnlineStore.BusinessLogic
             _sale.Delete(id);
             _sale.Save();
         }
-
     }
 }

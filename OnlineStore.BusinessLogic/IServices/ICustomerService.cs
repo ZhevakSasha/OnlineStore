@@ -44,6 +44,5 @@ namespace OnlineStore.BusinessLogic.IServices
         /// </summary>
         /// <returns>Returns all customer names from cusomer table</returns>
         IEnumerable<SelectDto> GetAllCustomerNames();
-
     }
 }

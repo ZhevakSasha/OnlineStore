@@ -18,7 +18,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
     /// </summary>
     public class SaleServiceTests
     {
-
         /// <summary>
         /// Sale service object.
         /// </summary>
@@ -63,7 +62,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
             // Assert
             Assert.AreEqual(GetTestSales().Count(), result.Count());
-
         }
 
         /// <summary>
@@ -129,7 +127,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
             // Assert
             _mockRepository.Verify(repo => repo.Create(It.IsAny<Sale>()), Times.Once);
-
         }
 
         /// <summary>
@@ -172,7 +169,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
             // Assert
             _mockRepository.Verify(repo => repo.Update(It.IsAny<Sale>()), Times.Once);
-
         }
     }
 }

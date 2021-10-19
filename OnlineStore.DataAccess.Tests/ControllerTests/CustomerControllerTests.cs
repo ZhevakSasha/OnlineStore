@@ -17,7 +17,6 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
     /// </summary>
     public class CustomerControllerTests
     {
-
         /// <summary>
         /// Mock service object.
         /// </summary>
@@ -118,7 +117,6 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
             Assert.Equal("CustomerTable", redirectToActionResult.ActionName);
             _mockService.Verify(r => r.CreateCustomer(It.IsAny<CustomerDto>()));
         }
-
        
         /// <summary>
         /// Testing customer updating and redirecting to CustomerTable view.

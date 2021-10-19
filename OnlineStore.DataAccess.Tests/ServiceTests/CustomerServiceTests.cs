@@ -18,7 +18,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
     /// </summary>
     public class CustomerServiceTests
     {
-
         /// <summary>
         /// Customer service object.
         /// </summary>
@@ -63,7 +62,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
             // Assert
             Assert.AreEqual(GetTestCustomers().Count(),result.Count());
-
         }
 
         /// <summary>
@@ -129,7 +127,6 @@ namespace OnlineStore.DataAccess.Tests.ServiceTests
 
             // Assert
             _mockRepository.Verify(repo => repo.Create(It.IsAny<Customer>()), Times.Once);
-
         }
 
         /// <summary>
