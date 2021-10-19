@@ -179,7 +179,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             {
                 new Customer()
                 {
-                    Id = 1,
                     FirstName = "Sasha",
                     LastName = "Zhevak",
                     Address = "Main Street",
@@ -188,7 +187,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
                 new Customer()
                 {
-                    Id = 2,
                     FirstName = "Andrew",
                     LastName = "Korolenko",
                     Address = "52 Street",

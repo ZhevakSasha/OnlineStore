@@ -176,7 +176,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
             {
                 new Product()
                 {
-                    Id = 1,
                     ProductName = "Keyboard",
                     Price = 200,
                     UnitOfMeasurement = "pc."
@@ -184,7 +183,6 @@ namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 
                 new Product()
                 {
-                    Id = 2,
                     ProductName = "Mouse",
                     Price = 120,
                     UnitOfMeasurement = "pc."
