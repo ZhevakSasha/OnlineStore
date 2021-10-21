@@ -11,6 +11,7 @@ namespace OnlineStore.IdentityApi
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.HasDefaultSchema("idt");
             base.OnModelCreating(builder);
         }
     }

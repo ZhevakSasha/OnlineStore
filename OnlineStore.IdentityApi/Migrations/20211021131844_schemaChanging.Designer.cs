@@ -10,13 +10,14 @@ using OnlineStore.IdentityApi;
 namespace OnlineStore.IdentityApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211020120251_Initial")]
-    partial class Initial
+    [Migration("20211021131844_schemaChanging")]
+    partial class schemaChanging
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("idt")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
