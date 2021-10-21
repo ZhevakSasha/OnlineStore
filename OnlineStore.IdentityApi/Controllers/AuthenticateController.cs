@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,7 @@ namespace OnlineStore.IdentityApi.Controllers
 
         [HttpPost]
         [Route("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await userManager.FindByNameAsync(model.Username);
@@ -70,6 +72,7 @@ namespace OnlineStore.IdentityApi.Controllers
 
         [HttpPost]
         [Route("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
@@ -84,8 +87,14 @@ namespace OnlineStore.IdentityApi.Controllers
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-
+            {
+                string errorDescription= "";
+                foreach (var error in result.Errors)
+                {
+                    errorDescription = errorDescription + " " +  error.Description;
+                }
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = errorDescription });
+            }
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
