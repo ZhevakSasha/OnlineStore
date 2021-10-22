@@ -45,6 +45,22 @@ namespace OnlineStore.IdentityApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895711",
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "c7b013f0-5201-4317-abd8-c211f91b7330",
+                            ConcurrencyStamp = "2",
+                            Name = "User",
+                            NormalizedName = "User"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -130,6 +146,13 @@ namespace OnlineStore.IdentityApi.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895711"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -214,6 +237,21 @@ namespace OnlineStore.IdentityApi.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "87b79197-5da3-43ea-a765-e22d83cdf2d1",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "7ddff3b4-7bfe-47ed-bfeb-e2761b7b4f84",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
