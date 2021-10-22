@@ -70,8 +70,6 @@ namespace OnlineStore.IdentityApi.Controllers
             return Unauthorized();
         }
 
-
-
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
@@ -99,7 +97,5 @@ namespace OnlineStore.IdentityApi.Controllers
             }
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
-
-      
     }
 }

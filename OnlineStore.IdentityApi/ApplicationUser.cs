@@ -8,5 +8,6 @@ namespace OnlineStore.IdentityApi
 {
     public class ApplicationUser : IdentityUser
     {
+        public string PetName { get; set; }
     }
 }
