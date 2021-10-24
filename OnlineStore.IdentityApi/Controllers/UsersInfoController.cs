@@ -21,10 +21,11 @@ namespace OnlineStore.IdentityApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route("info")]
-        public IEnumerable<ApplicationUser> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
-            return _context.Users;
+            return Ok(_context.Users);
         }
 
     }

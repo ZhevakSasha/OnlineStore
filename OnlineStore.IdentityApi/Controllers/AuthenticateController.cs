@@ -88,11 +88,8 @@ namespace OnlineStore.IdentityApi.Controllers
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
-                string errorDescription= "";
-                foreach (var error in result.Errors)
-                {
-                    errorDescription = errorDescription + " " +  error.Description;
-                }
+                var errorDescription = String.Join(' ', result.Errors.Select(e => e.Description));
+
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = errorDescription });
             }
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
