@@ -92,6 +92,7 @@ namespace OnlineStore.IdentityApi.Controllers
 
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = errorDescription });
             }
+            userManager.AddToRoleAsync(user, "User").Wait();
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
     }

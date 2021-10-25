@@ -14,7 +14,7 @@ namespace OnlineStore.IdentityApi
         {
             builder.HasDefaultSchema("idt");
             base.OnModelCreating(builder);
-            this.SeedUsers(builder);
+            //this.SeedUsers(builder);
             this.SeedRoles(builder);
             this.SeedUserRoles(builder);
         }
