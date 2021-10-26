@@ -14,5 +14,8 @@ namespace OnlineStore.MvcApplication.Models
         [JsonProperty("expiration")]
         public string Expiration { get; set; }
 
+        [JsonProperty("status")]
+        public int Status { get; set; }
+
     }
 }

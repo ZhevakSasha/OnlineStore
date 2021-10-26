@@ -77,7 +77,7 @@ namespace OnlineStore.IdentityApi.Controllers
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "UserError", Message = "User already exists!" });
 
             ApplicationUser user = new ApplicationUser()
             {
@@ -90,7 +90,7 @@ namespace OnlineStore.IdentityApi.Controllers
             {
                 var errorDescription = String.Join(' ', result.Errors.Select(e => e.Description));
 
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = errorDescription });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "PasswordError", Message = errorDescription });
             }
             userManager.AddToRoleAsync(user, "User").Wait();
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });

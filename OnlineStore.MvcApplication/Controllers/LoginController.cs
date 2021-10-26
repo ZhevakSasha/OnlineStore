@@ -36,7 +36,11 @@ namespace OnlineStore.MvcApplication.Controllers
                         string apiResponse = await response.Content.ReadAsStringAsync();
                         
                         receivedReservation = JsonConvert.DeserializeObject<ResponceViewModel>(apiResponse);  
-                      
+                        if(receivedReservation.Status == 401)
+                        {
+                            ViewBag.ErrorMessage = "Unauthorized! Username or password incorrect!";
+                            return View();
+                        }
                     }
                 }
                 return RedirectToAction("CustomerTable", "Customer");

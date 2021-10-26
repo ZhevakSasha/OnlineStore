@@ -25,7 +25,7 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var receivedReservation = new RegisterViewModel();
+                var receivedReservation = new ResponseMessageViewModel();
                 using (var httpClient = new HttpClient())
                 {
                     httpClient.BaseAddress = new Uri(Baseurl);
@@ -35,8 +35,19 @@ namespace OnlineStore.MvcApplication.Controllers
                     using (var response = await httpClient.PostAsync("api/Authenticate/register", content))
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        receivedReservation = JsonConvert.DeserializeObject<RegisterViewModel>(apiResponse);
+                        receivedReservation = JsonConvert.DeserializeObject<ResponseMessageViewModel>(apiResponse);
+                        if(receivedReservation.Status == "UserError")
+                        {
+                            ModelState.AddModelError("Username", receivedReservation.Message);
+                            return View();
+                        } else 
+                        if(receivedReservation.Status == "PasswordError")
+                        {
+                            ModelState.AddModelError("Password", receivedReservation.Message);
+                            return View();
+                        }
                     }
+                    
 
                 }
                 return RedirectToAction("CustomerTable","Customer");
