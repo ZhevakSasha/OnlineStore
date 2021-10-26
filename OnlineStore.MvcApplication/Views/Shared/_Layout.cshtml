@@ -31,7 +31,9 @@
                         </li>
 
                     </ul>
-                  <div>  @await Html.PartialAsync("_SelectLanguagePartial")</div>
+                    <div> <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="LoginForm">Login</a></div>
+                    <div> <a class="nav-link text-dark" asp-area="" asp-controller="Register" asp-action="RegisterForm">Register</a></div>
+                    <div> <a class="nav-link text-dark"> @await Html.PartialAsync("_SelectLanguagePartial")</a></div>
                 </div>
             </div>
         </nav>

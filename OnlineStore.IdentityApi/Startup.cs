@@ -115,7 +115,8 @@ namespace OnlineStore.IdentityApi
             {
                 endpoints.MapControllers();
             });
-            ApplicationDbInitializer.SeedUsers(userManager);
+
+            ApplicationDbInitializer.SeedUsers(userManager).Wait();
         }
     }
     

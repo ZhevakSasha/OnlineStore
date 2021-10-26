@@ -8,24 +8,28 @@ namespace OnlineStore.IdentityApi
 {
     public static class ApplicationDbInitializer
     {
-        public static void SeedUsers(UserManager<ApplicationUser> userManager)
+        public static async Task SeedUsers(UserManager<ApplicationUser> userManager)
         {
-            if (userManager.FindByNameAsync("Admin").Result == null)
+            var admin = await userManager.FindByNameAsync("Admin");
+
+            if (admin != null)
             {
-                ApplicationUser user = new ApplicationUser
-                {
-                    Id = "b74ddd14-6340-4840-95c2-db12554843e5",
-                    UserName = "Admin",
-                    Email = "admin@gmail.com",
-                    LockoutEnabled = false
-                };
+                return;
+            }
 
-                IdentityResult result = userManager.CreateAsync(user, "Admin*123").Result;
+            var user = new ApplicationUser
+            {
+                Id = "b74ddd14-6340-4840-95c2-db12554843e5",
+                UserName = "Admin",
+                Email = "admin@gmail.com",
+                LockoutEnabled = false
+            };
 
-                if (result.Succeeded)
-                {
-                    userManager.AddToRoleAsync(user, "Admin").Wait();
-                }
+            var result = await userManager.CreateAsync(user, "Admin*123");
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, "Admin");
             }
         }
     }

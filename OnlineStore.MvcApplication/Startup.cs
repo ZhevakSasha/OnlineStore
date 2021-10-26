@@ -63,6 +63,8 @@ namespace OnlineStore.MvcApplication
                 options.SupportedUICultures = supportedCultures;
             });
 
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +88,7 @@ namespace OnlineStore.MvcApplication
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
