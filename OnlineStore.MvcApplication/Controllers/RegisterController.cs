@@ -47,8 +47,6 @@ namespace OnlineStore.MvcApplication.Controllers
                             return View();
                         }
                     }
-                    
-
                 }
                 return RedirectToAction("CustomerTable","Customer");
             }

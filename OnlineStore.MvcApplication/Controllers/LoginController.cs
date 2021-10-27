@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OnlineStore.MvcApplication.Models;
 using System;
@@ -41,8 +42,15 @@ namespace OnlineStore.MvcApplication.Controllers
                             ViewBag.ErrorMessage = "Unauthorized! Username or password incorrect!";
                             return View();
                         }
+                        CookieOptions option = new CookieOptions
+                        {
+                            Expires = DateTime.Now.AddMinutes(15)
+                        };
+                        Response.Cookies.Append("token",  receivedReservation.Token, option);
+
                     }
                 }
+
                 return RedirectToAction("CustomerTable", "Customer");
             }
             return View();

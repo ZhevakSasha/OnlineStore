@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace OnlineStore.MvcApplication
 {
@@ -40,6 +41,9 @@ namespace OnlineStore.MvcApplication
 
             services.AddDbContext<DataBaseContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+              .AddCookie(x => x.LoginPath = "/login/loginForm");
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -82,6 +86,8 @@ namespace OnlineStore.MvcApplication
                 app.UseHsts();
             }
             app.UseRequestLocalization();
+
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
