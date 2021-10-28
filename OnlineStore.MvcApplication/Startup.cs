@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineStore.BusinessLogic;
 using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.AdoRepositoryImplementation;
 using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 using OnlineStore.DataAccess.RepositoryPatterns;
@@ -42,8 +41,8 @@ namespace OnlineStore.MvcApplication
             services.AddDbContext<DataBaseContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-              .AddCookie(x => x.LoginPath = "/login/loginForm");
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //  .AddCookie(x => x.LoginPath = "/login/loginForm");
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -66,9 +65,6 @@ namespace OnlineStore.MvcApplication
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
-
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

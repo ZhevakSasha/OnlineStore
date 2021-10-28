@@ -47,7 +47,6 @@ namespace OnlineStore.MvcApplication.Controllers
                             Expires = DateTime.Now.AddMinutes(15)
                         };
                         Response.Cookies.Append("token",  receivedReservation.Token, option);
-
                     }
                 }
 
