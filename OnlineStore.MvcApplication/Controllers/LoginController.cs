@@ -1,11 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OnlineStore.MvcApplication.Models;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,9 +56,27 @@ namespace OnlineStore.MvcApplication.Controllers
                     }
                 }
 
+                AuthorizeHandle(receivedReservation.Token);
+
                 return RedirectToAction("CustomerTable", "Customer");
             }
             return View();
+        }
+
+        private async void AuthorizeHandle(string token)
+        {
+            var decodedToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
+
+            ClaimsIdentity id = new ClaimsIdentity(decodedToken.Claims, "ApplicationCookie",
+            ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("LoginForm", "Login");
         }
     }
     

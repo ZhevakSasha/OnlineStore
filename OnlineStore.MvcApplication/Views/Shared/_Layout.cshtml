@@ -29,10 +29,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="ProductTable">@Localizer["ProductTable"]</a>
                         </li>
-
                     </ul>
-                    <div> <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="LoginForm">Login</a></div>
-                    <div> <a class="nav-link text-dark" asp-area="" asp-controller="Register" asp-action="RegisterForm">Register</a></div>
+                    @if (User.Identity.IsAuthenticated) {<div> <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">LogOut</a></div> }
+                    else
+                    {
+                        <div> <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="LoginForm">Login</a></div>
+                        <div> <a class="nav-link text-dark" asp-area="" asp-controller="Register" asp-action="RegisterForm">Register</a></div>
+                    }
+
                     <div> <a class="nav-link text-dark"> @await Html.PartialAsync("_SelectLanguagePartial")</a></div>
                 </div>
             </div>

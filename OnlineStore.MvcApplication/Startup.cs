@@ -18,6 +18,7 @@ using AutoMapper;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace OnlineStore.MvcApplication
 {
@@ -41,8 +42,14 @@ namespace OnlineStore.MvcApplication
             services.AddDbContext<DataBaseContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //  .AddCookie(x => x.LoginPath = "/login/loginForm");
+            ////services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            ////  .AddCookie(x => x.LoginPath = "/login/loginForm");
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                          .AddCookie(options =>
+                          {
+                              options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/LoginForm");
+                              options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Login/LoginForm");
+                          });
 
             services.AddAutoMapper(typeof(Startup));
 
