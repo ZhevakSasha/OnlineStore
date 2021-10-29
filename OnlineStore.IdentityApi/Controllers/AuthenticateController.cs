@@ -15,14 +15,34 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.IdentityApi.Controllers
 {
+    /// <summary>
+    /// Api authenticate controller.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class AuthenticateController : ControllerBase
     {
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<ApplicationUser> userManager;
+
+        /// <summary>
+        /// Role manager.
+        /// </summary>
         private readonly RoleManager<IdentityRole> roleManager;
+
+        /// <summary>
+        /// Comfiguration.
+        /// </summary>
         private readonly IConfiguration _configuration;
 
+        /// <summary>
+        /// AuthenticateController constructor.
+        /// </summary>
+        /// <param name="userManager">userManager</param>
+        /// <param name="roleManager">roleManager</param>
+        /// <param name="configuration">configuration</param>
         public AuthenticateController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             this.userManager = userManager;
@@ -30,6 +50,11 @@ namespace OnlineStore.IdentityApi.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Login method.
+        /// </summary>
+        /// <param name="model">User login model</param>
+        /// <returns>Response with token</returns>
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
@@ -70,6 +95,11 @@ namespace OnlineStore.IdentityApi.Controllers
             return Unauthorized();
         }
 
+        /// <summary>
+        /// Register method. Creates user.
+        /// </summary>
+        /// <param name="model">User register model</param>
+        /// <returns>Respoce about creating user</returns>
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]

@@ -117,25 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CustomerTable" xml:space="preserve">
-    <value>Таблица покупателей</value>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Авторизоваться</value>
+  <data name="Email is required" xml:space="preserve">
+    <value>Email is required</value>
   </data>
-  <data name="LogOut" xml:space="preserve">
-    <value>Выйти</value>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
   </data>
-  <data name="OnlineStore" xml:space="preserve">
-    <value>Онлайн магазин</value>
+  <data name="Password is required" xml:space="preserve">
+    <value>Password is required</value>
   </data>
-  <data name="ProductTable" xml:space="preserve">
-    <value>Таблица продуктов</value>
+  <data name="User Name is required" xml:space="preserve">
+    <value>User Name is required</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Регистрация</value>
-  </data>
-  <data name="SaleTable" xml:space="preserve">
-    <value>Таблица продаж</value>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

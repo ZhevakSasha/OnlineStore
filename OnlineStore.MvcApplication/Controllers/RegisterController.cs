@@ -12,14 +12,30 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
+    /// <summary>
+    /// Register controller.
+    /// </summary>
     public class RegisterController : Controller
     {
+        /// <summary>
+        /// Base url of api.
+        /// </summary>
         private readonly string Baseurl = "https://localhost:44301/";
+
+        /// <summary>
+        /// Register form.
+        /// </summary>
+        /// <returns>View with register form</returns>
         public ViewResult RegisterForm()
         {
             return View();
         }
 
+        /// <summary>
+        /// Register user.
+        /// </summary>
+        /// <param name="registerModel">User register model</param>
+        /// <returns>RedirectToAction</returns>
         [HttpPost]
         public async Task<ActionResult> RegisterForm(RegisterViewModel registerModel)
         {

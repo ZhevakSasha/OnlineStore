@@ -4,12 +4,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OnlineStore.IdentityApi
 {
+    /// <summary>
+    /// ApplicationDbContext.
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        /// <summary>
+        /// ApplicationDbContext controller.
+        /// </summary>
+        /// <param name="options">options</param>
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
+
+        /// <summary>
+        /// On model creating method.
+        /// </summary>
+        /// <param name="builder">builder</param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema("idt");
@@ -17,6 +29,10 @@ namespace OnlineStore.IdentityApi
             this.SeedRoles(builder);
         }
 
+        /// <summary>
+        /// SeedRoles method. Seeding default roles in database.
+        /// </summary>
+        /// <param name="builder"></param>
         private void SeedRoles(ModelBuilder builder)
         {
             builder.Entity<IdentityRole>().HasData(

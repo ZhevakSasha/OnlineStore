@@ -17,15 +17,30 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
+    /// <summary>
+    /// Login controller.
+    /// </summary>
     public class LoginController : Controller
     {
+        /// <summary>
+        /// Base url of api.
+        /// </summary>
         private readonly string Baseurl = "https://localhost:44301/";
 
+        /// <summary>
+        /// Login form.
+        /// </summary>
+        /// <returns>View with login form</returns>
         public ViewResult LoginForm()
         {
             return View();
         }
 
+        /// <summary>
+        /// Authorize user and saving JwtToken.
+        /// </summary>
+        /// <param name="loginModel">User login model</param>
+        /// <returns>RedirectToAction</returns>
         [HttpPost]
         public async Task<ActionResult> LoginForm(LoginViewModel loginModel)
         {
@@ -63,6 +78,10 @@ namespace OnlineStore.MvcApplication.Controllers
             return View();
         }
 
+        /// <summary>
+        /// AuthorizeHandle. Decode user token and authenticate them.
+        /// </summary>
+        /// <param name="token">JwtToken</param>
         private async void AuthorizeHandle(string token)
         {
             var decodedToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
@@ -73,11 +92,14 @@ namespace OnlineStore.MvcApplication.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
+        /// <summary>
+        /// Logout method. SignOut user.
+        /// </summary>
+        /// <returns>RedirectToAction</returns>
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("LoginForm", "Login");
         }
     }
-    
 }

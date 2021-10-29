@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.IdentityApi
 {
+    /// <summary>
+    /// ApplicationUser model.
+    /// </summary>
     public class ApplicationUser : IdentityUser
     {
         public string PetName { get; set; }

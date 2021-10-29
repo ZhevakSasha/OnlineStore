@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.IdentityApi
 {
+    /// <summary>
+    /// ApplicationDbInitializer.
+    /// </summary>
     public static class ApplicationDbInitializer
     {
+        /// <summary>
+        /// SeedUsers method. Seeding default user and adding to him admin role.
+        /// </summary>
+        /// <param name="userManager">userManager</param>
+        /// <returns></returns>
         public static async Task SeedUsers(UserManager<ApplicationUser> userManager)
         {
             var admin = await userManager.FindByNameAsync("Admin");
