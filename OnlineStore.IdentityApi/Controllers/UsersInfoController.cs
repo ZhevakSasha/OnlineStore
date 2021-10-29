@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OnlineStore.IdentityApi.Controllers
 {
@@ -35,11 +31,10 @@ namespace OnlineStore.IdentityApi.Controllers
         /// </summary>
         /// <returns>Users info</returns>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         [Route("info")]
-        public IEnumerable<IdentityUser> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
-            return _context.Users;
+            return Ok(_context.Users);
         }
 
     }
