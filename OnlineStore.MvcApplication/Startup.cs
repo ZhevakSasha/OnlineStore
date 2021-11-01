@@ -30,12 +30,10 @@ namespace OnlineStore.MvcApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient("rates", (HttpClient client) =>
+            services.AddHttpClient("users", (HttpClient client) =>
             {
                 client.BaseAddress =
-                new Uri("https://api.exchangeratesapi.io");
-                client.DefaultRequestHeaders.Add(
-                HeaderNames.UserAgent, "ExchangeRateViewer");
+                new Uri("https://localhost:44301/");
             })
              .ConfigureHttpClient((HttpClient client) => { })
              .ConfigureHttpClient(
