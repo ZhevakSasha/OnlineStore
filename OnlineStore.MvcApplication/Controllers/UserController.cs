@@ -11,24 +11,28 @@ namespace OnlineStore.MvcApplication.Controllers
 {
     public class UserController : Controller
     {
+        private readonly IHttpClientFactory _factory;
 
         private readonly string Baseurl = "https://localhost:44301/";
 
+        public UserController(IHttpClientFactory factory)
+        {
+            _factory = factory;
+        }
+       
         public async Task<ActionResult> UsersTable()
         {
+            HttpClient client = _factory.CreateClient();
             var receivedReservation = Enumerable.Empty<UserViewModel>();
-            using (var httpClient = new HttpClient())
-            {
-                httpClient.BaseAddress = new Uri(Baseurl);
-                var accessToken = Request.Cookies["token"];
-                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
-                using (var response = await httpClient.GetAsync("api/UsersInfo/info"))
-                {
-                    var apiResponse = await response.Content.ReadAsAsync<IEnumerable<UserViewModel>>();
-                    receivedReservation = apiResponse;
-                }
-            }
+            client.BaseAddress = new Uri(Baseurl);
+            var accessToken = Request.Cookies["token"];
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+
+            var response = await client.GetAsync("api/UsersInfo/info");
+                
+            var apiResponse = await response.Content.ReadAsAsync<IEnumerable<UserViewModel>>();
+            receivedReservation = apiResponse;
 
             return View(receivedReservation);
         }

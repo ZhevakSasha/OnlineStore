@@ -18,6 +18,13 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         private readonly string Baseurl = "https://localhost:44301/";
 
+        private readonly IHttpClientFactory _factory;
+
+        public RegisterController(IHttpClientFactory factory)
+        {
+            _factory = factory;
+        }
+
         /// <summary>
         /// Register form.
         /// </summary>
@@ -37,28 +44,27 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
+                HttpClient client = _factory.CreateClient();
                 var receivedReservation = new ResponseMessageViewModel();
-                using (var httpClient = new HttpClient())
-                {
-                    httpClient.BaseAddress = new Uri(Baseurl);
-                    httpClient.DefaultRequestHeaders.Clear();
-                    var content = new StringContent(JsonConvert.SerializeObject(registerModel), Encoding.UTF8, "application/json");
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+                var content = new StringContent(JsonConvert.SerializeObject(registerModel), Encoding.UTF8, "application/json");
 
-                    using (var response = await httpClient.PostAsync("api/Authenticate/register", content))
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-                        receivedReservation = JsonConvert.DeserializeObject<ResponseMessageViewModel>(apiResponse);
-                        if(receivedReservation.Status == "UserError")
-                        {
-                            ModelState.AddModelError("Username", receivedReservation.Message);
-                            return View();
-                        } else 
-                        if(receivedReservation.Status == "PasswordError")
-                        {
-                            ModelState.AddModelError("Password", receivedReservation.Message);
-                            return View();
-                        }
-                    }
+                var response = await client.PostAsync("api/Authenticate/register", content);
+
+
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                receivedReservation = JsonConvert.DeserializeObject<ResponseMessageViewModel>(apiResponse);
+                if (receivedReservation.Status == "UserError")
+                {
+                    ModelState.AddModelError("Username", receivedReservation.Message);
+                    return View();
+                }
+                else
+                if (receivedReservation.Status == "PasswordError")
+                {
+                    ModelState.AddModelError("Password", receivedReservation.Message);
+                    return View();
                 }
                 return RedirectToAction("CustomerTable","Customer");
             }

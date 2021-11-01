@@ -12,6 +12,9 @@ using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Net.Http;
+using System;
+using Microsoft.Net.Http.Headers;
 
 namespace OnlineStore.MvcApplication
 {
@@ -27,6 +30,17 @@ namespace OnlineStore.MvcApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient("rates", (HttpClient client) =>
+            {
+                client.BaseAddress =
+                new Uri("https://api.exchangeratesapi.io");
+                client.DefaultRequestHeaders.Add(
+                HeaderNames.UserAgent, "ExchangeRateViewer");
+            })
+             .ConfigureHttpClient((HttpClient client) => { })
+             .ConfigureHttpClient(
+             (IServiceProvider provider, HttpClient client) => { });
+
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddControllersWithViews()
                .AddDataAnnotationsLocalization()

@@ -23,6 +23,13 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         private readonly string Baseurl = "https://localhost:44301/";
 
+        private readonly IHttpClientFactory _factory;
+
+        public LoginController(IHttpClientFactory factory)
+        {
+            _factory = factory;
+        }
+
         /// <summary>
         /// Login form.
         /// </summary>
@@ -42,30 +49,29 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var receivedReservation = new ResponceViewModel();
-                using (var httpClient = new HttpClient())
-                {
-                    httpClient.BaseAddress = new Uri(Baseurl);
-                    httpClient.DefaultRequestHeaders.Clear();
-                    var content = new StringContent(JsonConvert.SerializeObject(loginModel), Encoding.UTF8, "application/json");
+                HttpClient client = _factory.CreateClient();
 
-                    using (var response = await httpClient.PostAsync("api/Authenticate/login", content))
-                    {
-                        string apiResponse = await response.Content.ReadAsStringAsync();
-                        
-                        receivedReservation = JsonConvert.DeserializeObject<ResponceViewModel>(apiResponse);  
-                        if(receivedReservation.Status == 401)
-                        {
-                            ViewBag.ErrorMessage = "Unauthorized! Username or password incorrect!";
-                            return View();
-                        }
-                        CookieOptions option = new CookieOptions
-                        {
-                            Expires = DateTime.Now.AddMinutes(15)
-                        };
-                        Response.Cookies.Append("token",  receivedReservation.Token, option);
-                    }
+                var receivedReservation = new ResponceViewModel();
+
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+
+                var content = new StringContent(JsonConvert.SerializeObject(loginModel), Encoding.UTF8, "application/json");
+                var responce = await client.PostAsync("api/Authenticate/login", content);
+
+                string apiResponse = await responce.Content.ReadAsStringAsync();
+
+                receivedReservation = JsonConvert.DeserializeObject<ResponceViewModel>(apiResponse);
+                if (receivedReservation.Status == 401)
+                {
+                    ViewBag.ErrorMessage = "Unauthorized! Username or password incorrect!";
+                    return View();
                 }
+                CookieOptions option = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(3)
+                };
+                Response.Cookies.Append("token", receivedReservation.Token, option);
 
                 AuthorizeHandle(receivedReservation.Token);
 
