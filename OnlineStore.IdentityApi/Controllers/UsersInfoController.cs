@@ -32,6 +32,7 @@ namespace OnlineStore.IdentityApi.Controllers
         /// <returns>Users info</returns>
         [HttpGet]
         [Route("info")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAllUsers()
         {
             return Ok(_context.Users);

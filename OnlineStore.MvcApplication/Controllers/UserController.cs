@@ -20,7 +20,8 @@ namespace OnlineStore.MvcApplication.Controllers
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(Baseurl);
-                httpClient.DefaultRequestHeaders.Clear();
+                var accessToken = Request.Cookies["token"];
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
                 using (var response = await httpClient.GetAsync("api/UsersInfo/info"))
                 {

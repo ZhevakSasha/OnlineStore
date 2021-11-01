@@ -94,6 +94,7 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>RedirectToAction</returns>
         public async Task<IActionResult> Logout()
         {
+            Response.Cookies.Delete("token");
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("LoginForm", "Login");
         }
