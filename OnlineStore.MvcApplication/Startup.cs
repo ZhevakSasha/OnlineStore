@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net.Http;
 using System;
-using Microsoft.Net.Http.Headers;
 
 namespace OnlineStore.MvcApplication
 {
