@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineStore.IdentityApi.Controllers
 {
@@ -12,6 +14,12 @@ namespace OnlineStore.IdentityApi.Controllers
     [Route("api/[controller]")]
     public class UsersInfoController : ControllerBase
     {
+
+        /// <summary>
+        /// User manager.
+        /// </summary>
+        private readonly UserManager<ApplicationUser> userManager;
+
         /// <summary>
         /// Context field.
         /// </summary>
@@ -21,8 +29,9 @@ namespace OnlineStore.IdentityApi.Controllers
         /// Users info controller constructor.
         /// </summary>
         /// <param name="context">Context</param>
-        public UsersInfoController(ApplicationDbContext context)
+        public UsersInfoController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
+            this.userManager = userManager;
             _context = context;
         }
 
@@ -35,8 +44,44 @@ namespace OnlineStore.IdentityApi.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult GetAllUsers()
         {
-            return Ok(_context.Users);
+            var usersWithRoles = _context.Users.ToList();
+            return Ok(usersWithRoles);
         }
 
+        [HttpGet]
+        [Route("userInfo/{id}")]
+        public async Task<UserModel> GetUserById(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            var roles = await userManager.GetRolesAsync(user);
+            var model = new UserModel { Id = user.Id, Email = user.Email, Role = roles.FirstOrDefault(), Username = user.UserName};
+            return model;
+        }
+
+        /// <summary>
+        /// HttpGet method wich getting all roles infom from roles db.
+        /// </summary>
+        /// <returns>Users info</returns>
+        [HttpGet]
+        [Route("rolesInfo")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetAllRoles()
+        {
+            var roles = _context.Roles.ToList().Select(x => x.Name);
+            return Ok(roles);
+        }
+
+        [HttpPost]
+        [Route("userUpdating")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UserUpdating([FromBody]UserModel model)
+        {
+           var user = await userManager.FindByIdAsync(model.Id);
+           user.Email = model.Email;
+           user.UserName = model.Username;
+           userManager.AddToRoleAsync(user, model.Role).Wait();
+           await userManager.UpdateAsync(user);
+           return Ok(new Response { Status = "Success", Message = "User updated successfully!" });
+        }
     }
 }
