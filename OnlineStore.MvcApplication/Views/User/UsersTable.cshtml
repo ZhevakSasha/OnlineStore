@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<OnlineStore.MvcApplication.Models.UserViewModel>
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "UsersTable";
 }
 
-<h1>UsersTable</h1>
+<h1>@Localizer["UsersTable"]</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -25,23 +26,22 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "UserUpdating", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    <a asp-action="UserUpdating" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">@Localizer["Edit"]</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

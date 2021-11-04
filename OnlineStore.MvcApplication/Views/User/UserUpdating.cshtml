@@ -1,12 +1,13 @@
 ﻿@model OnlineStore.MvcApplication.Models.UserModel
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "UserUpdating";
 }
 
-<h1>UserUpdating</h1>
+<h1>@Localizer["UserUpdating"]</h1>
 
-<h4>UserViewModel</h4>
+<h4>@Localizer["UserViewModel"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,18 +25,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
-                <select asp-for="Role" asp-items="ViewBag.RoleNames" class="form-control" > </select>
+                <select asp-for="Role" asp-items="ViewBag.RoleNames" class="form-control"> </select>
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="@Localizer["Save"]" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="UsersTable">Back to List</a>
+    <a asp-action="UsersTable">@Localizer["Back to List"]</a>
 </div>
 
 @section Scripts {
