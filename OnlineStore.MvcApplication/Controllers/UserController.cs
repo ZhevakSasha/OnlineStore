@@ -82,7 +82,7 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         /// <returns>View model with renewable user</returns>
         [HttpPost]
-        public async Task<ActionResult> UserUpdating(UserViewModel model)
+        public async Task<ActionResult> UserUpdating(UserModel model)
         {
             if (ModelState.IsValid)
             {
