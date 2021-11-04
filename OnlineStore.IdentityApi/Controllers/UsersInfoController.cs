@@ -14,7 +14,6 @@ namespace OnlineStore.IdentityApi.Controllers
     [Route("api/[controller]")]
     public class UsersInfoController : ControllerBase
     {
-
         /// <summary>
         /// User manager.
         /// </summary>
@@ -42,19 +41,38 @@ namespace OnlineStore.IdentityApi.Controllers
         [HttpGet]
         [Route("info")]
         [Authorize(Roles = "Admin")]
-        public IActionResult GetAllUsers()
+        public ActionResult<IEnumerable<UserModel>> GetAllUsers()
         {
-            var usersWithRoles = _context.Users.ToList();
-            return Ok(usersWithRoles);
+            var users = userManager.Users.ToList();
+
+            if (!users.Any())
+            {
+                return NotFound();
+            }
+
+            var usersDisplay = users.Select(user => new UserModel
+            {
+                Id = user.Id,
+                Username = user.UserName,
+                Roles = userManager.GetRolesAsync(user).Result,
+                Email = user.Email
+            }).ToList();
+
+            return Ok(usersDisplay);
         }
 
+        /// <summary>
+        /// HttpGet method getting user vy id.
+        /// </summary>
+        /// <param name="id">User id</param>
+        /// <returns>User model</returns>
         [HttpGet]
         [Route("userInfo/{id}")]
         public async Task<UserModel> GetUserById(string id)
         {
             var user = await userManager.FindByIdAsync(id);
             var roles = await userManager.GetRolesAsync(user);
-            var model = new UserModel { Id = user.Id, Email = user.Email, Role = roles.FirstOrDefault(), Username = user.UserName};
+            var model = new UserModel { Id = user.Id, Email = user.Email, Roles = roles, Username = user.UserName};
             return model;
         }
 
@@ -71,6 +89,11 @@ namespace OnlineStore.IdentityApi.Controllers
             return Ok(roles);
         }
 
+        /// <summary>
+        /// HttpPost method updates user info.
+        /// </summary>
+        /// <param name="model">User model</param>
+        /// <returns>Responce</returns>
         [HttpPost]
         [Route("userUpdating")]
         [Authorize(Roles = "Admin")]
@@ -79,7 +102,7 @@ namespace OnlineStore.IdentityApi.Controllers
            var user = await userManager.FindByIdAsync(model.Id);
            user.Email = model.Email;
            user.UserName = model.Username;
-           userManager.AddToRoleAsync(user, model.Role).Wait();
+           userManager.AddToRoleAsync(user, model.Roles.FirstOrDefault()).Wait();
            await userManager.UpdateAsync(user);
            return Ok(new Response { Status = "Success", Message = "User updated successfully!" });
         }

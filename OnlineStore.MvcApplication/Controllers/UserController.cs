@@ -47,9 +47,8 @@ namespace OnlineStore.MvcApplication.Controllers
 
             var response = await client.GetAsync("api/UsersInfo/info");
                 
-            var apiResponse = await response.Content.ReadAsAsync<IEnumerable<UserViewModel>>();
-            receivedReservation = apiResponse;
-
+            var apiResponse = await response.Content.ReadAsAsync<IEnumerable<UserModel>>();
+            receivedReservation = apiResponse.ToList().Select(x => new UserViewModel {Id = x.Id, Username = x.Username, Email = x.Email, Role= string.Join(",",x.Role.OrderBy(f=>f))});
             return View(receivedReservation);
         }
 
@@ -67,7 +66,7 @@ namespace OnlineStore.MvcApplication.Controllers
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
             var response = await client.GetAsync(string.Format("api/UsersInfo/userInfo/{0}", id));
-            var apiResponse = await response.Content.ReadAsAsync<UserViewModel>();
+            var apiResponse = await response.Content.ReadAsAsync<UserModel>();
 
             var roles = await client.GetAsync("api/UsersInfo/rolesInfo");
             var apiRolesResponse = await roles.Content.ReadAsAsync<List<String>>();

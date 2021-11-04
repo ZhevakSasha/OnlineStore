@@ -7,30 +7,29 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.MvcApplication.Models
 {
-    public class UserViewModel 
+    /// <summary>
+    /// UserViewModel for displaying users on view.
+    /// </summary>
+    public class UserViewModel
     {
         /// <summary>
         /// Property  for storing user id.
         /// </summary>
-        [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Property  for storing username.
         /// </summary>
-        [JsonProperty("username")]
         public string Username { get; set; }
 
         /// <summary>
         /// Property  for storing email.
         /// </summary>
-        [JsonProperty("email")]
         public string Email { get; set; }
 
         /// <summary>
         /// Property  for storing user role.
         /// </summary>
-        [JsonProperty("role")]
         public string Role { get; set; }
     }
 }
