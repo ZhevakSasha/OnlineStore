@@ -19,7 +19,11 @@ namespace OnlineStore.IdentityApi.Controllers
         /// </summary>
         private readonly UserManager<ApplicationUser> userManager;
 
+        /// <summary>
+        /// Role manager.
+        /// </summary>
         private readonly RoleManager<IdentityRole> roleManager;
+
 
         /// <summary>
         /// Users info controller constructor.
@@ -99,7 +103,7 @@ namespace OnlineStore.IdentityApi.Controllers
            var user = await userManager.FindByIdAsync(model.Id);
            user.Email = model.Email;
            user.UserName = model.Username;
-           await userManager.AddToRoleAsync(user, model.Roles.FirstOrDefault());
+           userManager.AddToRoleAsync(user, model.Roles.FirstOrDefault()).Wait();
            await userManager.UpdateAsync(user);
            return Ok(new Response { Status = "Success", Message = "User updated successfully!" });
         }

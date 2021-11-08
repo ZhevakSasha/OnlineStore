@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 using OnlineStore.IdentityApi;
 using OnlineStore.IdentityApi.Controllers;
@@ -11,24 +13,24 @@ using Xunit;
 
 namespace OnlineStore.DataAccess.Tests.IdentityApiTests
 {
+    public class FakeUserManager : UserManager<ApplicationUser>
+    {
+        public FakeUserManager()
+            : base(new Mock<IUserStore<ApplicationUser>>().Object,
+               new Mock<IOptions<IdentityOptions>>().Object,
+               new Mock<IPasswordHasher<ApplicationUser>>().Object,
+               new IUserValidator<ApplicationUser>[0],
+               new IPasswordValidator<ApplicationUser>[0],
+               new Mock<ILookupNormalizer>().Object,
+               new Mock<IdentityErrorDescriber>().Object,
+               new Mock<IServiceProvider>().Object,
+               new Mock<ILogger<UserManager<ApplicationUser>>>().Object)
+        { }
+    }
+
     public class UsersInfoControllerTests
     {
-        
-        public static Mock<UserManager<TUser>> MockUserManager<TUser>(List<TUser> ls) where TUser : class
-        {
-            var store = new Mock<IUserStore<TUser>>();
-            var mgr = new Mock<UserManager<TUser>>(store.Object, null, null, null, null, null, null, null, null);
-            mgr.Object.UserValidators.Add(new UserValidator<TUser>());
-            mgr.Object.PasswordValidators.Add(new PasswordValidator<TUser>());
-
-            mgr.Setup(x => x.DeleteAsync(It.IsAny<TUser>())).ReturnsAsync(IdentityResult.Success);
-            mgr.Setup(x => x.CreateAsync(It.IsAny<TUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<TUser, string>((x, y) => ls.Add(x));
-            mgr.Setup(x => x.UpdateAsync(It.IsAny<TUser>())).ReturnsAsync(IdentityResult.Success);
-
-            return mgr;
-        }
-
-        private Mock<UserManager<ApplicationUser>> _mockUserManager;
+        private Mock<FakeUserManager> _mockUserManager;
 
         private Mock<RoleManager<IdentityRole>> _mockRoleManager;
 
@@ -39,9 +41,10 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
                   new ApplicationUser() { Id = "", Email = "", UserName = ""  },
                   new ApplicationUser() {  Id = "", Email = "", UserName = ""  }
              };
+
         public UsersInfoControllerTests()
         {
-            _mockUserManager = new Mock<UserManager<ApplicationUser>>(_users);
+            _mockUserManager = new Mock<FakeUserManager>();
             _mockRoleManager = new Mock<RoleManager<IdentityRole>>();
             _usersInfoController = new UsersInfoController(_mockUserManager.Object, _mockRoleManager.Object); 
         }
@@ -52,7 +55,6 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             var users = _usersInfoController.GetAllUsers();
 
             Assert.Equal(users.Value.Count(), _users.Count());
-
         }
     }
 }
