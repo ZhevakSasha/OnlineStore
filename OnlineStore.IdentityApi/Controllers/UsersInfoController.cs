@@ -19,19 +19,16 @@ namespace OnlineStore.IdentityApi.Controllers
         /// </summary>
         private readonly UserManager<ApplicationUser> userManager;
 
-        /// <summary>
-        /// Context field.
-        /// </summary>
-        private readonly ApplicationDbContext _context;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         /// <summary>
         /// Users info controller constructor.
         /// </summary>
         /// <param name="context">Context</param>
-        public UsersInfoController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+        public UsersInfoController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
-            _context = context;
+            this.roleManager = roleManager;
         }
 
         /// <summary>
@@ -85,7 +82,7 @@ namespace OnlineStore.IdentityApi.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult GetAllRoles()
         {
-            var roles = _context.Roles.ToList().Select(x => x.Name);
+            var roles = roleManager.Roles.ToList().Select(x => x.Name);
             return Ok(roles);
         }
 
@@ -102,7 +99,7 @@ namespace OnlineStore.IdentityApi.Controllers
            var user = await userManager.FindByIdAsync(model.Id);
            user.Email = model.Email;
            user.UserName = model.Username;
-           userManager.AddToRoleAsync(user, model.Roles.FirstOrDefault()).Wait();
+           await userManager.AddToRoleAsync(user, model.Roles.FirstOrDefault());
            await userManager.UpdateAsync(user);
            return Ok(new Response { Status = "Success", Message = "User updated successfully!" });
         }

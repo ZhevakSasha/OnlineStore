@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OnlineStore.BusinessLogic\OnlineStore.BusinessLogic.csproj" />
     <ProjectReference Include="..\OnlineStore.DataAccess\OnlineStore.DataAccess.csproj" />
+    <ProjectReference Include="..\OnlineStore.IdentityApi\OnlineStore.IdentityApi.csproj" />
     <ProjectReference Include="..\OnlineStore.MvcApplication\OnlineStore.MvcApplication.csproj" />
   </ItemGroup>
 
