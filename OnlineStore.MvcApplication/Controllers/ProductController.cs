@@ -12,7 +12,6 @@ namespace OnlineStore.MvcApplication.Controllers
     /// </summary>
     public class ProductController : Controller
     {
-
         /// <summary>
         /// Product service.
         /// </summary>
@@ -116,7 +115,6 @@ namespace OnlineStore.MvcApplication.Controllers
         [HttpPost]
         public IActionResult ProductDeleting(ProductViewModel product)
         {
-            
             _product.DeleteProduct(product.Id);
             return RedirectToAction("ProductTable");
         }

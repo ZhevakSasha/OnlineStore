@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,19 +8,18 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.MvcApplication.Models
 {
-    /// <summary>
-    /// UserViewModel for displaying users on view.
-    /// </summary>
-    public class UserViewModel
+    public class UserModel
     {
         /// <summary>
         /// Property  for storing user id.
         /// </summary>
+        [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Property  for storing username.
         /// </summary>
+        [JsonProperty("username")]
         [Required(ErrorMessage = "User Name is required")]
         [Display(Name = "Username")]
         public string Username { get; set; }
@@ -28,6 +27,7 @@ namespace OnlineStore.MvcApplication.Models
         /// <summary>
         /// Property  for storing email.
         /// </summary>
+        [JsonProperty("email")]
         [EmailAddress]
         [Required(ErrorMessage = "Email is required")]
         [Display(Name = "Email")]
@@ -36,7 +36,8 @@ namespace OnlineStore.MvcApplication.Models
         /// <summary>
         /// Property  for storing user role.
         /// </summary>
-        [Display(Name = "Roles")]
-        public string Role { get; set; }
+        [JsonProperty("roles")]
+        [Display(Name = "Role")]
+        public IList<string> Role { get; set; }
     }
 }

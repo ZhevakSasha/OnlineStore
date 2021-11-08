@@ -23,8 +23,15 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         private readonly string Baseurl = "https://localhost:44301/";
 
+        /// <summary>
+        /// IHttpClientFactory.
+        /// </summary>
         private readonly IHttpClientFactory _factory;
-
+        
+        /// <summary>
+        /// Login controller constructor.
+        /// </summary>
+        /// <param name="factory"></param>
         public LoginController(IHttpClientFactory factory)
         {
             _factory = factory;
