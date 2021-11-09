@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -28,6 +30,17 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
         { }
     }
 
+    public class FakeRoleManager : RoleManager<IdentityRole>
+    {
+        public FakeRoleManager()
+            : base(new Mock<IRoleStore<IdentityRole>>().Object,
+                  new Mock<IEnumerable<IRoleValidator<IdentityRole>>>().Object,
+                  new Mock<ILookupNormalizer>().Object,
+                  new Mock<IdentityErrorDescriber>().Object,
+                  new Mock<ILogger<RoleManager<IdentityRole>>>().Object)
+        { }
+    }
+
     public class UsersInfoControllerTests
     {
         private Mock<FakeUserManager> _mockUserManager;
@@ -36,25 +49,42 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
 
         private UsersInfoController _usersInfoController;
 
-        private List<ApplicationUser> _users = new List<ApplicationUser>
+        public UsersInfoControllerTests()
+        {
+            var roleStore = new Mock<IRoleStore<IdentityRole>>();
+            var roleValidator = new Mock<IEnumerable<IRoleValidator<IdentityRole>>>();
+            var lookupNormalizer = new Mock<ILookupNormalizer>();
+            var identityErrorDescriber = new Mock<IdentityErrorDescriber>()  ;
+            var logger = new Mock<ILogger<RoleManager<IdentityRole>>>();
+
+            var _users = new List<ApplicationUser>
              {
                   new ApplicationUser() { Id = "", Email = "", UserName = ""  },
                   new ApplicationUser() {  Id = "", Email = "", UserName = ""  }
-             };
+             }.AsQueryable();
 
-        public UsersInfoControllerTests()
-        {
             _mockUserManager = new Mock<FakeUserManager>();
-            _mockRoleManager = new Mock<RoleManager<IdentityRole>>();
+            _mockUserManager.Setup(userManager => userManager.FindByIdAsync(It.IsAny<string>()))
+               .ReturnsAsync(new ApplicationUser { Id = "", Email = "", UserName = "" });
+            _mockUserManager.Setup(userManager => userManager.Users)
+               .Returns(_users);
+            _mockRoleManager = new Mock<RoleManager<IdentityRole>>(roleStore.Object, roleValidator.Object, lookupNormalizer.Object, identityErrorDescriber.Object, logger.Object);
             _usersInfoController = new UsersInfoController(_mockUserManager.Object, _mockRoleManager.Object); 
         }
 
         [Fact]
         public void GetAllUsersReturnsResponseWithUsers()
         {
+            var _users = new List<ApplicationUser>
+             {
+                  new ApplicationUser() { Id = "", Email = "", UserName = ""  },
+                  new ApplicationUser() {  Id = "", Email = "", UserName = ""  }
+             }.AsQueryable();
             var users = _usersInfoController.GetAllUsers();
 
             Assert.Equal(users.Value.Count(), _users.Count());
         }
+
+
     }
 }

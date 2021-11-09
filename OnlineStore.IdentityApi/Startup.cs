@@ -87,7 +87,6 @@ namespace OnlineStore.IdentityApi
                                 }
                             },
                             new string[] {}
-
                     }
                 });
             });

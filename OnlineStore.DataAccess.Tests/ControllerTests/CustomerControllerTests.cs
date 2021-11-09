@@ -37,7 +37,7 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
         /// </summary>
         public CustomerControllerTests()
         {
-            _mockService = new Mock<ICustomerService>() { };
+            _mockService = new Mock<ICustomerService>();
             var mockMapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapping());
@@ -87,7 +87,6 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
         public void AddCustomerReturnsViewResultWithCustomerModel()
         {
             // Arrange
-            
             _customerController.ModelState.AddModelError("FirstName", "Required");
             CustomerViewModel newCustomer = new CustomerViewModel();
 

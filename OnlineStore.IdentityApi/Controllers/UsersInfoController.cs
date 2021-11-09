@@ -69,12 +69,12 @@ namespace OnlineStore.IdentityApi.Controllers
         /// <returns>User model</returns>
         [HttpGet]
         [Route("userInfo/{id}")]
-        public async Task<UserModel> GetUserById(string id)
+        public async Task<ActionResult<UserModel>> GetUserById(string id)
         {
             var user = await userManager.FindByIdAsync(id);
             var roles = await userManager.GetRolesAsync(user);
             var model = new UserModel { Id = user.Id, Email = user.Email, Roles = roles, Username = user.UserName};
-            return model;
+            return Ok(model);
         }
 
         /// <summary>
