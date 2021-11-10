@@ -84,7 +84,7 @@ namespace OnlineStore.IdentityApi.Controllers
         [HttpGet]
         [Route("rolesInfo")]
         [Authorize(Roles = "Admin")]
-        public IActionResult GetAllRoles()
+        public ActionResult<IEnumerable<string>> GetAllRoles()
         {
             var roles = roleManager.Roles.ToList().Select(x => x.Name);
             return Ok(roles);
@@ -103,8 +103,8 @@ namespace OnlineStore.IdentityApi.Controllers
            var user = await userManager.FindByIdAsync(model.Id);
            user.Email = model.Email;
            user.UserName = model.Username;
-           userManager.AddToRoleAsync(user, model.Roles.FirstOrDefault()).Wait();
-           await userManager.UpdateAsync(user);
+           await userManager.AddToRoleAsync(user, model.Roles.FirstOrDefault());
+           //await userManager.UpdateAsync(user);
            return Ok(new Response { Status = "Success", Message = "User updated successfully!" });
         }
     }
