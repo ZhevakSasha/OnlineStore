@@ -93,11 +93,51 @@ namespace OnlineStore.MvcApplication.Controllers
                 var accessToken = Request.Cookies["token"];
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
-                var response = await client.PostAsync("api/UsersInfo/userUpdating", content);
+                var response = await client.PutAsync("api/UsersInfo/userUpdating", content);
 
                 return RedirectToAction("UsersTable");
             }
             return View();
+        }
+
+        /// <summary>
+        /// Deletes user info.
+        /// </summary>
+        /// <returns>Responce</returns>
+        public async Task<ActionResult> UserDeleting(string id)
+        {
+            HttpClient client = _factory.CreateClient();
+            var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
+
+            client.BaseAddress = new Uri(Baseurl);
+            var accessToken = Request.Cookies["token"];
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+
+            var response = await client.GetAsync(string.Format("api/UsersInfo/userInfo/{0}", id));
+            var apiResponse = await response.Content.ReadAsAsync<UserModel>();
+
+            var receivedReservation = apiResponse;
+
+            return View(receivedReservation);
+        }
+
+        /// <summary>
+        /// Updates user info.
+        /// </summary>
+        /// <returns>View model with renewable user</returns>
+        [HttpPost]
+        public async Task<ActionResult> UserDeleting(UserModel model)
+        {
+                HttpClient client = _factory.CreateClient();
+                var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+
+                client.BaseAddress = new Uri(Baseurl);
+                var accessToken = Request.Cookies["token"];
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+
+                var response = await client.DeleteAsync(string.Format("api/UsersInfo/userDeleting/{0}",model.Id));
+
+                return RedirectToAction("UsersTable");
         }
     }   
 }

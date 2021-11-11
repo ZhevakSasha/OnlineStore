@@ -34,6 +34,14 @@ namespace OnlineStore.MvcApplication.Models
         public string Email { get; set; }
 
         /// <summary>
+        /// Property  for storing email.
+        /// </summary>
+        [JsonProperty("petname")]
+        [Required(ErrorMessage = "Pet name is required")]
+        [Display(Name = "Pet Name")]
+        public string PetName { get; set; }
+
+        /// <summary>
         /// Property  for storing user role.
         /// </summary>
         [JsonProperty("roles")]

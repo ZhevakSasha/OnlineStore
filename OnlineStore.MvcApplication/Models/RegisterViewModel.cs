@@ -30,5 +30,12 @@ namespace OnlineStore.MvcApplication.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        /// <summary>
+        /// Property  for storing username.
+        /// </summary>
+        [Required(ErrorMessage = "Pet Name is required")]
+        [Display(Name = "Pet Name")]
+        public string PetName { get; set; }
+
     }
 }

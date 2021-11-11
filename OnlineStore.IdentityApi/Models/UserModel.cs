@@ -23,6 +23,11 @@ namespace OnlineStore.IdentityApi
         public string Email { get; set; }
 
         /// <summary>
+        /// Property  for storing petname.
+        /// </summary>
+        public string PetName { get; set; }
+
+        /// <summary>
         /// Property  for storing user role.
         /// </summary>
         public IList<string> Roles { get; set; }

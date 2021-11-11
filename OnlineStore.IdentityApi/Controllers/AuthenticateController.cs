@@ -112,7 +112,8 @@ namespace OnlineStore.IdentityApi.Controllers
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
+                UserName = model.Username,
+                PetName = model.PetName
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)

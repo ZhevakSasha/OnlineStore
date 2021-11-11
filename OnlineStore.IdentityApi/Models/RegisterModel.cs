@@ -22,5 +22,11 @@ namespace OnlineStore.IdentityApi
         /// </summary>
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Property for storing petname.
+        /// </summary>
+        [Required(ErrorMessage = "PetName is required")]
+        public string PetName { get; set; }
     }
 }
