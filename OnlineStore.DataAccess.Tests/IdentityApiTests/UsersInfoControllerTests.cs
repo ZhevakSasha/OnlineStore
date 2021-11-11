@@ -11,11 +11,19 @@ using Xunit;
 
 namespace OnlineStore.DataAccess.Tests.IdentityApiTests
 {
-
+    /// <summary>
+    /// UsersInfoController tests.
+    /// </summary>
     public class UsersInfoControllerTests
     {
+        /// <summary>
+        /// UserInfoController object.
+        /// </summary>
         private UsersInfoController _usersInfoController;
 
+        /// <summary>
+        /// Tests constructor. 
+        /// </summary>
         public UsersInfoControllerTests()
         {
             var fakeIdentityManager = new FakeIdentityManager();
@@ -33,6 +41,9 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             _usersInfoController = new UsersInfoController(userManager.Object, roleManager.Object); 
         }
 
+        /// <summary>
+        /// Testing GetAllUsers method which returns list with all users info.
+        /// </summary>
         [Fact]
         public void GetAllUsers_ReturnsResponseWithUsers()
         {
@@ -48,6 +59,10 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             Assert.Equal(GetFakeApplicationUsers().Count, actual.Count);
         }
 
+        /// <summary>
+        /// Testing GetUserById method.
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task GetUserById_ReturnsResponceWithUser()
         {
@@ -63,6 +78,9 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             Assert.Equal("user" , actual.Username);
         }
 
+        /// <summary>
+        /// Testing GetAllRoles method which returns list with all roles.
+        /// </summary>
         [Fact]
         public void GetAllRoles_ReturnsResponceWithAllRoles()
         {
@@ -78,6 +96,10 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             Assert.Equal(GetFakeIdentityRoles().Count, actual.Count());
         }
 
+        /// <summary>
+        /// Testing UserUpdating method.
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task UserUpdating_ReturnsResponceWithSucces()
         {
@@ -93,6 +115,10 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             Assert.Equal("Success", actual.Status);
         }
 
+        /// <summary>
+        /// Getting fake list with ApplicationUsers.
+        /// </summary>
+        /// <returns>List with users</returns>
         public List<ApplicationUser> GetFakeApplicationUsers()
         {
             var users = new List<ApplicationUser>
@@ -103,6 +129,10 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             return users;
         }
 
+        /// <summary>
+        /// Getting fake list with roles.
+        /// </summary>
+        /// <returns>List with roles</returns>
         public List<IdentityRole> GetFakeIdentityRoles()
         {
             var roles = new List<IdentityRole>

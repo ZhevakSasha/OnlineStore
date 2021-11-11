@@ -5,23 +5,35 @@ using Moq;
 using OnlineStore.DataAccess.Tests.IdentityApiTests.FakeIdentityManagers;
 using OnlineStore.IdentityApi;
 using OnlineStore.IdentityApi.Controllers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace OnlineStore.DataAccess.Tests.IdentityApiTests
 {
+    /// <summary>
+    /// AuthenticateController tests.
+    /// </summary>
     public class AuthenticateControllerTests
     {
+        /// <summary>
+        /// AuthenticateController object.
+        /// </summary>
         private AuthenticateController authenticateController;
 
+        /// <summary>
+        /// Configuration mock object.
+        /// </summary>
         private Mock<IConfiguration> _configuration;
 
+        /// <summary>
+        /// UserManager mock object.
+        /// </summary>
         private Mock<UserManager<ApplicationUser>> userManager;
 
+        /// <summary>
+        /// Tests constructor.
+        /// </summary>
         public AuthenticateControllerTests()
         {
             var fakeIdentityManager = new FakeIdentityManager();
@@ -33,6 +45,9 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             authenticateController = new AuthenticateController(userManager.Object, roleManager.Object, _configuration.Object);
         }
 
+        /// <summary>
+        /// Testing success login method.
+        /// </summary>
         [Fact]
         public async Task Login_ReturnsResponceWithSucces()
         {
@@ -54,6 +69,9 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             Assert.Equal(200, actualResponce.StatusCode);
         }
 
+        /// <summary>
+        /// Testing unauthorized login.
+        /// </summary>
         [Fact]
         public async Task Login_ReturnsResponceWithUnauthorized()
         {
@@ -72,6 +90,9 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             Assert.Equal(401, actualResponce.StatusCode);
         }
 
+        /// <summary>
+        /// Testing success register.
+        /// </summary>
         [Fact]
         public async Task Register_ReturnsResponceWithSucces()
         {
@@ -87,6 +108,9 @@ namespace OnlineStore.DataAccess.Tests.IdentityApiTests
             Assert.Equal(200, actualResponce.StatusCode);
         }
 
+        /// <summary>
+        /// Testing error when registering.
+        /// </summary>
         [Fact]
         public async Task Register_ReturnsResponceWithError()
         {
