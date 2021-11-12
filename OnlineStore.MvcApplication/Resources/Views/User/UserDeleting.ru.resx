@@ -117,22 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Email" xml:space="preserve">
-    <value>Эл. почта</value>
+  <data name="Are you sure you want to delete this user?" xml:space="preserve">
+    <value>Вы уверены что хотите удалить этого пользователя?</value>
   </data>
-  <data name="Email is required" xml:space="preserve">
-    <value>Введите эл. почту</value>
+  <data name="Back to List" xml:space="preserve">
+    <value>Обратно к списку</value>
   </data>
-  <data name="Pet Name" xml:space="preserve">
-    <value>Имя питомца</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
   </data>
-  <data name="Role" xml:space="preserve">
-    <value>Роль</value>
+  <data name="UserDeleting" xml:space="preserve">
+    <value>Удаление пользователя</value>
   </data>
-  <data name="User Name is required" xml:space="preserve">
-    <value>Введите имя пользователя</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>Имя пользователя</value>
+  <data name="UserModel" xml:space="preserve">
+    <value>Пользователь</value>
   </data>
 </root>

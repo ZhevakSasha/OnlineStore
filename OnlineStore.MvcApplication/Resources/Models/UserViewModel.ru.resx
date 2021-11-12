@@ -120,6 +120,9 @@
   <data name="Email" xml:space="preserve">
     <value>Эл. почта</value>
   </data>
+  <data name="Pet Name" xml:space="preserve">
+    <value>Имя питомца</value>
+  </data>
   <data name="Roles" xml:space="preserve">
     <value>Роли</value>
   </data>

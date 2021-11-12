@@ -82,11 +82,12 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         /// <returns>View model with renewable user</returns>
         [HttpPost]
-        public async Task<ActionResult> UserUpdating(UserModel model)
+        public async Task<ActionResult> UserUpdating(UserModel model, List<string> roles)
         {
             if (ModelState.IsValid)
             {
                 HttpClient client = _factory.CreateClient();
+                model.Role = roles;
                 var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
 
                 client.BaseAddress = new Uri(Baseurl);

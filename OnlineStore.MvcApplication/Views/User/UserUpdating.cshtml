@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="UserUpdating">
+        <form asp-action="UserUpdating" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
@@ -25,7 +25,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
-                <select asp-for="Role" asp-items="ViewBag.RoleNames" class="form-control"> </select>
+                @*<select multiple="" asp-for="Role" asp-items="ViewBag.RoleNames" class="form-control"> </select>*@
+                <div>
+
+                @foreach (var IdentityRole in ViewBag.RoleNames)
+                {
+                    <input type="checkbox" value="@IdentityRole.Text" name="roles"
+                           @(Model.Role.Contains(IdentityRole.Text) ? "checked=\"checked\"" : "") /> @IdentityRole.Text <br />
+                }
+                </div>
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
