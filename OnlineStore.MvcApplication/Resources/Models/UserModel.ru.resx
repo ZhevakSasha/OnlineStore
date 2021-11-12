@@ -127,7 +127,7 @@
     <value>Имя питомца</value>
   </data>
   <data name="Role" xml:space="preserve">
-    <value>Роль</value>
+    <value>Роли</value>
   </data>
   <data name="User Name is required" xml:space="preserve">
     <value>Введите имя пользователя</value>
