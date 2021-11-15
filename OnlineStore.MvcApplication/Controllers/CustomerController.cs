@@ -12,7 +12,6 @@ namespace OnlineStore.MvcApplication.Controllers
     /// </summary>
     public class CustomerController : Controller
     {
-
         /// <summary>
         /// Customer service.
         /// </summary>

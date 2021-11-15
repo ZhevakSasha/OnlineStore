@@ -118,15 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CustomerTable" xml:space="preserve">
-    <value>Таблица покупателей</value>
+    <value>Покупатели</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Авторизоваться</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Выйти</value>
   </data>
   <data name="OnlineStore" xml:space="preserve">
     <value>Онлайн магазин</value>
   </data>
   <data name="ProductTable" xml:space="preserve">
-    <value>Таблица продуктов</value>
+    <value>Продукты</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрация</value>
   </data>
   <data name="SaleTable" xml:space="preserve">
-    <value>Таблица продаж</value>
+    <value>Продажи</value>
+  </data>
+  <data name="UsersTable" xml:space="preserve">
+    <value>Пользователи</value>
   </data>
 </root>

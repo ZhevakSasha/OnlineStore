@@ -1,23 +1,19 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineStore.BusinessLogic;
 using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.AdoRepositoryImplementation;
 using OnlineStore.DataAccess.DataAccess;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 using OnlineStore.DataAccess.RepositoryPatterns;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Net.Http;
+using System;
 
 namespace OnlineStore.MvcApplication
 {
@@ -33,6 +29,15 @@ namespace OnlineStore.MvcApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient("users", (HttpClient client) =>
+            {
+                client.BaseAddress =
+                new Uri("https://localhost:44301/");
+            })
+             .ConfigureHttpClient((HttpClient client) => { })
+             .ConfigureHttpClient(
+             (IServiceProvider provider, HttpClient client) => { });
+
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddControllersWithViews()
                .AddDataAnnotationsLocalization()
@@ -40,6 +45,15 @@ namespace OnlineStore.MvcApplication
 
             services.AddDbContext<DataBaseContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            ////services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            ////  .AddCookie(x => x.LoginPath = "/login/loginForm");
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                          .AddCookie(options =>
+                          {
+                              options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/LoginForm");
+                              options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Login/LoginForm");
+                          });
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -62,7 +76,6 @@ namespace OnlineStore.MvcApplication
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,11 +94,14 @@ namespace OnlineStore.MvcApplication
             }
             app.UseRequestLocalization();
 
+            app.UseStaticFiles();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -87,7 +87,6 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
         public void AddCustomerReturnsViewResultWithCustomerModel()
         {
             // Arrange
-            
             _customerController.ModelState.AddModelError("FirstName", "Required");
             CustomerViewModel newCustomer = new CustomerViewModel();
 
