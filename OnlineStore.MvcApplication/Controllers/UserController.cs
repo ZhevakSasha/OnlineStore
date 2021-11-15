@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using OnlineStore.MvcApplication.Models;
 using System;
@@ -19,17 +20,18 @@ namespace OnlineStore.MvcApplication.Controllers
         private readonly IHttpClientFactory _factory;
 
         /// <summary>
-        /// Base url of api.
+        /// IConfiguration field.
         /// </summary>
-        private readonly string Baseurl = "https://localhost:44301/";
+        private readonly IConfiguration _configuration;
 
         /// <summary>
         /// User controller constructor.
         /// </summary>
         /// <param name="factory"></param>
-        public UserController(IHttpClientFactory factory)
+        public UserController(IHttpClientFactory factory, IConfiguration configuration)
         {
             _factory = factory;
+            _configuration = configuration;
         }
         
         /// <summary>
@@ -41,7 +43,7 @@ namespace OnlineStore.MvcApplication.Controllers
             HttpClient client = _factory.CreateClient();
             var receivedReservation = Enumerable.Empty<UserViewModel>();
 
-            client.BaseAddress = new Uri(Baseurl);
+            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -61,7 +63,7 @@ namespace OnlineStore.MvcApplication.Controllers
             HttpClient client = _factory.CreateClient();
             var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
 
-            client.BaseAddress = new Uri(Baseurl);
+            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -90,7 +92,7 @@ namespace OnlineStore.MvcApplication.Controllers
                 model.Role = roles;
                 var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
 
-                client.BaseAddress = new Uri(Baseurl);
+                client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
                 var accessToken = Request.Cookies["token"];
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -110,7 +112,7 @@ namespace OnlineStore.MvcApplication.Controllers
             HttpClient client = _factory.CreateClient();
             var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
 
-            client.BaseAddress = new Uri(Baseurl);
+            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -132,7 +134,7 @@ namespace OnlineStore.MvcApplication.Controllers
                 HttpClient client = _factory.CreateClient();
                 var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
 
-                client.BaseAddress = new Uri(Baseurl);
+                client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
                 var accessToken = Request.Cookies["token"];
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,22 +20,23 @@ namespace OnlineStore.MvcApplication.Controllers
     public class LoginController : Controller
     {
         /// <summary>
-        /// Base url of api.
-        /// </summary>
-        private readonly string Baseurl = "https://localhost:44301/";
-
-        /// <summary>
         /// IHttpClientFactory.
         /// </summary>
         private readonly IHttpClientFactory _factory;
-        
+
+        /// <summary>
+        /// IConfiguration field.
+        /// </summary>
+        private readonly IConfiguration _configuration;
+
         /// <summary>
         /// Login controller constructor.
         /// </summary>
         /// <param name="factory"></param>
-        public LoginController(IHttpClientFactory factory)
+        public LoginController(IHttpClientFactory factory, IConfiguration configuration)
         {
             _factory = factory;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -60,7 +62,7 @@ namespace OnlineStore.MvcApplication.Controllers
 
                 var receivedReservation = new ResponceViewModel();
 
-                client.BaseAddress = new Uri(Baseurl);
+                client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
                 client.DefaultRequestHeaders.Clear();
 
                 var content = new StringContent(JsonConvert.SerializeObject(loginModel), Encoding.UTF8, "application/json");

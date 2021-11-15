@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using OnlineStore.MvcApplication.Models;
 using System;
@@ -14,22 +15,23 @@ namespace OnlineStore.MvcApplication.Controllers
     public class RegisterController : Controller
     {
         /// <summary>
-        /// Base url of api.
-        /// </summary>
-        private readonly string Baseurl = "https://localhost:44301/";
-
-        /// <summary>
         /// IHttpClientFactory.
         /// </summary>
         private readonly IHttpClientFactory _factory;
 
         /// <summary>
+        /// IConfiguration field.
+        /// </summary>
+        private readonly IConfiguration _configuration;
+
+        /// <summary>
         /// Register controller.
         /// </summary>
         /// <param name="factory"></param>
-        public RegisterController(IHttpClientFactory factory)
+        public RegisterController(IHttpClientFactory factory, IConfiguration configuration)
         {
             _factory = factory;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -53,7 +55,7 @@ namespace OnlineStore.MvcApplication.Controllers
             {
                 HttpClient client = _factory.CreateClient();
                 var receivedReservation = new ResponseMessageViewModel();
-                client.BaseAddress = new Uri(Baseurl);
+                client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
                 client.DefaultRequestHeaders.Clear();
                 var content = new StringContent(JsonConvert.SerializeObject(registerModel), Encoding.UTF8, "application/json");
 
