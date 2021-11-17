@@ -50,8 +50,8 @@ namespace OnlineStore.ServiceApi.Controllers
             return Ok(customersNames);
         }
 
-        [HttpGet("id", Name = "getCustomer")]
-        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        [Route("getCustomer/{id}")]
         public ActionResult<CustomerDto> GetCustomerById(int id)
         {
             var customer = _customerService.FindCustomerById(id);
@@ -66,7 +66,7 @@ namespace OnlineStore.ServiceApi.Controllers
 
         [HttpPost]
         [Route("createCustomer")]
-        public ActionResult<CustomerDto> CreateCustomer(CustomerDto customer)
+        public ActionResult<CustomerDto> CreateCustomer([FromBody]CustomerDto customer)
         {
             _customerService.CreateCustomer(customer);
             return CreatedAtAction(nameof(GetCustomerById), new { Id = customer.Id }, customer);
@@ -74,7 +74,7 @@ namespace OnlineStore.ServiceApi.Controllers
 
         [HttpPut]
         [Route("updateCustomer")]
-        public ActionResult UpdateCustomer(CustomerDto customerService)
+        public ActionResult UpdateCustomer([FromBody] CustomerDto customerService)
         {
             var customer = _customerService.FindCustomerById(customerService.Id);
 
@@ -83,13 +83,19 @@ namespace OnlineStore.ServiceApi.Controllers
                 return NotFound();
             }
 
+            customer.Id = customerService.Id;
+            customer.FirstName = customerService.FirstName;
+            customer.LastName = customerService.LastName;
+            customer.Address = customerService.Address;
+            customer.PhoneNumber = customerService.PhoneNumber;
+
             _customerService.UpdateCustomer(customer);
 
             return NoContent();
         }
 
         [HttpDelete]
-        [Route("deleteCustomer")]
+        [Route("deleteCustomer/{id}")]
         public ActionResult DeleteCustomer(int id)
         {
             _customerService.DeleteCustomer(id);

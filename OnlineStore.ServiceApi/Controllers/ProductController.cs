@@ -51,7 +51,8 @@ namespace OnlineStore.ServiceApi.Controllers
             return Ok(productsNames);
         }
 
-        [HttpGet("id", Name = "getProduct")]
+        [HttpGet]
+        [Route("getProduct/{id}")]
         public ActionResult<ProductDto> GetProductById(int id)
         {
             var product = _productService.FindProductById(id);
@@ -74,7 +75,7 @@ namespace OnlineStore.ServiceApi.Controllers
 
         [HttpPut]
         [Route("updateProduct")]
-        public ActionResult UpdateProduct(ProductDto productService)
+        public ActionResult UpdateProduct([FromBody]ProductDto productService)
         {
             var product = _productService.FindProductById(productService.Id);
 
@@ -83,13 +84,17 @@ namespace OnlineStore.ServiceApi.Controllers
                 return NotFound();
             }
 
+            product.Price = productService.Price;
+            product.ProductName = productService.ProductName;
+            product.UnitOfMeasurement = productService.UnitOfMeasurement;
+
             _productService.UpdateProduct(product);
 
             return NoContent();
         }
 
         [HttpDelete]
-        [Route("deleteProduct")]
+        [Route("deleteProduct/{id}")]
         public ActionResult DeleteProduct(int id)
         {
             var product = _productService.FindProductById(id);

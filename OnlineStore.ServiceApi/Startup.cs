@@ -51,23 +51,23 @@ namespace OnlineStore.ServiceApi
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
+            });
 
 
             // Adding Jwt Bearer  
-            .AddJwtBearer(options =>
-             {
-                 options.SaveToken = true;
-                 options.RequireHttpsMetadata = false;
-                 options.TokenValidationParameters = new TokenValidationParameters()
-                 {
-                     ValidateIssuer = true,
-                     ValidateAudience = true,
-                     ValidAudience = Configuration["JWT:ValidAudience"],
-                     ValidIssuer = Configuration["JWT:ValidIssuer"],
-                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
-                 };
-             });
+            //.AddJwtBearer(options =>
+            // {
+            //     options.SaveToken = true;
+            //     options.RequireHttpsMetadata = false;
+            //     options.TokenValidationParameters = new TokenValidationParameters()
+            //     {
+            //         ValidateIssuer = true,
+            //         ValidateAudience = true,
+            //         ValidAudience = Configuration["JWT:ValidAudience"],
+            //         ValidIssuer = Configuration["JWT:ValidIssuer"],
+            //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+            //     };
+            // });
 
             services.AddSwaggerGen(swagger =>
             {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.ServiceApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("serviceApi/[controller]")]
     [ApiController]
     public class SaleController : ControllerBase
     {
@@ -37,7 +37,8 @@ namespace OnlineStore.ServiceApi.Controllers
         }
 
 
-        [HttpGet("id", Name = "getSale")]
+        [HttpGet]
+        [Route("getSale/{id}")]
         public ActionResult<SaleDto> GetSaleById(int id)
         {
             var sale = _saleService.FindSaleById(id);
@@ -46,6 +47,7 @@ namespace OnlineStore.ServiceApi.Controllers
             {
                 return NotFound();
             }
+
 
             return Ok(sale);
         }
@@ -69,13 +71,18 @@ namespace OnlineStore.ServiceApi.Controllers
                 return NotFound();
             }
 
+            sale.ProductId = saleService.ProductId;
+            sale.CustomerId = saleService.CustomerId;
+            sale.Amount = saleService.Amount;
+            sale.DateOfSale = saleService.DateOfSale;
+
             _saleService.UpdateSale(sale);
 
             return NoContent();
         }
 
         [HttpDelete]
-        [Route("deleteSale")]
+        [Route("deleteSale/{id}")]
         public ActionResult DeleteSale(int id)
         {
             var sale = _saleService.FindSaleById(id);

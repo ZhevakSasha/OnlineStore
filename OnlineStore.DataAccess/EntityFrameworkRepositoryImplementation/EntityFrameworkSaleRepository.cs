@@ -89,7 +89,14 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <param name="sale">Takes an object of Sale class.</param>
         public void Update(Sale sale)
         {
-            _context.Sales.Update(sale);
+            var entity = _context.Sales.Find(sale.Id);
+
+            entity.Amount = sale.Amount;
+            entity.CustomerId = sale.CustomerId;
+            entity.ProductId = sale.ProductId;
+            entity.DateOfSale = sale.DateOfSale;
+
+            _context.Sales.Update(entity);
         }
 
         private bool disposed = false;
