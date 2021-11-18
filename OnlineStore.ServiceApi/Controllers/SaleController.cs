@@ -53,6 +53,7 @@ namespace OnlineStore.ServiceApi.Controllers
         /// <returns>Sale</returns>
         [HttpGet]
         [Route("getSale/{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<SaleDto> GetSaleById(int id)
         {
             var sale = _saleService.FindSaleById(id);

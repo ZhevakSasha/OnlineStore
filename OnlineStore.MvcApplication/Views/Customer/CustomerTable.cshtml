@@ -60,6 +60,9 @@
 
     </tbody>
 </table>
-<p align="right">
-    <a asp-action="CustomerCreating" class="btn btn-sm btn-secondary">@Localizer["Create New"]</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p align="right">
+        <a asp-action="CustomerCreating" class="btn btn-sm btn-secondary">@Localizer["Create New"]</a>
+    </p>
+}

@@ -133,7 +133,10 @@ namespace OnlineStore.MvcApplication.Controllers
 
             var receivedReservation = apiResponse;
 
-            return View(receivedReservation);
+            if (response.IsSuccessStatusCode)
+                return View(receivedReservation);
+
+            return RedirectToAction("LoginForm", "Login");
         }
 
         /// <summary>
@@ -255,11 +258,16 @@ namespace OnlineStore.MvcApplication.Controllers
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
             var response = await client.GetAsync($"serviceApi/Sale/getSale/{id}");
+
+
             var apiResponse = await response.Content.ReadAsAsync<SaleViewModel>();
 
             var receivedReservation = apiResponse;
 
-            return View(receivedReservation);
+            if (response.IsSuccessStatusCode)
+                return View(receivedReservation);
+
+            return RedirectToAction("LoginForm", "Login");
         }
 
         /// <summary>

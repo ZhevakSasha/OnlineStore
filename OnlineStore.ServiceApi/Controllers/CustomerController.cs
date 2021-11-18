@@ -72,6 +72,7 @@ namespace OnlineStore.ServiceApi.Controllers
         /// <returns>Customer</returns>
         [HttpGet]
         [Route("getCustomer/{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<CustomerDto> GetCustomerById(int id)
         {
             var customer = _customerService.FindCustomerById(id);
@@ -123,7 +124,6 @@ namespace OnlineStore.ServiceApi.Controllers
 
             return NoContent();
         }
-
 
         /// <summary>
         /// HttpDelete endpoint. Deletes customer.

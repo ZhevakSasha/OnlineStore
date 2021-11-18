@@ -75,7 +75,10 @@ namespace OnlineStore.MvcApplication.Controllers
 
             var receivedReservation = apiResponse;
 
-            return View(receivedReservation);
+            if (response.IsSuccessStatusCode)
+                return View(receivedReservation);
+
+            return RedirectToAction("LoginForm", "Login");
         }
 
         /// <summary>
@@ -154,7 +157,10 @@ namespace OnlineStore.MvcApplication.Controllers
 
             var receivedReservation = apiResponse;
 
-            return View(receivedReservation);
+            if (response.IsSuccessStatusCode)
+                return View(receivedReservation);
+
+            return RedirectToAction("LoginForm", "Login");
         }
 
         /// <summary>

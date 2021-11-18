@@ -72,6 +72,7 @@ namespace OnlineStore.ServiceApi.Controllers
         /// <returns>Product</returns>
         [HttpGet]
         [Route("getProduct/{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<ProductDto> GetProductById(int id)
         {
             var product = _productService.FindProductById(id);
