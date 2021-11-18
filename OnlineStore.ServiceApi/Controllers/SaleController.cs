@@ -1,26 +1,36 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OnlineStore.ServiceApi.Controllers
 {
+    /// <summary>
+    /// ServiceApi SaleController.
+    /// </summary>
     [Route("serviceApi/[controller]")]
     [ApiController]
     public class SaleController : ControllerBase
     {
+        /// <summary>
+        /// Sale service field.
+        /// </summary>
         private ISaleService _saleService;
 
+        /// <summary>
+        /// SaleController constructor.
+        /// </summary>
+        /// <param name="saleService">Sale service</param>
         public SaleController(ISaleService saleService)
         {
             _saleService = saleService;
         }
 
+        /// <summary>
+        /// HttpGet endpoint with all sales.
+        /// </summary>
+        /// <returns>List with all sales</returns>
         [HttpGet]
         [AllowAnonymous]
         [Route("getSales")]
@@ -36,7 +46,11 @@ namespace OnlineStore.ServiceApi.Controllers
             return Ok(sales);
         }
 
-
+        /// <summary>
+        /// HttpGet endpoint with sale by id.
+        /// </summary>
+        /// <param name="id">Sale id</param>
+        /// <returns>Sale</returns>
         [HttpGet]
         [Route("getSale/{id}")]
         public ActionResult<SaleDto> GetSaleById(int id)
@@ -48,20 +62,29 @@ namespace OnlineStore.ServiceApi.Controllers
                 return NotFound();
             }
 
-
             return Ok(sale);
         }
 
+        /// <summary>
+        /// HttpPost endpoint. Creates sale.
+        /// </summary>
+        /// <param name="sale">Sale</param>
         [HttpPost]
         [Route("createSale")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<SaleDto> CreateSale(SaleDto sale)
         {
             _saleService.CreateSale(sale);
             return CreatedAtAction(nameof(GetSaleById), new { Id = sale.Id }, sale);
         }
 
+        /// <summary>
+        /// HttpPut endpoint. Updates sale.
+        /// </summary>
+        /// <param name="saleService">sale</param>
         [HttpPut]
         [Route("updateSale")]
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateSale(SaleDto saleService)
         {
             var sale = _saleService.FindSaleById(saleService.Id);
@@ -81,8 +104,13 @@ namespace OnlineStore.ServiceApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// HttpDelete endpoint. Deletes sale.
+        /// </summary>
+        /// <param name="id">Sale id</param>
         [HttpDelete]
         [Route("deleteSale/{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteSale(int id)
         {
             var sale = _saleService.FindSaleById(id);

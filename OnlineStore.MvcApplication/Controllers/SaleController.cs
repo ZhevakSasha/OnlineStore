@@ -1,12 +1,9 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using OnlineStore.BusinessLogic.DtoModels;
-using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.MvcApplication.Models;
 using System;
 using System.Collections.Generic;

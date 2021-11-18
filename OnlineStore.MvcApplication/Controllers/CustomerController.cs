@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
 using OnlineStore.MvcApplication.Models;
 using System.Collections.Generic;
 using System.Net.Http;
