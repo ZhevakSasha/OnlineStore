@@ -29,14 +29,12 @@ namespace OnlineStore.MvcApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient("users", (HttpClient client) =>
-            {
-                client.BaseAddress =
-                new Uri("https://localhost:44301/");
-            })
-             .ConfigureHttpClient((HttpClient client) => { })
-             .ConfigureHttpClient(
-             (IServiceProvider provider, HttpClient client) => { });
+            services.AddTransient<ApiTokenMessageHandler>();
+            services.AddHttpClient("serviceApi")
+                .ConfigureHttpClient((provider, c) => c.BaseAddress = new Uri(Configuration.GetSection("Urls:ServiceUrl").Value))
+            .AddHttpMessageHandler<ApiTokenMessageHandler>();
+            services.AddHttpClient("authApi")
+                .ConfigureHttpClient((provider, c) => c.BaseAddress = new Uri(Configuration.GetSection("Urls:AuthUrl").Value));
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddControllersWithViews()

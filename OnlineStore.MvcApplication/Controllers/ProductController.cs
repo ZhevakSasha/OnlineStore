@@ -16,25 +16,16 @@ namespace OnlineStore.MvcApplication.Controllers
     /// </summary>
     public class ProductController : Controller
     {
-        /// <summary>
-        /// IHttpClientFactory.
-        /// </summary>
-        private readonly IHttpClientFactory _factory;
-
-        /// <summary>
-        /// IConfiguration field.
-        /// </summary>
-        private readonly IConfiguration _configuration;
+        private HttpClient client;
 
         /// <summary>
         /// ProductController constructor.
         /// </summary>
         /// <param name="factory">IHttpClientFactory</param>
         /// <param name="configuration">IConfiguration</param>
-        public ProductController(IHttpClientFactory factory, IConfiguration configuration)
+        public ProductController(IHttpClientFactory factory)
         {
-            _factory = factory;
-            _configuration = configuration;
+            client = factory.CreateClient("serviceApi");
         }
 
         /// <summary>
@@ -43,10 +34,8 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>View with products</returns>
         public async Task<IActionResult> ProductTable()
         {
-            HttpClient client = _factory.CreateClient();
             var receivedReservation = Enumerable.Empty<ProductViewModel>();
 
-            client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -64,9 +53,6 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>View with product</returns>
         public async Task<IActionResult> ProductUpdating(int id)
         {
-            HttpClient client = _factory.CreateClient();
-
-            client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -91,10 +77,8 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                HttpClient client = _factory.CreateClient();
                 var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
 
-                client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
                 var accessToken = Request.Cookies["token"];
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -124,10 +108,8 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                HttpClient client = _factory.CreateClient();
                 var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
 
-                client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
                 var accessToken = Request.Cookies["token"];
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -145,10 +127,8 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>ProductTable view</returns>
         public async Task<IActionResult> ProductDeleting(int id)
         {
-            HttpClient client = _factory.CreateClient();
             var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
 
-            client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -171,9 +151,6 @@ namespace OnlineStore.MvcApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> ProductDeleting(ProductViewModel product)
         {
-            HttpClient client = _factory.CreateClient();
-
-            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls:ServiceUrl"));
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 

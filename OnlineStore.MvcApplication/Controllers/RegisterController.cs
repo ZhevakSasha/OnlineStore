@@ -14,24 +14,15 @@ namespace OnlineStore.MvcApplication.Controllers
     /// </summary>
     public class RegisterController : Controller
     {
-        /// <summary>
-        /// IHttpClientFactory.
-        /// </summary>
-        private readonly IHttpClientFactory _factory;
-
-        /// <summary>
-        /// IConfiguration field.
-        /// </summary>
-        private readonly IConfiguration _configuration;
+        private HttpClient client;
 
         /// <summary>
         /// Register controller.
         /// </summary>
         /// <param name="factory"></param>
-        public RegisterController(IHttpClientFactory factory, IConfiguration configuration)
+        public RegisterController(IHttpClientFactory factory)
         {
-            _factory = factory;
-            _configuration = configuration;
+            client = factory.CreateClient("authApi");
         }
 
         /// <summary>
@@ -53,9 +44,7 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                HttpClient client = _factory.CreateClient();
                 var receivedReservation = new ResponseMessageViewModel();
-                client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
                 client.DefaultRequestHeaders.Clear();
                 var content = new StringContent(JsonConvert.SerializeObject(registerModel), Encoding.UTF8, "application/json");
 

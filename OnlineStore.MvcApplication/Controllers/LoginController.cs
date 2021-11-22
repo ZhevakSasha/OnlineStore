@@ -19,24 +19,15 @@ namespace OnlineStore.MvcApplication.Controllers
     /// </summary>
     public class LoginController : Controller
     {
-        /// <summary>
-        /// IHttpClientFactory.
-        /// </summary>
-        private readonly IHttpClientFactory _factory;
-
-        /// <summary>
-        /// IConfiguration field.
-        /// </summary>
-        private readonly IConfiguration _configuration;
+        private HttpClient client;
 
         /// <summary>
         /// Login controller constructor.
         /// </summary>
         /// <param name="factory"></param>
-        public LoginController(IHttpClientFactory factory, IConfiguration configuration)
+        public LoginController(IHttpClientFactory factory)
         {
-            _factory = factory;
-            _configuration = configuration;
+            client = factory.CreateClient("authApi");
         }
 
         /// <summary>
@@ -58,11 +49,8 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                HttpClient client = _factory.CreateClient();
-
                 var receivedReservation = new ResponceViewModel();
 
-                client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
                 client.DefaultRequestHeaders.Clear();
 
                 var content = new StringContent(JsonConvert.SerializeObject(loginModel), Encoding.UTF8, "application/json");

@@ -19,25 +19,16 @@ namespace OnlineStore.MvcApplication.Controllers
     /// </summary>
     public class SaleController : Controller
     {
-        /// <summary>
-        /// IHttpClientFactory.
-        /// </summary>
-        private readonly IHttpClientFactory _factory;
-
-        /// <summary>
-        /// IConfiguration field.
-        /// </summary>
-        private readonly IConfiguration _configuration;
+        private HttpClient client;
 
         /// <summary>
         /// SaleController constructor.
         /// </summary>
         /// <param name="factory">IHttpClientFactory</param>
         /// <param name="configuration">IConfiguration</param>
-        public SaleController(IHttpClientFactory factory, IConfiguration configuration)
+        public SaleController(IHttpClientFactory factory)
         {
-            _factory = factory;
-            _configuration = configuration;
+            client = factory.CreateClient("serviceApi");
         }
 
         [HttpPost]
@@ -58,10 +49,8 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>View with sales</returns>
         public async Task<IActionResult> SaleTable()
         {
-            HttpClient client = _factory.CreateClient();
             var receivedReservation = Enumerable.Empty<SaleViewModel>();
 
-            client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -82,10 +71,8 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             ViewData["GetDetails"] = searchString;
 
-            HttpClient client = _factory.CreateClient();
             var receivedReservation = Enumerable.Empty<SaleViewModel>();
 
-            client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -111,9 +98,6 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>View with sale</returns>
         public async Task<IActionResult> SaleUpdating(int id)
         {
-            HttpClient client = _factory.CreateClient();
-
-            client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -147,11 +131,6 @@ namespace OnlineStore.MvcApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> SaleUpdating(SaleViewModel sale)
         {
-            HttpClient client = _factory.CreateClient();
-            
-
-            client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
-
             if (ModelState.IsValid)
             {
                 var content = new StringContent(JsonConvert.SerializeObject(sale), Encoding.UTF8, "application/json");
@@ -162,7 +141,6 @@ namespace OnlineStore.MvcApplication.Controllers
 
                 return RedirectToAction("SaleTable");
             }
-            
             
             var response = await client.GetAsync($"serviceApi/Product/getProductsNames");
 
@@ -176,7 +154,6 @@ namespace OnlineStore.MvcApplication.Controllers
             ViewBag.CustomerNames = new SelectList(customerNames, "Id", "Name");
 
             return View(sale);
-            
         }
 
         /// <summary>
@@ -185,10 +162,6 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>SaleCreating view</returns>
         public async Task<IActionResult> SaleCreating()
         {
-            HttpClient client = _factory.CreateClient();
-
-            client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
-
             var response = await client.GetAsync($"serviceApi/Product/getProductsNames");
 
             var productNames = await response.Content.ReadAsAsync<IEnumerable<SelectModel>>();
@@ -211,11 +184,6 @@ namespace OnlineStore.MvcApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> SaleCreating(SaleViewModel sale)
         {
-            HttpClient client = _factory.CreateClient();
-
-            client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
-            
-
             if (ModelState.IsValid)
             {
                 var content = new StringContent(JsonConvert.SerializeObject(sale), Encoding.UTF8, "application/json");
@@ -250,10 +218,8 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>SaleTable view</returns>
         public async Task<IActionResult> SaleDeleting(int id)
         {
-            HttpClient client = _factory.CreateClient();
             var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
 
-            client.BaseAddress = new Uri(_configuration.GetSection("Urls:ServiceUrl").Value);
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -278,9 +244,6 @@ namespace OnlineStore.MvcApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> SaleDeleting(SaleViewModel sale)
         {
-            HttpClient client = _factory.CreateClient();
-
-            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls:ServiceUrl"));
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
