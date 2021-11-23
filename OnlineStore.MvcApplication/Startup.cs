@@ -29,6 +29,8 @@ namespace OnlineStore.MvcApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+
             services.AddTransient<ApiTokenMessageHandler>();
             services.AddHttpClient("serviceApi")
                 .ConfigureHttpClient((provider, c) => c.BaseAddress = new Uri(Configuration.GetSection("Urls:ServiceUrl").Value))

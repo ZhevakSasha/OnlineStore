@@ -51,9 +51,6 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             var receivedReservation = Enumerable.Empty<SaleViewModel>();
 
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
             var response = await client.GetAsync("serviceApi/Sale/getSales");
 
             var apiResponse = await response.Content.ReadAsAsync<IEnumerable<SaleModel>>();
@@ -72,9 +69,6 @@ namespace OnlineStore.MvcApplication.Controllers
             ViewData["GetDetails"] = searchString;
 
             var receivedReservation = Enumerable.Empty<SaleViewModel>();
-
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
             var response = await client.GetAsync("serviceApi/Sale/getSales");
 
@@ -98,9 +92,6 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>View with sale</returns>
         public async Task<IActionResult> SaleUpdating(int id)
         {
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
             var response = await client.GetAsync($"serviceApi/Product/getProductsNames");
 
             var productNames = await response.Content.ReadAsAsync<IEnumerable<SelectModel>>();
@@ -134,8 +125,6 @@ namespace OnlineStore.MvcApplication.Controllers
             if (ModelState.IsValid)
             {
                 var content = new StringContent(JsonConvert.SerializeObject(sale), Encoding.UTF8, "application/json");
-                var accessToken = Request.Cookies["token"];
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
                 await client.PutAsync("serviceApi/Sale/updateSale", content);
 
@@ -186,13 +175,6 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var content = new StringContent(JsonConvert.SerializeObject(sale), Encoding.UTF8, "application/json");
-                var accessToken = Request.Cookies["token"];
-
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
-                await client.PostAsync("serviceApi/Sale/createSale", content);
-
                 return RedirectToAction("SaleTable");
             }
          
@@ -220,9 +202,6 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
 
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
             var response = await client.GetAsync($"serviceApi/Sale/getSale/{id}");
 
 
@@ -244,9 +223,6 @@ namespace OnlineStore.MvcApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> SaleDeleting(SaleViewModel sale)
         {
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
             await client.DeleteAsync(string.Format("serviceApi/Sale/deleteSale/{0}", sale.Id));
 
             return RedirectToAction("SaleTable");

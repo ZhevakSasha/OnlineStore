@@ -36,9 +36,6 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             var receivedReservation = Enumerable.Empty<ProductViewModel>();
 
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
             var response = await client.GetAsync("serviceApi/Product/getProducts");
 
             var apiResponse = await response.Content.ReadAsAsync<IEnumerable<ProductModel>>();
@@ -53,9 +50,6 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <returns>View with product</returns>
         public async Task<IActionResult> ProductUpdating(int id)
         {
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
             var response = await client.GetAsync($"serviceApi/Product/getProduct/{id}");
             var apiResponse = await response.Content.ReadAsAsync<ProductViewModel>();
 
@@ -78,9 +72,6 @@ namespace OnlineStore.MvcApplication.Controllers
             if (ModelState.IsValid)
             {
                 var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
-
-                var accessToken = Request.Cookies["token"];
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
                 var responseMessage = await client.PutAsync("serviceApi/Product/updateProduct", content);
 
@@ -110,9 +101,6 @@ namespace OnlineStore.MvcApplication.Controllers
             {
                 var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
 
-                var accessToken = Request.Cookies["token"];
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
                 await client.PostAsync("serviceApi/Product/createProduct", content);
 
                 return RedirectToAction("ProductTable");
@@ -128,9 +116,6 @@ namespace OnlineStore.MvcApplication.Controllers
         public async Task<IActionResult> ProductDeleting(int id)
         {
             var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
-
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
             var response = await client.GetAsync($"serviceApi/Product/getProduct/{id}");
             var apiResponse = await response.Content.ReadAsAsync<ProductViewModel>();
@@ -151,9 +136,6 @@ namespace OnlineStore.MvcApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> ProductDeleting(ProductViewModel product)
         {
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
             await client.DeleteAsync(string.Format("serviceApi/Product/deleteProduct/{0}", product.Id));
 
             return RedirectToAction("ProductTable");

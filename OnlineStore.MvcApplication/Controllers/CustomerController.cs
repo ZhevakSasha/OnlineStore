@@ -53,9 +53,6 @@ namespace OnlineStore.MvcApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> CustomerUpdating(int id)
         {
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
             var response = await client.GetAsync($"serviceApi/Customer/getCustomer/{id}");
             var apiResponse = await response.Content.ReadAsAsync<CustomerViewModel>();
 
@@ -78,9 +75,6 @@ namespace OnlineStore.MvcApplication.Controllers
             if (ModelState.IsValid)
             {
                 var content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
-
-                var accessToken = Request.Cookies["token"];
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
                 await client.PutAsync("serviceApi/Customer/updateCustomer", content);
 
@@ -110,9 +104,6 @@ namespace OnlineStore.MvcApplication.Controllers
             {
                 var content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
 
-                var accessToken = Request.Cookies["token"];
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
                 await client.PostAsync("serviceApi/Customer/createCustomer", content);
 
                 return RedirectToAction("CustomerTable");
@@ -128,9 +119,6 @@ namespace OnlineStore.MvcApplication.Controllers
         public async Task<IActionResult> CustomerDeleting(int id)
         {
             var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
-
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
             var response = await client.GetAsync($"serviceApi/Customer/getCustomer/{id}");
             var apiResponse = await response.Content.ReadAsAsync<CustomerViewModel>();
@@ -151,9 +139,6 @@ namespace OnlineStore.MvcApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> CustomerDeleting(CustomerViewModel customer)
         {
-            var accessToken = Request.Cookies["token"];
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-
             await client.DeleteAsync(string.Format("serviceApi/Customer/deleteCustomer/{0}", customer.Id));
 
             return RedirectToAction("CustomerTable");
