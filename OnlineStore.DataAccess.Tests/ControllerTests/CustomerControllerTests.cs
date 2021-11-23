@@ -9,6 +9,8 @@ using Xunit;
 using System.Linq;
 using OnlineStore.MvcApplication;
 using OnlineStore.MvcApplication.Models;
+using System.Net.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace OnlineStore.DataAccess.Tests.ControllerTests
 {
@@ -20,7 +22,7 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
         /// <summary>
         /// Mock service object.
         /// </summary>
-        private Mock<ICustomerService> _mockService;
+        private Mock<IHttpClientFactory> _mockFactory;
 
         /// <summary>
         /// Customer controller object.
@@ -30,21 +32,18 @@ namespace OnlineStore.DataAccess.Tests.ControllerTests
         /// <summary>
         /// Mapper.
         /// </summary>
-        private IMapper _mapper;
-
+        private Mock<IConfiguration> _mockConfig;
+        
         /// <summary>
         /// Customer controller constructor.
         /// </summary>
         public CustomerControllerTests()
         {
-            _mockService = new Mock<ICustomerService>();
-            var mockMapper = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapping());
-            });
-            _mapper = mockMapper.CreateMapper();
+            _mockFactory = new Mock<IHttpClientFactory>();
 
-            _customerController = new CustomerController(_mockService.Object, _mapper);
+            _mockConfig = new Mock<IConfiguration>();
+
+            _customerController = new CustomerController(_mockFactory.Object, _mockConfig.Object);
         }
 
         /// <summary>

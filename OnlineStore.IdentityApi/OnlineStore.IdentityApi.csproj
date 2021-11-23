@@ -20,4 +20,8 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.13.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineStore.BusinessLogic\OnlineStore.BusinessLogic.csproj" />
+  </ItemGroup>
+
 </Project>

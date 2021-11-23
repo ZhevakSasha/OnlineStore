@@ -1,14 +1,16 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OnlineStore.BusinessLogic.DtoModels;
-using OnlineStore.BusinessLogic.IServices;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using OnlineStore.MvcApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
@@ -17,39 +19,16 @@ namespace OnlineStore.MvcApplication.Controllers
     /// </summary>
     public class SaleController : Controller
     {
-        /// <summary>
-        /// Sale service.
-        /// </summary>
-        private ISaleService _sale;
-
-        /// <summary>
-        /// Product service.
-        /// </summary>
-        private IProductService _product;
-
-        /// <summary>
-        /// Customer service.
-        /// </summary>
-        private ICustomerService _customer;
-
-        /// <summary>
-        /// Mapper.
-        /// </summary>
-        private IMapper _mapper;
+        private HttpClient client;
 
         /// <summary>
         /// SaleController constructor.
         /// </summary>
-        /// <param name="sale">Sale service</param>
-        /// <param name="product">Product service</param>
-        /// <param name="customer">Customer service</param>
-        /// <param name="mapper">Mapper</param>
-        public SaleController(ISaleService sale, IProductService product, ICustomerService customer, IMapper mapper)
+        /// <param name="factory">IHttpClientFactory</param>
+        /// <param name="configuration">IConfiguration</param>
+        public SaleController(IHttpClientFactory factory)
         {
-            _mapper = mapper;
-            _sale = sale;
-            _customer = customer;
-            _product = product;
+            client = factory.CreateClient("serviceApi");
         }
 
         [HttpPost]
@@ -68,11 +47,16 @@ namespace OnlineStore.MvcApplication.Controllers
         /// Takes a list of all sales from the table and passes them into view.
         /// </summary>
         /// <returns>View with sales</returns>
-        public IActionResult SaleTable()
+        public async Task<IActionResult> SaleTable()
         {
-            var results = _sale.GetAllSales();
-            var sales = _mapper.Map<IEnumerable<SaleViewModel>>(results);
-            return View(sales);
+            var receivedReservation = Enumerable.Empty<SaleViewModel>();
+
+            var response = await client.GetAsync("serviceApi/Sale/getSales");
+
+            var apiResponse = await response.Content.ReadAsAsync<IEnumerable<SaleModel>>();
+            receivedReservation = apiResponse.ToList()
+                .Select(x => new SaleViewModel { Id = x.Id, ProductName = x.ProductName, DateOfSale = x.DateOfSale, ProductId =x.ProductId, CustomerId = x.CustomerId, Amount = x.Amount, CustomerName = x.CustomerName });
+            return View(receivedReservation);
         }
 
         /// <summary>
@@ -80,18 +64,25 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         /// <returns>View with sales</returns>
         [HttpGet]
-        public IActionResult SaleTable(string searchString)
+        public async Task<IActionResult> SaleTable(string searchString)
         {
             ViewData["GetDetails"] = searchString;
 
-            var results = _sale.GetAllSales();
-            var sales = _mapper.Map<IEnumerable<SaleViewModel>>(results);
+            var receivedReservation = Enumerable.Empty<SaleViewModel>();
+
+            var response = await client.GetAsync("serviceApi/Sale/getSales");
+
+            var apiResponse = await response.Content.ReadAsAsync<IEnumerable<SaleModel>>();
+            receivedReservation = apiResponse.ToList()
+                .Select(x => new SaleViewModel { Id = x.Id, ProductName = x.ProductName, DateOfSale = x.DateOfSale, ProductId = x.ProductId, CustomerId = x.CustomerId, Amount = x.Amount, CustomerName = x.CustomerName });
+            
+
             if (!String.IsNullOrEmpty(searchString))
             {
-                sales = sales.Where(s => s.ProductName.Contains(searchString)
+                receivedReservation = receivedReservation.Where(s => s.ProductName.Contains(searchString)
                                        || s.CustomerName.Contains(searchString));
             }
-            return View(sales);
+            return View(receivedReservation);
         }
 
         /// <summary>
@@ -99,15 +90,28 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         /// <param name="id">id</param>
         /// <returns>View with sale</returns>
-        public IActionResult SaleUpdating(int id)
+        public async Task<IActionResult> SaleUpdating(int id)
         {
+            var response = await client.GetAsync($"serviceApi/Product/getProductsNames");
 
-            var sale = _mapper.Map<SaleViewModel>(_sale.FindSaleById(id));
-            var productNames = _product.GetAllProductNames();
-            var customerNames = _customer.GetAllCustomerNames();
-            ViewBag.ProductNames = new SelectList(productNames,"Id","Name");
-            ViewBag.CustomerNames = new SelectList(customerNames,"Id","Name");
-            return View(sale);
+            var productNames = await response.Content.ReadAsAsync<IEnumerable<SelectModel>>();
+
+            response = await client.GetAsync($"serviceApi/Customer/getCustomersNames");
+
+            var customerNames = await response.Content.ReadAsAsync<IEnumerable<SelectModel>>();
+
+            ViewBag.ProductNames = new SelectList(productNames, "Id", "Name");
+            ViewBag.CustomerNames = new SelectList(customerNames, "Id", "Name");
+
+            response = await client.GetAsync($"serviceApi/Sale/getSale/{id}");
+            var apiResponse = await response.Content.ReadAsAsync<SaleViewModel>();
+
+            var receivedReservation = apiResponse;
+
+            if (response.IsSuccessStatusCode)
+                return View(receivedReservation);
+
+            return RedirectToAction("LoginForm", "Login");
         }
 
         /// <summary>
@@ -116,33 +120,48 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <param name="sale">Takes saleViewModel object</param>
         /// <returns>SaleTable View</returns>
         [HttpPost]
-        public IActionResult SaleUpdating(SaleViewModel sale)
+        public async Task<IActionResult> SaleUpdating(SaleViewModel sale)
         {
             if (ModelState.IsValid)
             {
-                _sale.UpdateSale(_mapper.Map<SaleDto>(sale));
+                var content = new StringContent(JsonConvert.SerializeObject(sale), Encoding.UTF8, "application/json");
+
+                await client.PutAsync("serviceApi/Sale/updateSale", content);
+
                 return RedirectToAction("SaleTable");
             }
-            else
-            {
-                var productNames = _product.GetAllProductNames();
-                var customerNames = _customer.GetAllCustomerNames();
-                ViewBag.ProductNames = new SelectList(productNames,"Id","Name");
-                ViewBag.CustomerNames = new SelectList(customerNames,"Id","Name");
-                return View(sale);
-            }
+            
+            var response = await client.GetAsync($"serviceApi/Product/getProductsNames");
+
+            var productNames = await response.Content.ReadAsAsync<IEnumerable<SelectModel>>();
+
+            response = await client.GetAsync($"serviceApi/Customer/getCustomersNames");
+
+            var customerNames = await response.Content.ReadAsAsync<IEnumerable<SelectModel>>();
+
+            ViewBag.ProductNames = new SelectList(productNames, "Id", "Name");
+            ViewBag.CustomerNames = new SelectList(customerNames, "Id", "Name");
+
+            return View(sale);
         }
 
         /// <summary>
         /// SaleCreating.
         /// </summary>
         /// <returns>SaleCreating view</returns>
-        public IActionResult SaleCreating()
+        public async Task<IActionResult> SaleCreating()
         {
-            var productNames = _product.GetAllProductNames();
-            var customerNames = _customer.GetAllCustomerNames();
-            ViewBag.ProductNames = new SelectList(productNames,"Id","Name");
-            ViewBag.CustomerNames = new SelectList(customerNames,"Id","Name");
+            var response = await client.GetAsync($"serviceApi/Product/getProductsNames");
+
+            var productNames = await response.Content.ReadAsAsync<IEnumerable<SelectModel>>();
+
+            response = await client.GetAsync($"serviceApi/Customer/getCustomersNames");
+
+            var customerNames = await response.Content.ReadAsAsync<IEnumerable<SelectModel>>();
+
+            ViewBag.ProductNames = new SelectList(productNames, "Id", "Name");
+            ViewBag.CustomerNames = new SelectList(customerNames, "Id", "Name");
+
             return View();
         }
 
@@ -152,21 +171,26 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <param name="sale">Takes saleViewModel object</param>
         /// <returns>SaleTable view</returns>
         [HttpPost]
-        public IActionResult SaleCreating(SaleViewModel sale)
+        public async Task<IActionResult> SaleCreating(SaleViewModel sale)
         {
             if (ModelState.IsValid)
             {
-                _sale.CreateSale(_mapper.Map<SaleDto>(sale));
                 return RedirectToAction("SaleTable");
             }
-            else
-            {
-                var productNames = _product.GetAllProductNames();
-                var customerNames = _customer.GetAllCustomerNames();
-                ViewBag.ProductNames = new SelectList(productNames, "Id", "Name");
-                ViewBag.CustomerNames = new SelectList(customerNames, "Id", "Name");
-                return View(sale);
-            }     
+         
+            var response = await client.GetAsync("serviceApi/Product/getProductsNames");
+
+            var productNames = await response.Content.ReadAsAsync<IEnumerable<SelectModel>>();
+
+            response = await client.GetAsync("serviceApi/Customer/getCustomersNames");
+
+            var customerNames = await response.Content.ReadAsAsync<IEnumerable<SelectModel>>();
+
+            ViewBag.ProductNames = new SelectList(productNames, "Id", "Name");
+            ViewBag.CustomerNames = new SelectList(customerNames, "Id", "Name");
+
+            return View(sale);
+            
         }
 
         /// <summary>
@@ -174,10 +198,21 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         /// <param name="id">id</param>
         /// <returns>SaleTable view</returns>
-        public IActionResult SaleDeleting(int id)
+        public async Task<IActionResult> SaleDeleting(int id)
         {
-            var sale = _mapper.Map<SaleViewModel>(_sale.FindSaleById(id));
-            return View(sale);
+            var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
+
+            var response = await client.GetAsync($"serviceApi/Sale/getSale/{id}");
+
+
+            var apiResponse = await response.Content.ReadAsAsync<SaleViewModel>();
+
+            var receivedReservation = apiResponse;
+
+            if (response.IsSuccessStatusCode)
+                return View(receivedReservation);
+
+            return RedirectToAction("LoginForm", "Login");
         }
 
         /// <summary>
@@ -186,9 +221,10 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <param name="id">id</param>
         /// <returns>SaleTable view</returns>
         [HttpPost]
-        public IActionResult SaleDeleting(SaleViewModel sale)
+        public async Task<IActionResult> SaleDeleting(SaleViewModel sale)
         {
-            _sale.DeleteSale(sale.Id);
+            await client.DeleteAsync(string.Format("serviceApi/Sale/deleteSale/{0}", sale.Id));
+
             return RedirectToAction("SaleTable");
         }
     }

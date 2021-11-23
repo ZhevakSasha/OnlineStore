@@ -20,7 +20,7 @@
 
 
 <table class="table table-bordered table-sm table-striped">
-    <thead> 
+    <thead>
         <tr class="text-center">
             <th>
                 @Localizer[@Html.DisplayNameFor(model => model.ProductName)]
@@ -57,20 +57,22 @@
                     </td>
                     <td>
                         <a asp-action="SaleUpdating" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">@Localizer["Edit"]</a>
-                        <a asp-action="SaleDeleting"  asp-route-id="@item.Id" class="btn btn-sm btn-secondary">@Localizer["Delete"]</a>
+                        <a asp-action="SaleDeleting" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">@Localizer["Delete"]</a>
                     </td>
                 </tr>
             }
         }
-            else 
-                {
+        else
+        {
             <tr>
                 <td colspan="5" class="text-center">@Localizer["NoRecordsFound"]</td>
             </tr>
-                }
+        }
     </tbody>
 </table>
-
-<p align="right">
-    <a asp-action="SaleCreating" class="btn btn-sm btn-secondary">@Localizer["Create New"]</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p align="right">
+        <a asp-action="SaleCreating" class="btn btn-sm btn-secondary">@Localizer["Create New"]</a>
+    </p>
+}

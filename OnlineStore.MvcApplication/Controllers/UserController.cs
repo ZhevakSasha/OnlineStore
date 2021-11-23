@@ -43,7 +43,7 @@ namespace OnlineStore.MvcApplication.Controllers
             HttpClient client = _factory.CreateClient();
             var receivedReservation = Enumerable.Empty<UserViewModel>();
 
-            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
+            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls:AuthUrl"));
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -63,7 +63,7 @@ namespace OnlineStore.MvcApplication.Controllers
             HttpClient client = _factory.CreateClient();
             var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
 
-            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
+            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls:AuthUrl"));
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -92,7 +92,7 @@ namespace OnlineStore.MvcApplication.Controllers
                 model.Role = roles;
                 var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
 
-                client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
+                client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls:AuthUrl"));
                 var accessToken = Request.Cookies["token"];
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -112,7 +112,7 @@ namespace OnlineStore.MvcApplication.Controllers
             HttpClient client = _factory.CreateClient();
             var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
 
-            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
+            client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls:AuthUrl"));
             var accessToken = Request.Cookies["token"];
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
@@ -132,13 +132,12 @@ namespace OnlineStore.MvcApplication.Controllers
         public async Task<ActionResult> UserDeleting(UserModel model)
         {
                 HttpClient client = _factory.CreateClient();
-                var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
 
-                client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls"));
+                client.BaseAddress = new Uri(_configuration.GetValue<string>("Urls:AuthUrl"));
                 var accessToken = Request.Cookies["token"];
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
-                var response = await client.DeleteAsync(string.Format("api/UsersInfo/userDeleting/{0}",model.Id));
+                await client.DeleteAsync(string.Format("api/UsersInfo/userDeleting/{0}",model.Id));
 
                 return RedirectToAction("UsersTable");
         }

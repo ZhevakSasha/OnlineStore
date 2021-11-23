@@ -1,9 +1,13 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using OnlineStore.BusinessLogic.DtoModels;
-using OnlineStore.BusinessLogic.IServices;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using OnlineStore.MvcApplication.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineStore.MvcApplication.Controllers
 {
@@ -12,36 +16,31 @@ namespace OnlineStore.MvcApplication.Controllers
     /// </summary>
     public class ProductController : Controller
     {
-        /// <summary>
-        /// Product service.
-        /// </summary>
-        private IProductService _product;
-
-        /// <summary>
-        /// Mapper.
-        /// </summary>
-        private IMapper _mapper;
+        private HttpClient client;
 
         /// <summary>
         /// ProductController constructor.
         /// </summary>
-        /// <param name="product">Product service</param>
-        /// <param name="mapper">Mapper</param>
-        public ProductController(IProductService product, IMapper mapper)
+        /// <param name="factory">IHttpClientFactory</param>
+        /// <param name="configuration">IConfiguration</param>
+        public ProductController(IHttpClientFactory factory)
         {
-            _product = product;
-            _mapper = mapper;
+            client = factory.CreateClient("serviceApi");
         }
 
         /// <summary>
         /// Takes a list of all products from the table and passes them into view.
         /// </summary>
         /// <returns>View with products</returns>
-        public IActionResult ProductTable()
+        public async Task<IActionResult> ProductTable()
         {
-            var results = _product.GetAllProducts();
-            var products = _mapper.Map<IEnumerable<ProductViewModel>>(results);
-            return View(products);
+            var receivedReservation = Enumerable.Empty<ProductViewModel>();
+
+            var response = await client.GetAsync("serviceApi/Product/getProducts");
+
+            var apiResponse = await response.Content.ReadAsAsync<IEnumerable<ProductModel>>();
+            receivedReservation = apiResponse.ToList().Select(x => new ProductViewModel { Id = x.Id, ProductName = x.ProductName, Price = x.Price, UnitOfMeasurement = x.UnitOfMeasurement });
+            return View(receivedReservation);
         }
 
         /// <summary>
@@ -49,10 +48,17 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         /// <param name="id">id</param>
         /// <returns>View with product</returns>
-        public IActionResult ProductUpdating(int id)
+        public async Task<IActionResult> ProductUpdating(int id)
         {
-            var product = _product.FindProductById(id);
-            return View(_mapper.Map<ProductViewModel>(product));
+            var response = await client.GetAsync($"serviceApi/Product/getProduct/{id}");
+            var apiResponse = await response.Content.ReadAsAsync<ProductViewModel>();
+
+            var receivedReservation = apiResponse;
+
+            if (response.IsSuccessStatusCode)
+                return View(receivedReservation);
+
+            return RedirectToAction("LoginForm", "Login");
         }
 
         /// <summary>
@@ -61,11 +67,14 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <param name="product">Takes productViewModel object</param>
         /// <returns>ProductTable view</returns>
         [HttpPost]
-        public IActionResult ProductUpdating(ProductViewModel product)
+        public async Task<IActionResult> ProductUpdating(ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
-                _product.UpdateProduct(_mapper.Map<ProductDto>(product));
+                var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
+
+                var responseMessage = await client.PutAsync("serviceApi/Product/updateProduct", content);
+
                 return RedirectToAction("ProductTable");
             }
             return View();
@@ -86,11 +95,14 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <param name="product">Takes productViewModel object</param>
         /// <returns>Table view</returns>
         [HttpPost]
-        public IActionResult ProductCreating(ProductViewModel product)
+        public async Task<IActionResult> ProductCreating(ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
-                _product.CreateProduct(_mapper.Map<ProductDto>(product));
+                var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
+
+                await client.PostAsync("serviceApi/Product/createProduct", content);
+
                 return RedirectToAction("ProductTable");
             }
             return View();
@@ -101,10 +113,19 @@ namespace OnlineStore.MvcApplication.Controllers
         /// </summary>
         /// <param name="id">id</param>
         /// <returns>ProductTable view</returns>
-        public IActionResult ProductDeleting(int id)
+        public async Task<IActionResult> ProductDeleting(int id)
         {
-            var product = _mapper.Map<ProductViewModel>(_product.FindProductById(id));
-            return View(product);
+            var content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
+
+            var response = await client.GetAsync($"serviceApi/Product/getProduct/{id}");
+            var apiResponse = await response.Content.ReadAsAsync<ProductViewModel>();
+
+            var receivedReservation = apiResponse;
+
+            if (response.IsSuccessStatusCode)
+                return View(receivedReservation);
+
+            return RedirectToAction("LoginForm", "Login");
         }
 
         /// <summary>
@@ -113,9 +134,10 @@ namespace OnlineStore.MvcApplication.Controllers
         /// <param name="id">id</param>
         /// <returns>ProductTable view</returns>
         [HttpPost]
-        public IActionResult ProductDeleting(ProductViewModel product)
+        public async Task<IActionResult> ProductDeleting(ProductViewModel product)
         {
-            _product.DeleteProduct(product.Id);
+            await client.DeleteAsync(string.Format("serviceApi/Product/deleteProduct/{0}", product.Id));
+
             return RedirectToAction("ProductTable");
         }
     }
