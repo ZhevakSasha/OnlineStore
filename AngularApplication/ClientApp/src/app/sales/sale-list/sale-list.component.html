@@ -1,0 +1,41 @@
+<div class="container custom-container-2">
+
+  <div class="no-data text-center" *ngIf="Sales.length == 0">
+    <p>There is no sale added yet!</p>
+    <button class="btn btn-outline-primary" routerLink="/sale-creating">Add Sale</button>
+  </div>
+
+  <button class="btn btn-outline-primary" routerLink="/sale-creating">Add Sale</button>
+  <div *ngIf="Sales.length !== 0">
+    <h3 class="mb-3 text-center">Sales List</h3>
+
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Customer Name</th>
+          <th scope="col">Date of Sale</th>
+          <th scope="col">Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let sale of Sales">
+          <td>{{sale.id}}</td>
+          <td>{{sale.productName}}</td>
+          <td>{{sale.customerName}}</td>
+          <td>{{sale.dateOfSale}}</td>
+          <td>{{sale.amount}}</td>
+          <td>
+            <span class="edit" routerLink="/sale-updating/{{sale.id}}">Edit</span>
+            <span class="delete" (click)="deleteSale(sale.id)">Delete</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>

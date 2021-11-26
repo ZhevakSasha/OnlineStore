@@ -1,0 +1,34 @@
+<div class="container custom-container">
+  <div class="col-md-12">
+    <h3 class="mb-3 text-center">Create Sale</h3>
+
+    <div class="form-group">
+      <select [(ngModel)]="saleDetails.customerId" class="form-control">
+        <option value="" selected disabled hidden>Select customer</option>
+        <option *ngFor = "let customer of customersNames" [value]="customer.id">{{customer.name}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <select [(ngModel)]="saleDetails.productId" class="form-control" >
+        <option value="" selected disabled hidden>Select product</option>
+        <option *ngFor = "let product of productsNames" [value]="product.id">{{product.name}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <input type="date" [(ngModel)]="saleDetails.dateOfSale" class="form-control" placeholder="Enter date of sale">
+    </div>
+
+    <div class="form-group">
+      <input type="text" [(ngModel)]="saleDetails.amount" class="form-control" placeholder="Enter sale amount">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-success btn-lg btn-block" (click)="addSale()">Create Sale</button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container custom-container">
+  <div class="col-md-12">
+
+    <h3 class="mb-3 text-center">Update Sale</h3>
+
+    <div class="form-group">
+      <select [(ngModel)]="saleData.customerId" class="form-control">
+        <option *ngFor = "let customer of customersNames" [value]="customer.id">{{customer.name}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <select [(ngModel)]="saleData.productId" class="form-control" >
+        <option *ngFor = "let product of productsNames" [value]="product.id">{{product.name}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <input type="date" [(ngModel)]="saleData.dateOfSale" class="form-control" placeholder="Phone">
+    </div>
+
+    <div class="form-group">
+      <input type="text" [(ngModel)]="saleData.amount" class="form-control" placeholder="Phone">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-success btn-lg btn-block" (click)="saleUpdating()">Update Employee</button>
+    </div>
+
+  </div>
+</div>

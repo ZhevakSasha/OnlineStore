@@ -103,6 +103,9 @@ namespace OnlineStore.ServiceApi
                     }
                 });
             });
+
+            services.AddCors();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -118,6 +121,8 @@ namespace OnlineStore.ServiceApi
 
             app.UseHttpsRedirection();
 
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -127,6 +132,7 @@ namespace OnlineStore.ServiceApi
             {
                 endpoints.MapControllers();
             });
+            
         }
     }
 }
