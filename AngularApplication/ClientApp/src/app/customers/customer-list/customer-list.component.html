@@ -1,0 +1,41 @@
+<div class="container custom-container-2">
+
+  <div class="no-data text-center" *ngIf="Customers.length == 0">
+    <p>There is no customer added yet!</p>
+    <button class="btn btn-outline-primary" routerLink="/customer-creating">Add Customer</button>
+  </div>
+
+  <button class="btn btn-outline-primary" routerLink="/customer-creating">Add Customer</button>
+  <div *ngIf="Customers.length !== 0">
+    <h3 class="mb-3 text-center">Customers List</h3>
+
+    <div class="col-md-12">
+      <table class="table table-bordered text-center">
+        <thead>
+        <tr>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let customer of Customers">
+          <td>{{customer.firstName}}</td>
+          <td>{{customer.lastName}}</td>
+          <td>{{customer.address}}</td>
+          <td>{{customer.phoneNumber}}</td>
+          <td>
+            <span class="btn-link" routerLink="/customer-updating/{{customer.id}}">Edit</span>
+             |
+            <span class="btn-link" (click)="deleteCustomer(customer.id)">Delete</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+

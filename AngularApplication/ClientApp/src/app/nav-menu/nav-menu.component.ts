@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthenticateApiService} from '../authenticate/authenticate-api.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,6 +8,20 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isExpanded = false;
+  authFlag: boolean;
+
+  constructor(public auth: AuthenticateApiService) {
+
+  }
+
+  isAuth() {
+    this.authFlag = this.auth.isAuthenticated();
+    return this.authFlag;
+  }
+
+  logout() {
+    this.auth.logout();
+  }
 
   collapse() {
     this.isExpanded = false;

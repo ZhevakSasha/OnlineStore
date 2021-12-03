@@ -1,0 +1,68 @@
+<div class="container custom-container" [formGroup]="form" (ngSubmit)="productUpdating()">
+  <div class="col-md-12">
+
+    <h3 class="mb-3 text-center">Update Product</h3>
+
+    <div class="form-group" [ngClass]="{invalid: form.get('productName').touched && form.get('productName').invalid}">
+      <input type="text" [(ngModel)]="productData.productName" class="form-control" placeholder="Product name" formControlName="productName">
+      <div
+        *ngIf="form.get('productName').touched && form.get('productName').invalid"
+        class="validation text-danger"
+      >
+        <small *ngIf="form.get('productName').errors.required">
+          Enter product name
+        </small>
+        <small *ngIf="form.get('productName').errors.minlength">
+          Product name must be more then 5 letters
+        </small>
+        <small *ngIf="form.get('productName').errors.maxlength">
+          Product name must be less then 15 letters
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{invalid: form.get('price').touched && form.get('price').invalid}">
+      <input type="text" [(ngModel)]="productData.price" class="form-control" placeholder="Price" formControlName="price">
+      <div
+        *ngIf="form.get('price').touched && form.get('price').invalid"
+        class="validation text-danger"
+      >
+        <small *ngIf="form.get('price').errors.required">
+          Enter price
+        </small>
+        <small *ngIf="form.get('price').errors.min">
+          Price must be more then 1
+        </small>
+        <small *ngIf="form.get('price').errors.max">
+          Price must be less then 5000
+        </small>
+        <small *ngIf="form.get('price').errors.pattern">
+          Price must be number
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{invalid: form.get('unitOfMeasurement').touched && form.get('unitOfMeasurement').invalid}">
+      <input type="text" [(ngModel)]="productData.unitOfMeasurement" class="form-control" placeholder="Unit of Measurement" formControlName="unitOfMeasurement">
+      <div
+        *ngIf="form.get('unitOfMeasurement').touched && form.get('unitOfMeasurement').invalid"
+        class="validation text-danger"
+      >
+        <small *ngIf="form.get('unitOfMeasurement').errors.required">
+          Enter unit of measurement
+        </small>
+        <small *ngIf="form.get('unitOfMeasurement').errors.minlength">
+          Unit of measurement name must be more then 2 letters
+        </small>
+        <small *ngIf="form.get('unitOfMeasurement').errors.maxlength">
+          Unit of measurement name must be less then 15 letters
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-success btn-lg btn-block" [disabled]="form.invalid" (click)="productUpdating()">Update Product</button>
+    </div>
+
+  </div>
+</div>

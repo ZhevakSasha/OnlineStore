@@ -53,7 +53,7 @@ namespace OnlineStore.ServiceApi.Controllers
         /// <returns>Sale</returns>
         [HttpGet]
         [Route("getSale/{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<SaleDto> GetSaleById(int id)
         {
             var sale = _saleService.FindSaleById(id);
@@ -72,7 +72,7 @@ namespace OnlineStore.ServiceApi.Controllers
         /// <param name="sale">Sale</param>
         [HttpPost]
         [Route("createSale")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<SaleDto> CreateSale(SaleDto sale)
         {
             _saleService.CreateSale(sale);
@@ -85,7 +85,7 @@ namespace OnlineStore.ServiceApi.Controllers
         /// <param name="saleService">sale</param>
         [HttpPut]
         [Route("updateSale")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateSale(SaleDto saleService)
         {
             var sale = _saleService.FindSaleById(saleService.Id);
@@ -111,7 +111,7 @@ namespace OnlineStore.ServiceApi.Controllers
         /// <param name="id">Sale id</param>
         [HttpDelete]
         [Route("deleteSale/{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteSale(int id)
         {
             var sale = _saleService.FindSaleById(id);

@@ -10,6 +10,7 @@ import {SaleApiService} from '../sale-api.service';
 export class SaleListComponent implements OnInit {
 
   Sales: SaleModel[] = [];
+  searchStr = '';
 
   constructor(public saleApi: SaleApiService) { }
 

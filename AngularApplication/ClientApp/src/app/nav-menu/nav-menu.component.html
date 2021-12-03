@@ -6,8 +6,8 @@
       <a class="navbar-brand" [routerLink]="['/']">AngularApplication</a>
       <a class="navbar-brand" [routerLink]="['/sales-list']">Sales</a>
       <a class="navbar-brand" [routerLink]="['/products-list']">Products</a>
-      <a class="navbar-brand" [routerLink]="['/customers']">Customers</a>
-      <a class="navbar-brand" [routerLink]="['/users']">Users</a>
+      <a class="navbar-brand" [routerLink]="['/customers-list']">Customers</a>
+      <a class="navbar-brand" [routerLink]="['/users-list']">Users</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -31,14 +31,19 @@
           >
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
+          <li *ngIf="!isAuth()" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/login']"
+              >Login</a
             >
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
+          <li *ngIf="!isAuth()" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/register']"
+              >Register</a
+            >
+          </li>
+          <li *ngIf="isAuth()" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark pointer" routerLink="/login" (click)="logout()"
+            >Logout</a
             >
           </li>
         </ul>

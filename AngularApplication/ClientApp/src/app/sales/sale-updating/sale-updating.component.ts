@@ -3,6 +3,7 @@ import {SaleApiService} from '../sale-api.service';
 import {SaleModel} from '../Models/sale.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SelectModel} from '../Models/select.model';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-sale-updating',
@@ -16,6 +17,8 @@ export class SaleUpdatingComponent implements OnInit {
   productsNames: SelectModel[] = [];
   customersNames: SelectModel[] = [];
 
+  form: FormGroup;
+
   constructor(public saleApi: SaleApiService, public router: Router, public actRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -28,6 +31,18 @@ export class SaleUpdatingComponent implements OnInit {
     this.saleApi.getCustomersNames()
       .subscribe(data => this.customersNames = data,
         error => this.customersNames = error);
+
+    this.form = new FormGroup({
+      date: new FormControl(this.saleData.dateOfSale, [
+        Validators.required
+      ]),
+      amount: new FormControl(this.saleData.amount, [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(50),
+        Validators.pattern('^[0-9]*$')
+      ])
+    });
   }
 
   saleUpdating() {

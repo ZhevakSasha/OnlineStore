@@ -1,0 +1,81 @@
+<div class="container custom-container" [formGroup]="form" (ngSubmit)="userUpdating()">
+  <div class="col-md-12">
+
+    <h3 class="mb-3 text-center">Update user</h3>
+
+    <div class="form-group" [ngClass]="{invalid: form.get('username').touched && form.get('username').invalid}">
+      <input type="text" [(ngModel)]="userData.username" class="form-control" placeholder="Username" formControlName="username">
+      <div
+        *ngIf="form.get('username').touched && form.get('username').invalid"
+        class="validation text-danger"
+      >
+        <small *ngIf="form.get('username').errors.required">
+          Enter username
+        </small>
+        <small *ngIf="form.get('username').errors.minlength">
+          Username must be more then 5 letters
+        </small>
+        <small *ngIf="form.get('username').errors.maxlength">
+          Username must be less then 15 letters
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}">
+      <input type="text" [(ngModel)]="userData.email" class="form-control" placeholder="Email" formControlName="email">
+      <div
+        *ngIf="form.get('email').touched && form.get('email').invalid"
+        class="validation text-danger"
+      >
+        <small *ngIf="form.get('email').errors.required">
+          Enter email
+        </small>
+        <small *ngIf="form.get('email').errors.email">
+          Enter correct Email
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{invalid: form.get('roles').markAllAsTouched() && form.get('roles').invalid}">
+      <ng-multiselect-dropdown
+        [placeholder]="'Select roles'"
+        [settings]="dropdownSettings"
+        [data]="dropdownList"
+        [(ngModel)]="userData.roles"
+        formControlName="roles"
+      >
+      </ng-multiselect-dropdown>
+      <div
+        *ngIf="form.get('roles').touched && form.get('roles').invalid"
+        class="validation text-danger"
+      >
+        <small>
+          Select role
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{invalid: form.get('petName').touched && form.get('petName').invalid}">
+      <input type="text" [(ngModel)]="userData.petName" class="form-control" placeholder="Pet name" formControlName="petName">
+      <div
+        *ngIf="form.get('petName').touched && form.get('petName').invalid"
+        class="validation text-danger"
+      >
+        <small *ngIf="form.get('petName').errors.required">
+          Enter pet Name
+        </small>
+        <small *ngIf="form.get('petName').errors.minlength">
+          Pet name must be more then 5 letters
+        </small>
+        <small *ngIf="form.get('petName').errors.maxlength">
+          Pet name must be less then 15 letters
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-success btn-lg btn-block" [disabled]="form.invalid" (click)="userUpdating()">Update User</button>
+    </div>
+
+  </div>
+</div>

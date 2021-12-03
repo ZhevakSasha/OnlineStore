@@ -1,32 +1,57 @@
-<div class="container custom-container">
-  <div class="col-md-12">
+<div class="container custom-container" >
+  <div class="col-md-12" [formGroup]="form" (ngSubmit)="saleUpdating()">
 
     <h3 class="mb-3 text-center">Update Sale</h3>
 
     <div class="form-group">
-      <select [(ngModel)]="saleData.customerId" class="form-control">
+      <select [(ngModel)]="saleData.customerId" class="form-control" [ngModelOptions]="{standalone: true}">
         <option *ngFor = "let customer of customersNames" [value]="customer.id">{{customer.name}}
         </option>
       </select>
     </div>
 
     <div class="form-group">
-      <select [(ngModel)]="saleData.productId" class="form-control" >
+      <select [(ngModel)]="saleData.productId" class="form-control" [ngModelOptions]="{standalone: true}" >
         <option *ngFor = "let product of productsNames" [value]="product.id">{{product.name}}
         </option>
       </select>
     </div>
 
-    <div class="form-group">
-      <input type="date" [(ngModel)]="saleData.dateOfSale" class="form-control" placeholder="Phone">
+    <div class="form-group" [ngClass]="{invalid: form.get('date').touched && form.get('date').invalid}">
+      <input type="date" [(ngModel)]="saleData.dateOfSale" class="form-control" placeholder="Date" formControlName="date">
+      <div
+        *ngIf="form.get('date').touched && form.get('date').invalid"
+        class="validation text-danger"
+      >
+        <small *ngIf="form.get('date').errors.required">
+          Enter date
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{invalid: form.get('amount').touched && form.get('amount').invalid}">
+      <input type="text" [(ngModel)]="saleData.amount" class="form-control" placeholder="Amount" formControlName="amount">
+      <div
+        *ngIf="form.get('amount').touched && form.get('amount').invalid"
+        class="validation text-danger"
+      >
+        <small *ngIf="form.get('amount').errors.required">
+          Enter amount
+        </small>
+        <small *ngIf="form.get('amount').errors.min">
+          Amount must be more then 1
+        </small>
+        <small *ngIf="form.get('amount').errors.max">
+          Amount must be less then 50
+        </small>
+        <small *ngIf="form.get('amount').errors.pattern">
+          Amount must be number
+        </small>
+      </div>
     </div>
 
     <div class="form-group">
-      <input type="text" [(ngModel)]="saleData.amount" class="form-control" placeholder="Phone">
-    </div>
-
-    <div class="form-group">
-      <button class="btn btn-success btn-lg btn-block" (click)="saleUpdating()">Update Employee</button>
+      <button class="btn btn-success btn-lg btn-block" [disabled]="form.invalid" (click)="saleUpdating()">Update Sale</button>
     </div>
 
   </div>

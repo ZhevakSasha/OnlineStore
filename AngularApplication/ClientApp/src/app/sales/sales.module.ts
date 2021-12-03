@@ -4,24 +4,28 @@ import {SaleListComponent} from './sale-list/sale-list.component';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {SaleCreatingComponent} from './sale-creating/sale-creating.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SaleUpdatingComponent } from './sale-updating/sale-updating.component';
+import {SearchPipe} from './search.pipe';
+import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
 
 @NgModule({
   declarations: [
     SaleListComponent,
     SaleCreatingComponent,
-    SaleUpdatingComponent
+    SaleUpdatingComponent,
+    SearchPipe
   ],
   imports: [
     RouterModule.forRoot([
       {path: 'sales-list', component: SaleListComponent},
-      {path: 'sale-creating', component: SaleCreatingComponent},
-      {path: 'sale-updating/:id', component: SaleUpdatingComponent}
+      {path: 'sale-creating', component: SaleCreatingComponent, canActivate: [AdminGuard]},
+      {path: 'sale-updating/:id', component: SaleUpdatingComponent, canActivate: [AdminGuard]}
     ]),
     HttpClientModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 

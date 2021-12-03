@@ -1,0 +1,94 @@
+<div class="form-group form-size" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="col-md-12">
+    <h3 class="mb-3 text-center">Register</h3>
+
+    <div
+      class="form-group"
+      [ngClass]="{invalid: form.get('username').touched && form.get('username').invalid}"
+    >
+      <label class="form-group" for="username">Username:</label>
+      <input [(ngModel)]="registerDetails.username" class="form-control" id="username" type="text" formControlName="username">
+      <div
+        *ngIf="form.get('username').touched && form.get('username').invalid"
+        class="validation text-danger"
+      >
+        <small *ngIf="form.get('username').errors.required">
+          Enter username
+        </small>
+        <small *ngIf="form.get('username').errors.minlength">
+          Username must be more then 5 letters
+        </small>
+        <small *ngIf="form.get('username').errors.maxlength">
+          Username must be less then 15 letters
+        </small>
+      </div>
+    </div>
+
+    <div
+      class="form-group"
+      [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}"
+    >
+      <label class="form-group" for="email">Email:</label>
+      <input [(ngModel)]="registerDetails.email" class="form-control" id="email" type="email" formControlName="email">
+      <div
+        *ngIf="form.get('email').touched && form.get('email').invalid"
+        class="validation text-danger"
+      >
+        <small *ngIf="form.get('email').errors.required">
+          Enter email
+        </small>
+        <small *ngIf="form.get('email').errors.email">
+          Enter correct Email
+        </small>
+      </div>
+    </div>
+
+    <div
+      class="form-group"
+      [ngClass]="{invalid: form.get('password').touched && form.get('password').invalid}"
+    >
+      <label class="form-group" for="password">Password:</label>
+      <input [(ngModel)]="registerDetails.password" class="form-control" id="password" type="password" formControlName="password">
+      <div
+        class="validation text-danger"
+        *ngIf="form.get('password').touched && form.get('password').invalid"
+      >
+        <small *ngIf="form.get('password').errors.required">
+          Enter password
+        </small>
+        <small *ngIf="form.get('password').errors.pattern">
+          Password must has at least one number and 6-12 symbols range
+        </small>
+      </div>
+    </div>
+
+    <div
+      class="form-group"
+      [ngClass]="{invalid: form.get('petName').touched && form.get('petName').invalid}"
+    >
+      <label class="form-group" for="password">Pet name:</label>
+      <input [(ngModel)]="registerDetails.petName" class="form-control" id="petName" formControlName="petName" type="text">
+      <div
+        class="validation text-danger"
+        *ngIf="form.get('petName').touched && form.get('petName').invalid"
+      >
+        <small *ngIf="form.get('petName').errors.required">
+          Enter pet name
+        </small>
+        <small *ngIf="form.get('petName').errors.minlength">
+          Pet name be more then 5 letters
+        </small>
+        <small *ngIf="form.get('petName').errors.maxlength">
+          Pet name be less then 15 letters
+        </small>
+      </div>
+    </div>
+
+    <button
+      (click)="submit()"
+      type="submit"
+      class="btn btn-primary form-control"
+      [disabled]="form.invalid"
+    >Register</button>
+  </div>
+</div>
