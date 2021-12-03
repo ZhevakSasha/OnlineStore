@@ -26,17 +26,7 @@ export class AuthenticateApiService {
     return this.httpClient.post(this.apiURL + 'login', login).subscribe((data: any) => {
       localStorage.setItem('jwt-token', data.token);
       localStorage.setItem('jwt-expiration', data.expiration);
-    },
-      (err: HttpErrorResponse) => {
-        switch (err.status) {
-          case 401:
-            console.log('unauthorized');
-            break;
-          case 403:
-            console.log('unauthorized');
-            break;
-        }
-        } );
+    });
   }
 
   logout() {

@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserUpdatingComponent } from './user-updating/user-updating.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
-import {AdminGuard} from "../authenticate/authenticate-guards/admin.guard";
+import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
 
 
 
@@ -16,8 +16,8 @@ import {AdminGuard} from "../authenticate/authenticate-guards/admin.guard";
     imports: [
         NgMultiSelectDropDownModule.forRoot(),
         RouterModule.forRoot([
-            {path: 'users-list', component: UserListComponent, canActivate: [AdminGuard]},
-            {path: 'user-updating/:id', component: UserUpdatingComponent, canActivate: [AdminGuard]}
+            {path: 'users-list', component: UserListComponent},
+            {path: 'user-updating/:id', component: UserUpdatingComponent}
         ]),
         HttpClientModule,
         CommonModule,

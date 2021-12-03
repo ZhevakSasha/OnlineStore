@@ -14,8 +14,8 @@ import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
   imports: [
     RouterModule.forRoot([
       {path: 'customers-list', component: CustomerListComponent},
-      {path: 'customer-creating', component: CustomerCreatingComponent, canActivate: [AdminGuard]},
-      {path: 'customer-updating/:id', component: CustomerUpdatingComponent, canActivate: [AdminGuard]}
+      {path: 'customer-creating', component: CustomerCreatingComponent},
+      {path: 'customer-updating/:id', component: CustomerUpdatingComponent}
     ]),
     HttpClientModule,
     CommonModule,
