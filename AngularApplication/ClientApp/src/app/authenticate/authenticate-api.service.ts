@@ -30,7 +30,8 @@ export class AuthenticateApiService {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem('jwt-token');
+    localStorage.removeItem('jwt-expiration');
   }
 
   isAuthenticated(): boolean {

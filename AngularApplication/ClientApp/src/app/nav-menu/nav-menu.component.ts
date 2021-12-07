@@ -1,16 +1,24 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticateApiService} from '../authenticate/authenticate-api.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements OnInit {
   isExpanded = false;
   authFlag: boolean;
 
-  constructor(public auth: AuthenticateApiService) {
+  lang;
+
+  ngOnInit() {
+    this.lang = localStorage.getItem('lang') || 'en';
+    console.log(this.lang);
+  }
+
+  constructor(public auth: AuthenticateApiService, private translate: TranslateService) {
 
   }
 
@@ -21,6 +29,12 @@ export class NavMenuComponent {
 
   logout() {
     this.auth.logout();
+  }
+
+  changeLang(lang) {
+    console.log(lang.value);
+    this.translate.setDefaultLang(lang.value);
+    localStorage.setItem('lang', lang.value);
   }
 
   collapse() {

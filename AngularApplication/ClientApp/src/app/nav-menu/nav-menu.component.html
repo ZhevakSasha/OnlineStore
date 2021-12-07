@@ -46,6 +46,12 @@
             >Logout</a
             >
           </li>
+          <li class="nav-item">
+            <select class="nav-link rounded-lg text-dark pointer" [(ngModel)]="lang" (change)="changeLang($event.target)" >
+              <option value ="en" [selected]="lang == 'en'">English</option>
+              <option value="ru" [selected]="lang == 'ru'">Русский</option>>
+            </select>
+          </li>
         </ul>
       </div>
     </div>
