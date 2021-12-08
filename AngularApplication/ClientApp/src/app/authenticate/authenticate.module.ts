@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthenticateInterceptor} from './interceptors/authenticate.interceptor';
 import {ErrorsInterceptor} from './interceptors/errors.interceptor';
+import {TranslateModule} from "@ngx-translate/core";
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -22,14 +23,15 @@ const INTERCEPTOR_ERROR: Provider = {
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: 'login', component: LoginComponent},
-      { path: 'register', component: RegisterComponent }
-    ])
-  ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot([
+            {path: 'login', component: LoginComponent},
+            {path: 'register', component: RegisterComponent}
+        ], {relativeLinkResolution: 'legacy'}),
+        TranslateModule
+    ],
   providers: [INTERCEPTOR_PROVIDER, INTERCEPTOR_ERROR]
 })
 export class AuthenticateModule { }

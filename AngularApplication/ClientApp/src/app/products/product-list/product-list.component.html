@@ -2,20 +2,20 @@
 
   <div class="no-data text-center" *ngIf="Products.length == 0">
     <p>There is no product added yet!</p>
-    <button class="btn btn-outline-primary" routerLink="/sale-creating">Add Product</button>
+    <button class="btn btn-outline-primary" routerLink="/sale-creating">{{'Products.AddProduct' | translate}}</button>
   </div>
 
-  <button class="btn btn-outline-primary" routerLink="/product-creating">Add Product</button>
+  <button class="btn btn-outline-primary" routerLink="/product-creating">{{'Products.ProductsList' | translate}}</button>
   <div *ngIf="Products.length !== 0">
-    <h3 class="mb-3 text-center">Products List</h3>
+    <h3 class="mb-3 text-center">{{'Products.AddProduct' | translate}}</h3>
 
     <div class="col-md-12">
       <table class="table table-bordered text-center">
         <thead>
         <tr>
-          <th scope="col">Product Name</th>
-          <th scope="col">Price</th>
-          <th scope="col">Unit of Measurement</th>
+          <th scope="col">{{'Products.ProductName' | translate}}</th>
+          <th scope="col">{{'Products.Price' | translate}}</th>
+          <th scope="col">{{'Products.UnitOfMeasurement' | translate}}</th>
         </tr>
         </thead>
         <tbody>
@@ -24,9 +24,9 @@
           <td>{{product.price}}</td>
           <td>{{product.unitOfMeasurement}}</td>
           <td>
-            <span class="btn-link" routerLink="/product-updating/{{product.id}}">Edit</span>
+            <span class="btn-link" routerLink="/product-updating/{{product.id}}">{{'Products.Edit' | translate}}</span>
              |
-            <span class="btn-link" (click)="deleteProduct(product.id)">Delete</span>
+            <span class="btn-link" (click)="deleteProduct(product.id)">{{'Products.Delete' | translate}}</span>
           </td>
         </tr>
         </tbody>

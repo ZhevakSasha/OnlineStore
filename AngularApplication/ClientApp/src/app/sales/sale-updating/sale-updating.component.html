@@ -1,7 +1,7 @@
 <div class="container custom-container" >
   <div class="col-md-12" [formGroup]="form" (ngSubmit)="saleUpdating()">
 
-    <h3 class="mb-3 text-center">Update Sale</h3>
+    <h3 class="mb-3 text-center">{{'Sales.UpdateSale' | translate}}</h3>
 
     <div class="form-group">
       <select [(ngModel)]="saleData.customerId" class="form-control" [ngModelOptions]="{standalone: true}">
@@ -18,40 +18,40 @@
     </div>
 
     <div class="form-group" [ngClass]="{invalid: form.get('date').touched && form.get('date').invalid}">
-      <input type="date" [(ngModel)]="saleData.dateOfSale" class="form-control" placeholder="Date" formControlName="date">
+      <input type="date" [(ngModel)]="saleData.dateOfSale" class="form-control" placeholder="{{'Sales.Date' | translate}}" formControlName="date">
       <div
         *ngIf="form.get('date').touched && form.get('date').invalid"
         class="validation text-danger"
       >
         <small *ngIf="form.get('date').errors.required">
-          Enter date
+          {{'Sales.Validation.EnterDate' | translate}}
         </small>
       </div>
     </div>
 
     <div class="form-group" [ngClass]="{invalid: form.get('amount').touched && form.get('amount').invalid}">
-      <input type="text" [(ngModel)]="saleData.amount" class="form-control" placeholder="Amount" formControlName="amount">
+      <input type="text" [(ngModel)]="saleData.amount" class="form-control" placeholder="{{'Sales.Amount' | translate}}" formControlName="amount">
       <div
         *ngIf="form.get('amount').touched && form.get('amount').invalid"
         class="validation text-danger"
       >
         <small *ngIf="form.get('amount').errors.required">
-          Enter amount
+          {{'Sales.Validation.EnterAmount' | translate}}
         </small>
         <small *ngIf="form.get('amount').errors.min">
-          Amount must be more then 1
+          {{'Sales.Validation.AmountMore' | translate}}
         </small>
         <small *ngIf="form.get('amount').errors.max">
-          Amount must be less then 50
+          {{'Sales.Validation.AmountLess' | translate}}
         </small>
         <small *ngIf="form.get('amount').errors.pattern">
-          Amount must be number
+          {{'Sales.Validation.CorrectAmount' | translate}}
         </small>
       </div>
     </div>
 
     <div class="form-group">
-      <button class="btn btn-success btn-lg btn-block" [disabled]="form.invalid" (click)="saleUpdating()">Update Sale</button>
+      <button class="btn btn-success btn-lg btn-block" [disabled]="form.invalid" (click)="saleUpdating()">{{'Sales.UpdateSale' | translate}}</button>
     </div>
 
   </div>

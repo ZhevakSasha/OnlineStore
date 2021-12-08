@@ -2,21 +2,21 @@
 
   <div class="no-data text-center" *ngIf="Customers.length == 0">
     <p>There is no customer added yet!</p>
-    <button class="btn btn-outline-primary" routerLink="/customer-creating">Add Customer</button>
+    <button class="btn btn-outline-primary" routerLink="/customer-creating">{{'Customers.AddCustomer' | translate}}</button>
   </div>
 
-  <button class="btn btn-outline-primary" routerLink="/customer-creating">Add Customer</button>
+  <button class="btn btn-outline-primary" routerLink="/customer-creating">{{'Customers.AddCustomer' | translate}}</button>
   <div *ngIf="Customers.length !== 0">
-    <h3 class="mb-3 text-center">Customers List</h3>
+    <h3 class="mb-3 text-center">{{'Customers.CustomersList' | translate}}</h3>
 
     <div class="col-md-12">
       <table class="table table-bordered text-center">
         <thead>
         <tr>
-          <th scope="col">First name</th>
-          <th scope="col">Last name</th>
-          <th scope="col">Address</th>
-          <th scope="col">Phone</th>
+          <th scope="col">{{'Customers.FirstName' | translate}}</th>
+          <th scope="col">{{'Customers.LastName' | translate}}</th>
+          <th scope="col">{{'Customers.Address' | translate}}</th>
+          <th scope="col">{{'Customers.Phone' | translate}}</th>
         </tr>
         </thead>
         <tbody>
@@ -26,9 +26,9 @@
           <td>{{customer.address}}</td>
           <td>{{customer.phoneNumber}}</td>
           <td>
-            <span class="btn-link" routerLink="/customer-updating/{{customer.id}}">Edit</span>
+            <span class="btn-link" routerLink="/customer-updating/{{customer.id}}">{{'Customers.Edit' | translate}}</span>
              |
-            <span class="btn-link" (click)="deleteCustomer(customer.id)">Delete</span>
+            <span class="btn-link" (click)="deleteCustomer(customer.id)">{{'Customers.Delete' | translate}}</span>
           </td>
         </tr>
         </tbody>

@@ -33,8 +33,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     ProductsModule,
     AuthenticateModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' }
-    ]),
+    { path: '', component: HomeComponent, pathMatch: 'full' }
+], { relativeLinkResolution: 'legacy' }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

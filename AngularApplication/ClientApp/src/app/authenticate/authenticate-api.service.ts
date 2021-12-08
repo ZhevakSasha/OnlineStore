@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {LoginModel} from './Models/login.model';
 import {RegisterModel} from './Models/register.model';
 import jwt_decode from 'jwt-decode';
@@ -41,7 +41,7 @@ export class AuthenticateApiService {
 
   isAdmin(): boolean {
     const decodedToken = jwt_decode(this.token);
-    const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    const roles = decodedToken['https://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
     return roles.includes('Admin');
   }
 

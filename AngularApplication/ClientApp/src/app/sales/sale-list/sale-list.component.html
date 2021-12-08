@@ -2,24 +2,24 @@
 
   <div class="no-data text-center" *ngIf="Sales.length == 0">
     <p>There is no sale added yet!</p>
-    <button class="btn btn-outline-primary" routerLink="/sale-creating">Add Sale</button>
+    <button class="btn btn-outline-primary" routerLink="/sale-creating">{{'Sales.AddSale' | translate}}</button>
   </div>
 
-  <button class="btn btn-outline-primary" routerLink="/sale-creating">Add Sale</button>
+  <button class="btn btn-outline-primary" routerLink="/sale-creating">{{'Sales.AddSale' | translate}}</button>
   <div *ngIf="Sales.length !== 0">
-    <h3 class="mb-3 text-center">Sales List</h3>
+    <h3 class="mb-3 text-center">{{'Sales.SalesList' | translate}}</h3>
     <div class="tab">
-      <input type="text" placeholder="Search..." class="form-control"  [(ngModel)]="searchStr" >
-      <button class="btn btn-outline-primary b" aria-label="Clear" (click)="searchStr=''"> Clear </button>
+      <input type="text" placeholder="{{'Sales.Search' | translate}}" class="form-control"  [(ngModel)]="searchStr" >
+      <button class="btn btn-outline-primary b" aria-label="Clear" (click)="searchStr=''"> {{'Sales.Clear' | translate}} </button>
     </div>
     <div class="col-md-12">
       <table class="table table-bordered text-center">
         <thead>
         <tr>
-          <th scope="col">Product Name</th>
-          <th scope="col">Customer Name</th>
-          <th scope="col">Date of Sale</th>
-          <th scope="col">Amount</th>
+          <th scope="col">{{'Sales.ProductName' | translate}}</th>
+          <th scope="col">{{'Sales.CustomerName' | translate}}</th>
+          <th scope="col">{{'Sales.DateOfSale' | translate}}</th>
+          <th scope="col">{{'Sales.Amount' | translate}}</th>
         </tr>
         </thead>
         <tbody>
@@ -29,9 +29,9 @@
           <td>{{sale.dateOfSale}}</td>
           <td>{{sale.amount}}</td>
           <td>
-            <span class="btn-link" routerLink="/sale-updating/{{sale.id}}">Edit</span>
+            <span class="btn-link" routerLink="/sale-updating/{{sale.id}}">{{'Sales.Edit' | translate}}</span>
              |
-            <span class="btn-link" (click)="deleteSale(sale.id)">Delete</span>
+            <span class="btn-link" (click)="deleteSale(sale.id)">{{'Sales.Delete' | translate}}</span>
           </td>
         </tr>
         </tbody>

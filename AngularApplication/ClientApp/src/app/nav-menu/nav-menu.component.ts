@@ -15,6 +15,7 @@ export class NavMenuComponent implements OnInit {
 
   ngOnInit() {
     this.lang = localStorage.getItem('lang') || 'en';
+    this.translate.use(this.lang);
     console.log(this.lang);
   }
 
@@ -33,7 +34,7 @@ export class NavMenuComponent implements OnInit {
 
   changeLang(lang) {
     console.log(lang.value);
-    this.translate.setDefaultLang(lang.value);
+    this.translate.use(lang.value);
     localStorage.setItem('lang', lang.value);
   }
 

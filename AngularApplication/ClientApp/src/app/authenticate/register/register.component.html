@@ -1,25 +1,25 @@
 <div class="form-group form-size" [formGroup]="form" (ngSubmit)="submit()">
   <div class="col-md-12">
-    <h3 class="mb-3 text-center">Register</h3>
+    <h3 class="mb-3 text-center">{{'Register.Register' | translate}}</h3>
 
     <div
       class="form-group"
       [ngClass]="{invalid: form.get('username').touched && form.get('username').invalid}"
     >
-      <label class="form-group" for="username">Username:</label>
+      <label class="form-group" for="username">{{'Register.Username' | translate}}</label>
       <input [(ngModel)]="registerDetails.username" class="form-control" id="username" type="text" formControlName="username">
       <div
         *ngIf="form.get('username').touched && form.get('username').invalid"
         class="validation text-danger"
       >
         <small *ngIf="form.get('username').errors.required">
-          Enter username
+          {{'Register.Validation.EnterUsername' | translate}}
         </small>
         <small *ngIf="form.get('username').errors.minlength">
-          Username must be more then 5 letters
+          {{'Register.Validation.UserMore' | translate}}
         </small>
         <small *ngIf="form.get('username').errors.maxlength">
-          Username must be less then 15 letters
+          {{'Register.Validation.UserLess' | translate}}
         </small>
       </div>
     </div>
@@ -28,17 +28,17 @@
       class="form-group"
       [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}"
     >
-      <label class="form-group" for="email">Email:</label>
+      <label class="form-group" for="email">{{'Register.Email' | translate}}</label>
       <input [(ngModel)]="registerDetails.email" class="form-control" id="email" type="email" formControlName="email">
       <div
         *ngIf="form.get('email').touched && form.get('email').invalid"
         class="validation text-danger"
       >
         <small *ngIf="form.get('email').errors.required">
-          Enter email
+          {{'Register.Validation.EnterEmail' | translate}}
         </small>
         <small *ngIf="form.get('email').errors.email">
-          Enter correct Email
+          {{'Register.Validation.CorrectEmail' | translate}}
         </small>
       </div>
     </div>
@@ -47,17 +47,17 @@
       class="form-group"
       [ngClass]="{invalid: form.get('password').touched && form.get('password').invalid}"
     >
-      <label class="form-group" for="password">Password:</label>
+      <label class="form-group" for="password">{{'Register.Password' | translate}}</label>
       <input [(ngModel)]="registerDetails.password" class="form-control" id="password" type="password" formControlName="password">
       <div
         class="validation text-danger"
         *ngIf="form.get('password').touched && form.get('password').invalid"
       >
         <small *ngIf="form.get('password').errors.required">
-          Enter password
+          {{'Register.Validation.Password' | translate}}
         </small>
         <small *ngIf="form.get('password').errors.pattern">
-          Password must has at least one number and 6-12 symbols range
+          {{'Register.Validation.CorrectPassword' | translate}}
         </small>
       </div>
     </div>
@@ -66,20 +66,20 @@
       class="form-group"
       [ngClass]="{invalid: form.get('petName').touched && form.get('petName').invalid}"
     >
-      <label class="form-group" for="password">Pet name:</label>
+      <label class="form-group" for="password">{{'Register.PetName' | translate}}</label>
       <input [(ngModel)]="registerDetails.petName" class="form-control" id="petName" formControlName="petName" type="text">
       <div
         class="validation text-danger"
         *ngIf="form.get('petName').touched && form.get('petName').invalid"
       >
         <small *ngIf="form.get('petName').errors.required">
-          Enter pet name
+          {{'Register.Validation.PetName' | translate}}
         </small>
         <small *ngIf="form.get('petName').errors.minlength">
-          Pet name be more then 5 letters
+          {{'Register.Validation.PetMore' | translate}}
         </small>
         <small *ngIf="form.get('petName').errors.maxlength">
-          Pet name be less then 15 letters
+          {{'Register.Validation.PetLess' | translate}}
         </small>
       </div>
     </div>
@@ -89,6 +89,6 @@
       type="submit"
       class="btn btn-primary form-control"
       [disabled]="form.invalid"
-    >Register</button>
+    >{{'Register.Register' | translate}}</button>
   </div>
 </div>

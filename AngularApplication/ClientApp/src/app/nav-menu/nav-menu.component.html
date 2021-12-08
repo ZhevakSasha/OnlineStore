@@ -3,11 +3,11 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">AngularApplication</a>
-      <a class="navbar-brand" [routerLink]="['/sales-list']">Sales</a>
-      <a class="navbar-brand" [routerLink]="['/products-list']">Products</a>
-      <a class="navbar-brand" [routerLink]="['/customers-list']">Customers</a>
-      <a class="navbar-brand" [routerLink]="['/users-list']">Users</a>
+      <a class="navbar-brand" [routerLink]="['/']">{{'nav.OnlineStore' | translate}}</a>
+      <a class="navbar-brand" [routerLink]="['/sales-list']">{{'nav.Sales' | translate}}</a>
+      <a class="navbar-brand" [routerLink]="['/products-list']">{{'nav.Products' | translate}}</a>
+      <a class="navbar-brand" [routerLink]="['/customers-list']">{{'nav.Customers' | translate}}</a>
+      <a class="navbar-brand" [routerLink]="['/users-list']">{{'nav.Users' | translate}}</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -29,21 +29,21 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link text-dark" [routerLink]="['/']">{{'nav.Home' | translate}}</a>
           </li>
           <li *ngIf="!isAuth()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/login']"
-              >Login</a
+              >{{'nav.Login' | translate}}</a
             >
           </li>
           <li *ngIf="!isAuth()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/register']"
-              >Register</a
+              >{{'nav.Register' | translate}}</a
             >
           </li>
           <li *ngIf="isAuth()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark pointer" routerLink="/login" (click)="logout()"
-            >Logout</a
+            >{{'nav.Logout' | translate}}</a
             >
           </li>
           <li class="nav-item">

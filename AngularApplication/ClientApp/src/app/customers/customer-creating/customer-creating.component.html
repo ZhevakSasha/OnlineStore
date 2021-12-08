@@ -1,78 +1,78 @@
 <div class="container custom-container" [formGroup]="form" (ngSubmit)="addCustomer()">
   <div class="col-md-12">
-    <h3 class="mb-3 text-center">Create Customer</h3>
+    <h3 class="mb-3 text-center">{{'Customers.CustomerAdd.CreateCustomer' | translate}}</h3>
 
     <div class="form-group" [ngClass]="{invalid: form.get('firstName').touched && form.get('firstName').invalid}">
-      <input type="text" [(ngModel)]="customerDetails.firstName" class="form-control" placeholder="Enter first name" formControlName="firstName">
+      <input type="text" [(ngModel)]="customerDetails.firstName" class="form-control" placeholder="{{'Customers.CustomerAdd.EnterName' | translate}}" formControlName="firstName">
       <div
         *ngIf="form.get('firstName').touched && form.get('firstName').invalid"
         class="validation text-danger"
       >
         <small *ngIf="form.get('firstName').errors.required">
-          Enter first name
+          {{'Customers.Validation.EnterName' | translate}}
         </small>
         <small *ngIf="form.get('firstName').errors.minlength">
-          Name must be more then 5 letters
+          {{'Customers.Validation.NameMore' | translate}}
         </small>
         <small *ngIf="form.get('firstName').errors.maxlength">
-          Name must be less then 15 letters
+          {{'Customers.Validation.NameLess' | translate}}
         </small>
       </div>
     </div>
 
     <div class="form-group" [ngClass]="{invalid: form.get('lastName').touched && form.get('lastName').invalid}">
-      <input type="text" [(ngModel)]="customerDetails.lastName" class="form-control" placeholder="Enter last name" formControlName="lastName">
+      <input type="text" [(ngModel)]="customerDetails.lastName" class="form-control" placeholder="{{'Customers.CustomerAdd.EnterLastname' | translate}}" formControlName="lastName">
       <div
         *ngIf="form.get('lastName').touched && form.get('lastName').invalid"
         class="validation text-danger"
       >
         <small *ngIf="form.get('lastName').errors.required">
-          Enter first name
+          {{'Customers.Validation.EnterLastname' | translate}}
         </small>
         <small *ngIf="form.get('lastName').errors.minlength">
-          Name must be more then 5 letters
+          {{'Customers.Validation.LastnameMore' | translate}}
         </small>
         <small *ngIf="form.get('lastName').errors.maxlength">
-          Name must be less then 15 letters
+          {{'Customers.Validation.LastnameLess' | translate}}
         </small>
       </div>
     </div>
 
     <div class="form-group" [ngClass]="{invalid: form.get('address').touched && form.get('address').invalid}">
-      <input type="text" [(ngModel)]="customerDetails.address" class="form-control" placeholder="Enter address" formControlName="address">
+      <input type="text" [(ngModel)]="customerDetails.address" class="form-control" placeholder="{{'Customers.CustomerAdd.EnterAddress' | translate}}" formControlName="address">
       <div
         *ngIf="form.get('address').touched && form.get('address').invalid"
         class="validation text-danger"
       >
         <small *ngIf="form.get('address').errors.required">
-          Enter first name
+          {{'Customers.Validation.EnterAddress' | translate}}
         </small>
         <small *ngIf="form.get('address').errors.minlength">
-          Name must be more then 5 letters
+          {{'Customers.Validation.AddressMore' | translate}}
         </small>
         <small *ngIf="form.get('address').errors.maxlength">
-          Name must be less then 15 letters
+          {{'Customers.Validation.AddressLess' | translate}}
         </small>
       </div>
     </div>
 
     <div class="form-group" [ngClass]="{invalid: form.get('phoneNumber').touched && form.get('phoneNumber').invalid}">
-      <input type="text" [(ngModel)]="customerDetails.phoneNumber" class="form-control" placeholder="Enter phone number" formControlName="phoneNumber">
+      <input type="text" [(ngModel)]="customerDetails.phoneNumber" class="form-control" placeholder="{{'Customers.CustomerAdd.EnterPhone' | translate}}" formControlName="phoneNumber">
       <div
         *ngIf="form.get('phoneNumber').touched && form.get('phoneNumber').invalid"
         class="validation text-danger"
       >
         <small *ngIf="form.get('phoneNumber').errors.required">
-          Enter phone number
+          {{'Customers.Validation.EnterPhone' | translate}}
         </small>
         <small *ngIf="form.get('phoneNumber').errors.pattern">
-          Enter correct phone number
+          {{'Customers.Validation.CorrectPhone' | translate}}
         </small>
       </div>
     </div>
 
     <div class="form-group">
-      <button [disabled]="form.invalid" class="btn btn-success btn-lg btn-block" (click)="addCustomer()">Create Product</button>
+      <button [disabled]="form.invalid" class="btn btn-success btn-lg btn-block" (click)="addCustomer()">{{'Customers.CustomerAdd.CreateCustomer' | translate}}</button>
     </div>
 
   </div>

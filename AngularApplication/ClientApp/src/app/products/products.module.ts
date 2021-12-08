@@ -7,6 +7,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductUpdatingComponent } from './product-updating/product-updating.component';
 import { ProductCreatingComponent } from './product-creating/product-creating.component';
 import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
+import {TranslateModule} from "@ngx-translate/core";
 
 
 
@@ -17,11 +18,12 @@ import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
             {path: 'products-list', component: ProductListComponent},
             {path: 'product-updating/:id', component: ProductUpdatingComponent},
             {path: 'product-creating', component: ProductCreatingComponent}
-        ]),
+        ], {relativeLinkResolution: 'legacy'}),
         HttpClientModule,
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TranslateModule
     ]
 })
 export class ProductsModule { }

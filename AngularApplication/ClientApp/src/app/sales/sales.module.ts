@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SaleUpdatingComponent } from './sale-updating/sale-updating.component';
 import {SearchPipe} from './search.pipe';
 import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -16,17 +17,19 @@ import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
     SaleUpdatingComponent,
     SearchPipe
   ],
-  imports: [
-    RouterModule.forRoot([
-      {path: 'sales-list', component: SaleListComponent},
-      {path: 'sale-creating', component: SaleCreatingComponent},
-      {path: 'sale-updating/:id', component: SaleUpdatingComponent}
-    ]),
-    HttpClientModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        RouterModule.forRoot([
+            {path: 'sales-list', component: SaleListComponent},
+            {path: 'sale-creating', component: SaleCreatingComponent},
+            {path: 'sale-updating/:id', component: SaleUpdatingComponent}
+        ], {relativeLinkResolution: 'legacy'}),
+        HttpClientModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule
+    ]
 })
 
 export class SalesModule { }

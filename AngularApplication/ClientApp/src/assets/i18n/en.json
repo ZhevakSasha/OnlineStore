@@ -1,0 +1,165 @@
+{
+  "nav": {
+    "Home": "Home",
+    "Logout": "Logout",
+    "Login": "Login",
+    "Register": "Register",
+    "Sales": "Sales",
+    "Products": "Products",
+    "Customers": "Customers",
+    "Users": "Users",
+    "OnlineStore": "OnlineStore"
+  },
+  "Deleting": "Are you sure, you want to delete?",
+  "Sales": {
+    "AddSale": "Add sale",
+    "SalesList": "Sales List",
+    "Clear": "Clear",
+    "Search": "Search...",
+    "ProductName": "Product Name",
+    "CustomerName": "Customer Name",
+    "DateOfSale": "Date of Sale",
+    "Amount": "Amount",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Validation": {
+      "SelectCustomer": "Select customer Name",
+      "SelectProduct": "Select product Name",
+      "EnterDate": "Enter date",
+      "AmountMore": "Amount must be more then 1",
+      "AmountLess": "Amount must be less then 50",
+      "EnterAmount": "Enter Amount",
+      "CorrectAmount": "Value must be a number"
+    },
+    "UpdateSale": "Update Sale",
+    "CreateSale": "Create Sale"
+  },
+  "Products": {
+    "AddProduct": "Add Product",
+    "ProductsList": "Products List",
+    "ProductName": "Product Name",
+    "Price": "Price",
+    "UnitOfMeasurement": "Unit of Measurement",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Validation": {
+      "EnterName": "Enter product name",
+      "NameMore": "Value must be more then 5 letters",
+      "NameLess": "Value must be less then 15 letters",
+      "EnterPrice": "Enter price",
+      "EnterUnit": "Enter unit of measurement",
+      "UnitMore": "Value must be more then 2 letters",
+      "UnitLess": "Value must be less then 15 letters",
+      "PriceMore": "Price must be more then 1",
+      "PriceLess": "Price must be less then 5000",
+      "ProductLess": "Product name must be less then 15 letters",
+      "ProductMore": "Product name must be more then 5 letters",
+      "CorrectPrice": "Value must be a number"
+    },
+    "ProductAdd": {
+      "EnterName": "Enter product name",
+      "EnterPrice": "Enter price",
+      "EnterUnit": "Enter unit of measurement",
+      "CreateProduct": "CreateProduct"
+    },
+    "ProductEdit": {
+      "EnterName": "Enter product name",
+      "EnterPrice": "Enter product price",
+      "EnterUnit": "Enter unit of measurement",
+      "UpdateProduct": "Update product"
+    }
+  },
+  "Customers": {
+    "AddCustomer": "Add Product",
+    "CustomersList": "Customers List",
+    "FirstName": "First name",
+    "LastName": "Last name",
+    "Address": "Address",
+    "Phone": "Phone",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Validation": {
+      "EnterName": "Enter first name",
+      "EnterLastname": "Enter last name",
+      "EnterAddress": "Enter address",
+      "EnterPhone": "Enter phone number",
+      "NameMore": "Name must be more then 5 letters",
+      "NameLess": "Name must be less then 15 letters",
+      "LastnameMore": "Last name must be more then 5 letters",
+      "LastnameLess": "Last name must be less then 15 letters",
+      "AddressMore": "Address must be more then 5 letters",
+      "AddressLess": "Address must be less then 15 letters",
+      "CorrectPhone": "Enter correct phone number"
+    },
+    "CustomerAdd": {
+      "EnterName": "Enter first name",
+      "EnterLastname": "Enter last name",
+      "EnterAddress": "Enter address",
+      "EnterPhone": "Enter phone number",
+      "CreateCustomer": "CreateCustomer"
+    },
+    "CustomerEdit": {
+      "EnterName": "Enter first name",
+      "EnterLastname": "Enter last name",
+      "EnterAddress": "Enter address",
+      "EnterPhone": "Enter phone number",
+      "UpdateCustomer": "Update customer"
+    }
+  },
+  "Users": {
+    "UsersList": "UsersList",
+    "Username": "Username",
+    "Email": "Email",
+    "Role": "Role",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Validation": {
+      "EnterUsername": "Enter username",
+      "EnterEmail": "Enter email",
+      "SelectRole": "Select role",
+      "EnterPetName": "Enter pet Name",
+      "UsernameMore": "Username must be more then 5 letters",
+      "UsernameLess": "Username must be less then 15 letters",
+      "CorrectEmail": "Enter correct Email",
+      "PetLess": "Pet name must be less then 15 letters",
+      "PetMore": "Pet name must be more then 5 letters"
+    },
+    "UserEdit": {
+      "EnterUsername": "Enter username",
+      "EnterEmail": "Enter email",
+      "SelectRole": "Select role",
+      "EnterPetName": "Enter pet name",
+      "UpdateUser": "Update User"
+    }
+  },
+  "Login": {
+    "Login": "Login",
+    "Username": "Username:",
+    "Password": "Password:",
+    "Validation": {
+      "EnterUsername": "Enter username",
+      "UserLess": "Username must be less then 15 letters",
+      "UserMore": "Username must be more then 5 letters",
+      "EnterPassword": "Enter password",
+      "CorrectPassword": "Password must has at least one number and 6-12 symbols range"
+    }
+  },
+  "Register": {
+    "Register": "Register",
+    "Username": "Username:",
+    "Email": "Email:",
+    "PetName": "Pet name:",
+    "Password": "Password:",
+    "Validation": {
+      "EnterUsername": "Enter username",
+      "EnterEmail": "Enter email",
+      "CorrectEmail": "Enter correct Email",
+      "UserLess": "Username must be less then 15 letters",
+      "UserMore": "Username must be more then 5 letters",
+      "PetLess": "Pet name be less then 15 letters",
+      "PetMore": "Pet name be more then 5 letters",
+      "EnterPassword": "Enter password",
+      "CorrectPassword": "Password must has at least one number and 6-12 symbols range"
+    }
+  }
+}

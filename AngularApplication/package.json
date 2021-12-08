@@ -9,6 +9,8 @@
     "http": "^0.0.1-security",
     "js": "^0.1.0",
     "jwt-decode": "^3.1.2",
-    "parser": "^0.1.4"
+    "ngx-swiper-wrapper": "^10.0.0",
+    "parser": "^0.1.4",
+    "typescript": "^4.5.2"
   }
 }

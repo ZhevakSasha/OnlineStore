@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
         Validators.maxLength(15)
         ]),
       password: new FormControl(null, [
-        Validators.required
+        Validators.required,
+        Validators.pattern('((?=.*\\d)(?=.*[a-z]).{6,12})')
       ])
     });
   }

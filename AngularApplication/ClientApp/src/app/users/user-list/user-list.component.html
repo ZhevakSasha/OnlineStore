@@ -1,20 +1,15 @@
 <div class="container custom-container-2">
 
-  <div class="no-data text-center" *ngIf="Users.length == 0">
-    <p>There is no customer added yet!</p>
-    <button class="btn btn-outline-primary" routerLink="/customer-creating">Add User</button>
-  </div>
-
   <div *ngIf="Users.length !== 0">
-    <h3 class="mb-3 text-center">Users List</h3>
+    <h3 class="mb-3 text-center">{{'Users.UsersList' | translate}}</h3>
 
     <div class="col-md-12">
       <table class="table table-bordered text-center">
         <thead>
         <tr>
-          <th scope="col">Username</th>
-          <th scope="col">Email</th>
-          <th scope="col">Role</th>
+          <th scope="col">{{'Users.Username' | translate}}</th>
+          <th scope="col">{{'Users.Email' | translate}}</th>
+          <th scope="col">{{'Users.Role' | translate}}</th>
         </tr>
         </thead>
         <tbody>
@@ -23,9 +18,9 @@
           <td>{{user.email}}</td>
           <td>{{user.roles.join(', ')}}</td>
           <td>
-            <span class="btn-link" routerLink="/user-updating/{{user.id}}">Edit</span>
+            <span class="btn-link" routerLink="/user-updating/{{user.id}}">{{'Users.Edit' | translate}}</span>
              |
-            <span class="btn-link" (click)="deleteUser(user.id)">Delete</span>
+            <span class="btn-link" (click)="deleteUser(user.id)">{{'Users.Delete' | translate}}</span>
           </td>
         </tr>
         </tbody>

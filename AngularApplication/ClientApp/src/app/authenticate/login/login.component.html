@@ -1,25 +1,25 @@
 <div class="form-group form-size" [formGroup]="form" (ngSubmit)="submit()">
   <div class="col-md-12">
-  <h3 class="mb-3 text-center">Login</h3>
+  <h3 class="mb-3 text-center">{{'Login.Login' | translate}}</h3>
 
   <div
     class="form-group"
     [ngClass]="{invalid: form.get('username').touched && form.get('username').invalid}"
   >
-    <label class="form-group" for="username">Username:</label>
+    <label class="form-group" for="username">{{'Login.Username' | translate}}</label>
     <input [(ngModel)]="loginDetails.username" class="form-control" id="username" type="text" formControlName="username">
     <div
       *ngIf="form.get('username').touched && form.get('username').invalid"
       class="validation text-danger"
     >
       <small *ngIf="form.get('username').errors.required">
-        Enter username
+        {{'Login.Validation.EnterUsername' | translate}}
       </small>
       <small *ngIf="form.get('username').errors.minlength">
-        Username must be more then 5 letters
+        {{'Login.Validation.UserMore' | translate}}
       </small>
       <small *ngIf="form.get('username').errors.maxlength">
-        Username must be less then 15 letters
+        {{'Login.Validation.UserLess' | translate}}
       </small>
     </div>
   </div>
@@ -28,14 +28,17 @@
     class="form-group"
     [ngClass]="{invalid: form.get('password').touched && form.get('password').invalid}"
   >
-    <label class="form-group" for="password">Password:</label>
+    <label class="form-group" for="password">{{'Login.Password' | translate}}</label>
     <input [(ngModel)]="loginDetails.password" class="form-control" id="password" type="password" formControlName="password">
     <div
       class="validation text-danger"
       *ngIf="form.get('password').touched && form.get('password').invalid"
     >
       <small *ngIf="form.get('password').errors.required">
-        Enter password
+        {{'Login.Validation.EnterPassword' | translate}}
+      </small>
+      <small *ngIf="form.get('password').errors.pattern">
+        {{'Login.Validation.CorrectPassword' | translate}}
       </small>
     </div>
   </div>
@@ -45,7 +48,7 @@
     type="submit"
     class="btn btn-primary form-control"
     [disabled]="form.invalid"
-  >Login</button>
+  >{{'Login.Login' | translate}}</button>
   </div>
 </div>
 
