@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 
-namespace OnlineStore.DataAccess.DataAccess
+namespace OnlineStore.DataAccess
 {
    public class DataBaseContext : DbContext 
     {
@@ -10,6 +10,11 @@ namespace OnlineStore.DataAccess.DataAccess
         public DataBaseContext(DbContextOptions<DataBaseContext> options) : base (options)
         {
 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //optionsBuilder.UseSqlServer("Data Source=localhost,1433;Initial Catalog=TestOnlineStore;User ID=sa;Password=pa55w0rd!;");
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using OnlineStore.DataAccess.DataAccess;
+﻿using OnlineStore.DataAccess;
 using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System;
@@ -61,7 +61,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Returns all objects.</returns>
         public IEnumerable<Product> GetList()
         {
-            return _context.Products;
+            return _context.Products.ToList();
         }
 
         /// <summary>

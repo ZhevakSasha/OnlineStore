@@ -20,12 +20,12 @@ namespace OnlineStore.DataAccess.Tests
         /// <summary>
         /// AdoCustomerRepository object.
         /// </summary>
-        private AdoCustomerRepository _ñustomer;
+        private AdoCustomerRepository _customer;
 
         /// <summary>
         /// IConfiguration field.
         /// </summary>
-        private IConfiguration _ñonfiguration;
+        private IConfiguration _configuration;
 
         /// <summary>
         /// Setup method.
@@ -33,15 +33,15 @@ namespace OnlineStore.DataAccess.Tests
         [SetUp]
         public void Setup()
         {
-            _ñonfiguration = new ConfigurationBuilder()
+            _configuration = new ConfigurationBuilder()
              .AddJsonFile(path: "appconfig.json")
              .Build();
 
-            _dbConfiguration = new DataBaseConfiguration(_ñonfiguration);
+            _dbConfiguration = new DataBaseConfiguration(_configuration);
             _dbConfiguration.DeployTestDatabase();
 
-            var connectionString = _ñonfiguration.GetConnectionString("DefaultConnection");
-            _ñustomer = new AdoCustomerRepository(connectionString);
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            _customer = new AdoCustomerRepository(connectionString);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace OnlineStore.DataAccess.Tests
             };
 
             //Act
-            var actual = _ñustomer.GetEntity(concreteId);
+            var actual = _customer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -86,8 +86,8 @@ namespace OnlineStore.DataAccess.Tests
             };
 
             //Act
-            _ñustomer.Create(expected);
-            var actual = _ñustomer.GetEntity(concreteId);
+            _customer.Create(expected);
+            var actual = _customer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -109,12 +109,12 @@ namespace OnlineStore.DataAccess.Tests
                 Address = "52 Street",
                 PhoneNumber = "0662305345"
             };
-            //Ñreating an empty object. 
+            //ï¿½reating an empty object. 
             var expected = new Customer();
 
             //Act
-            _ñustomer.Delete(concreteId);
-            var actual = _ñustomer.GetEntity(concreteId);
+            _customer.Delete(concreteId);
+            var actual = _customer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -139,8 +139,8 @@ namespace OnlineStore.DataAccess.Tests
             var expected = arbitraryUpdatedCustomer;
 
             //Act
-            _ñustomer.Update(arbitraryUpdatedCustomer);
-            var actual = _ñustomer.GetEntity(concreteId);
+            _customer.Update(arbitraryUpdatedCustomer);
+            var actual = _customer.GetEntity(concreteId);
 
             //Assert
             actual.Should().BeEquivalentTo(expected);
@@ -177,7 +177,7 @@ namespace OnlineStore.DataAccess.Tests
             };
 
             //Act
-            var actual = _ñustomer.GetList();
+            var actual = _customer.GetList();
 
             //Assert
             actual.Should().BeEquivalentTo(expected);

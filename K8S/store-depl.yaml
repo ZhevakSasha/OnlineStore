@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: store-depl
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storeservice
+  template:
+    metadata:
+     labels:
+      app: storeservice
+    spec: 
+      containers:
+        - name: storeservice
+          image: truesky/storeservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: store-clusterip-srv
+spec: 
+  type: ClusterIP
+  selector: 
+    app: storeservice
+  ports:
+  - name: storeservice
+    protocol: TCP
+    port: 80
+    targetPort: 80

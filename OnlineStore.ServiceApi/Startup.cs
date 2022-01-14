@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OnlineStore.BusinessLogic;
 using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.DataAccess;
+using OnlineStore.DataAccess;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Text;
@@ -114,10 +114,9 @@ namespace OnlineStore.ServiceApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OnlineStore.ServiceApi v1"));
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OnlineStore.ServiceApi v1"));
+            }       
 
             app.UseHttpsRedirection();
 

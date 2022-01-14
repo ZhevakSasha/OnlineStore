@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {LoginModel} from './Models/login.model';
 import {RegisterModel} from './Models/register.model';
 import jwt_decode from 'jwt-decode';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class AuthenticateApiService {
   }
 
   login(login: LoginModel) {
-    return this.httpClient.post(this.apiURL + 'login', login).subscribe((data: any) => {
+    return this.httpClient.post(environment.identityApi + 'Authenticate/login', login).subscribe((data: any) => {
       localStorage.setItem('jwt-token', data.token);
       localStorage.setItem('jwt-expiration', data.expiration);
     });
@@ -46,6 +47,6 @@ export class AuthenticateApiService {
   }
 
   register(register: RegisterModel) {
-    return this.httpClient.post(this.apiURL + 'register', register);
+    return this.httpClient.post(environment.identityApi + 'Authenticate/register', register);
   }
 }

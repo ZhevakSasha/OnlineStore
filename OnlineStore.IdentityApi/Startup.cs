@@ -1,4 +1,4 @@
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -109,10 +109,9 @@ namespace OnlineStore.IdentityApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ASP.NET 5 Web API v1"));
             }
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ASP.NET 5 Web API v1"));
 
             app.UseHttpsRedirection();
 
@@ -131,5 +130,4 @@ namespace OnlineStore.IdentityApi
             ApplicationDbInitializer.SeedUsers(userManager).Wait();
         }
     }
-    
 }

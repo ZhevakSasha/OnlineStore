@@ -24,7 +24,6 @@ namespace OnlineStore.IdentityApi.Controllers
         /// </summary>
         private readonly RoleManager<IdentityRole> roleManager;
 
-
         /// <summary>
         /// Users info controller constructor.
         /// </summary>

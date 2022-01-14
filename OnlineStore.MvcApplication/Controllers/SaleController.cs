@@ -175,6 +175,10 @@ namespace OnlineStore.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
+                var content = new StringContent(JsonConvert.SerializeObject(sale), Encoding.UTF8, "application/json");
+
+                await client.PutAsync("serviceApi/Sale/createSale", content);
+
                 return RedirectToAction("SaleTable");
             }
          

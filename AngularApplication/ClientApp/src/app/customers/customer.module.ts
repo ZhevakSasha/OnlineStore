@@ -7,7 +7,7 @@ import {CustomerListComponent} from './customer-list/customer-list.component';
 import { CustomerCreatingComponent } from './customer-creating/customer-creating.component';
 import { CustomerUpdatingComponent } from './customer-updating/customer-updating.component';
 import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule} from '@ngx-translate/core';
 
 
 @NgModule({

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OnlineStore.BusinessLogic;
-using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.DataAccess;
-using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
-using OnlineStore.DataAccess.RepositoryPatterns;
+//using OnlineStore.BusinessLogic;
+//using OnlineStore.BusinessLogic.IServices;
+//using OnlineStore.DataAccess;
+//using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
+//using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -43,8 +43,8 @@ namespace OnlineStore.MvcApplication
                .AddDataAnnotationsLocalization()
                .AddViewLocalization();
 
-            services.AddDbContext<DataBaseContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<DataBaseContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             ////services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             ////  .AddCookie(x => x.LoginPath = "/login/loginForm");
@@ -55,15 +55,15 @@ namespace OnlineStore.MvcApplication
                               options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Login/LoginForm");
                           });
 
-            services.AddAutoMapper(typeof(Startup));
+            //services.AddAutoMapper(typeof(Startup));
 
-            services.AddScoped<ICustomerRepository,EntityFrameworkCustomerRepository>();
-            services.AddScoped<IProductRepository, EntityFrameworkProductRepository>();
-            services.AddScoped<ISaleRepository, EntityFrameworkSaleRepository>();
+            //services.AddScoped<ICustomerRepository,EntityFrameworkCustomerRepository>();
+            //services.AddScoped<IProductRepository, EntityFrameworkProductRepository>();
+            //services.AddScoped<ISaleRepository, EntityFrameworkSaleRepository>();
 
-            services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<ISaleService, SaleService>();
+            //services.AddScoped<ICustomerService, CustomerService>();
+            //services.AddScoped<IProductService, ProductService>();
+            //services.AddScoped<ISaleService, SaleService>();
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -90,13 +90,13 @@ namespace OnlineStore.MvcApplication
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseHsts();
             }
             app.UseRequestLocalization();
 
             app.UseStaticFiles();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

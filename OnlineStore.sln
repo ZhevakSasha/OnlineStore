@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "OnlineStore.DataBase", "OnlineStore.DataBase\OnlineStore.DataBase.sqlproj", "{013325D8-ED81-472D-83D8-743BB002BDE6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57B5FAE7-6A68-4DF3-B778-B1A294C9E2E9}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStore.DataAccess", "OnlineStore.DataAccess\OnlineStore.DataAccess.csproj", "{5C453A03-815F-49CE-8583-E542C31D75F7}"
 EndProject
@@ -21,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStore.IdentityApi", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStore.ServiceApi", "OnlineStore.ServiceApi\OnlineStore.ServiceApi.csproj", "{744408F7-94BE-4140-B8C0-81C4C2EBABD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularApplication", "AngularApplication\AngularApplication.csproj", "{AA28CC90-355B-4314-91E9-529493DB93A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularApplication", "AngularApplication\AngularApplication.csproj", "{AA28CC90-355B-4314-91E9-529493DB93A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

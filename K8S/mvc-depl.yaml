@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mvc-depl
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mvc
+  template:
+    metadata:
+     labels:
+      app: mvc
+    spec: 
+      containers:
+        - name: mvc
+          image: truesky/mvcapplication:latest
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: mvc-clusterip-srv
+spec: 
+  type: ClusterIP
+  selector: 
+    app: mvc
+  ports:
+  - name: mvc
+    protocol: TCP
+    port: 80
+    targetPort: 80
