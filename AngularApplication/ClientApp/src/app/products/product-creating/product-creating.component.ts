@@ -15,7 +15,7 @@ export class ProductCreatingComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(public  productApi: ProductApiService, public  router: Router) { }
+  constructor(public productApi: ProductApiService, public  router: Router) { }
 
   ngOnInit() {
 

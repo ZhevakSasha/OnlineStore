@@ -21,7 +21,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

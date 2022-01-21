@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductApiService} from '../product-api.service';
 import {ProductModel} from '../Models/product.model';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-product-list',

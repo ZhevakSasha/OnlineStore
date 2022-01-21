@@ -5,6 +5,9 @@ using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
 using AutoMapper;
 using System.Linq;
+using OnlineStore.DataAccess;
+using OnlineStore.DataAccess.EntityModels;
+using OnlineStore.DataAccess.PagedList;
 
 namespace OnlineStore.BusinessLogic
 {
@@ -16,7 +19,7 @@ namespace OnlineStore.BusinessLogic
         /// <summary>
         /// Product repository.
         /// </summary>
-        private IProductRepository _product;
+        private UnitOfWork _unitOfWork;
 
         /// <summary>
         /// Mapper.
@@ -27,9 +30,9 @@ namespace OnlineStore.BusinessLogic
         /// ProductService constructor.
         /// </summary>
         /// <param name="product">Product repository</param>
-        public ProductService(IProductRepository product, IMapper mapper)
+        public ProductService(UnitOfWork unitOfWork, IMapper mapper)
         {
-            _product = product;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -37,10 +40,15 @@ namespace OnlineStore.BusinessLogic
         /// GetAllProducts method
         /// </summary>
         /// <returns>All product objects from table</returns>
-        public IEnumerable<ProductDto> GetAllProducts()
+        public PagedList<ProductDto> GetAllProducts(PageParameters pageParameters)
         {
-            var products = _product.GetList();         
-            return _mapper.Map<IEnumerable<ProductDto>>(products);
+            var products = _unitOfWork.Products.GetList(pageParameters);
+            var count = products.TotalCount;
+
+            return new PagedList<ProductDto>(_mapper.Map<List<ProductDto>>(products),
+                count,
+                pageParameters.PageNumber,
+                pageParameters.PageSize);
         }
 
         /// <summary>
@@ -50,8 +58,8 @@ namespace OnlineStore.BusinessLogic
         public void CreateProduct(ProductDto productModel)
         {
             var product = _mapper.Map<Product>(productModel);
-            _product.Create(product);
-            _product.Save();
+            _unitOfWork.Products.Create(product);
+            _unitOfWork.Save();
         }
 
         /// <summary>
@@ -61,8 +69,8 @@ namespace OnlineStore.BusinessLogic
         public void UpdateProduct(ProductDto productModel)
         {
             var product = _mapper.Map<Product>(productModel);
-            _product.Update(product);
-            _product.Save();
+            _unitOfWork.Products.Update(product);
+            _unitOfWork.Save();
         }
 
         /// <summary>
@@ -72,7 +80,7 @@ namespace OnlineStore.BusinessLogic
         /// <returns>ProductDto object</returns>
         public ProductDto FindProductById(int id)
         {
-            var product = _product.GetEntity(id);
+            var product = _unitOfWork.Products.GetEntity(id);
             return _mapper.Map<ProductDto>(product);
         }
 
@@ -80,15 +88,15 @@ namespace OnlineStore.BusinessLogic
         /// GetAllProductNames method.
         /// </summary>
         /// <returns>IEnumerable<SelectDto> product names</returns>
-        public IEnumerable<SelectDto> GetAllProductNames()
+        public IEnumerable<SelectDto> GetAllProductNames(PageParameters pageParameters)
         {
-            var productNames = _product
-                .GetList()
+            var productNames = _unitOfWork.Products
+                .GetList(pageParameters)
                 .Select(s => new SelectDto
                 {
                     Id = s.Id,
                     Name = s.ProductName
-                }) ;
+                });
             return productNames;
         }
 
@@ -98,8 +106,8 @@ namespace OnlineStore.BusinessLogic
         /// <param name="id">id</param>
         public void DeleteProduct(int id)
         {
-            _product.Delete(id);
-            _product.Save();  
+            _unitOfWork.Products.Delete(id);
+            _unitOfWork.Save();
         }
     }
 }

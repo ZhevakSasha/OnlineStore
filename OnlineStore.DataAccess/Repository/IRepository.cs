@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using OnlineStore.DataAccess.EntityModels;
+using OnlineStore.DataAccess.PagedList;
+using System.Collections.Generic;
 
 namespace OnlineStore.DataAccess.RepositoryPatterns
 {
@@ -13,7 +15,7 @@ namespace OnlineStore.DataAccess.RepositoryPatterns
         /// GetList method. 
         /// </summary>
         /// <returns>Returns all objects.</returns>
-        IEnumerable<T> GetList();
+        PagedList<T> GetList(PageParameters pageParameters);
 
         /// <summary>
         /// GetEntity method.
@@ -42,8 +44,6 @@ namespace OnlineStore.DataAccess.RepositoryPatterns
         /// </summary>
         /// <param name="product">Takes an object of Product class.</param>
         void Delete(int Id);
-
-        void Save();
 
     }
 }

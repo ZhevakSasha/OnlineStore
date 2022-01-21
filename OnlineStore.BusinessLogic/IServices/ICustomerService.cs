@@ -1,4 +1,6 @@
 ﻿using OnlineStore.BusinessLogic.DtoModels;
+using OnlineStore.DataAccess.EntityModels;
+using OnlineStore.DataAccess.PagedList;
 using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic.IServices
@@ -12,7 +14,7 @@ namespace OnlineStore.BusinessLogic.IServices
         /// GetAllCustomers method.
         /// </summary>
         /// <returns>Returns all customers from table</returns>
-        IEnumerable<CustomerDto> GetAllCustomers();
+        PagedList<CustomerDto> GetAllCustomers(PageParameters pageParameters);
 
         /// <summary>
         /// CreateCustomer method. 
@@ -43,6 +45,6 @@ namespace OnlineStore.BusinessLogic.IServices
         /// GetAllCustomerNames method.
         /// </summary>
         /// <returns>Returns all customer names from cusomer table</returns>
-        IEnumerable<SelectDto> GetAllCustomerNames();
+        IEnumerable<SelectDto> GetAllCustomerNames(PageParameters pageParameters);
     }
 }

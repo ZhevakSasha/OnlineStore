@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
+using OnlineStore.DataAccess.EntityModels;
+using OnlineStore.DataAccess.PagedList;
 using System.Collections.Generic;
 
 namespace OnlineStore.ServiceApi.Controllers
@@ -34,14 +37,26 @@ namespace OnlineStore.ServiceApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("getSales")]
-        public ActionResult<IEnumerable<SaleDto>> GetAllSales()
+        public ActionResult<PagedList<SaleDto>> GetAllSales([FromQuery] PageParameters pageParameters)
         {
-            var sales = _saleService.GetAllSales();
+            var sales = _saleService.GetAllSales(pageParameters);
 
             if (sales == null)
             {
                 return NotFound();
             }
+
+            var metadata = new
+            {
+                sales.TotalCount,
+                sales.PageSize,
+                sales.CurrentPage,
+                sales.TotalPages,
+                sales.HasNext,
+                sales.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             return Ok(sales);
         }

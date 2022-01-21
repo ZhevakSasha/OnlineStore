@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
 using OnlineStore.BusinessLogic.DtoModels;
+using OnlineStore.BusinessLogic.Exceptions;
 using OnlineStore.BusinessLogic.IServices;
+using OnlineStore.DataAccess;
 using OnlineStore.DataAccess.DataModel;
+using OnlineStore.DataAccess.EntityModels;
+using OnlineStore.DataAccess.PagedList;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +20,7 @@ namespace OnlineStore.BusinessLogic
         /// <summary>
         /// Sale repository.
         /// </summary>
-        private ISaleRepository _sale;
+        private UnitOfWork _unitOfWork;
 
         /// <summary>
         /// Mapper.
@@ -27,9 +31,9 @@ namespace OnlineStore.BusinessLogic
         /// SaleService constructor.
         /// </summary>
         /// <param name="sale">Sale repository</param>
-        public SaleService(ISaleRepository sale, IMapper mapper)
+        public SaleService(UnitOfWork unitOfWork, IMapper mapper)
         {
-            _sale = sale;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -37,12 +41,16 @@ namespace OnlineStore.BusinessLogic
         /// GetAllSales method.
         /// </summary>
         /// <returns>All sale objects from table</returns>
-        public IEnumerable<SaleDto> GetAllSales()
+        public PagedList<SaleDto> GetAllSales(PageParameters pageParameters)
         {
-            var sales = _sale
-                .GetList();
-            
-            return _mapper.Map<IEnumerable<SaleDto>>(sales);
+            var sales = _unitOfWork.Sales
+                .GetList(pageParameters);
+            var count = sales.TotalCount;
+
+            return new PagedList<SaleDto>(_mapper.Map<List<SaleDto>>(sales),
+                count,
+                pageParameters.PageNumber,
+                pageParameters.PageSize);
         }
 
         /// <summary>
@@ -52,8 +60,10 @@ namespace OnlineStore.BusinessLogic
         public void CreateSale(SaleDto saleModel)
         {
             var sale = _mapper.Map<Sale>(saleModel);
-            _sale.Create(sale);
-            _sale.Save();
+            if (_unitOfWork.Customers.GetEntity(sale.CustomerId) == null) throw new BLException($"Customer {sale.CustomerId} is not found");
+            if (_unitOfWork.Products.GetEntity(sale.ProductId) == null) throw new BLException($"Product {sale.ProductId} is not found");
+            _unitOfWork.Sales.Create(sale);
+            _unitOfWork.Save();
         }
 
         /// <summary>
@@ -63,8 +73,8 @@ namespace OnlineStore.BusinessLogic
         public void UpdateSale(SaleDto saleModel)
         {
             var sale = _mapper.Map<Sale>(saleModel);
-            _sale.Update(sale);
-            _sale.Save();
+            _unitOfWork.Sales.Update(sale);
+            _unitOfWork.Save();
         }
 
         /// <summary>
@@ -74,7 +84,7 @@ namespace OnlineStore.BusinessLogic
         /// <returns>SaleDto object.</returns>
         public SaleDto FindSaleById(int id)
         {
-            var sale = _sale.GetEntity(id);
+            var sale = _unitOfWork.Sales.GetEntity(id);
             var saleDto = _mapper.Map<SaleDto>(sale);
 
             return saleDto;
@@ -86,8 +96,8 @@ namespace OnlineStore.BusinessLogic
         /// <param name="id">id</param>
         public void DeleteSale(int id)
         {
-            _sale.Delete(id);
-            _sale.Save();
+            _unitOfWork.Sales.Delete(id);
+            _unitOfWork.Save();
         }
     }
 }

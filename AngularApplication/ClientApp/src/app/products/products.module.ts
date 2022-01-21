@@ -8,11 +8,13 @@ import { ProductUpdatingComponent } from './product-updating/product-updating.co
 import { ProductCreatingComponent } from './product-creating/product-creating.component';
 import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
 import {TranslateModule} from "@ngx-translate/core";
+import { PaginatorComponent } from '../paginator/paginator.component';
+
 
 
 
 @NgModule({
-  declarations: [ProductListComponent, ProductUpdatingComponent, ProductCreatingComponent],
+  declarations: [ProductListComponent, ProductUpdatingComponent, ProductCreatingComponent, PaginatorComponent],
     imports: [
         RouterModule.forRoot([
             {path: 'products-list', component: ProductListComponent},

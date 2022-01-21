@@ -4,7 +4,7 @@ using FluentAssertions;
 using System.Collections.Generic;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 using Microsoft.EntityFrameworkCore;
-using OnlineStore.DataAccess.DataAccess;
+using OnlineStore.DataAccess;
 
 namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
 {

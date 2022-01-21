@@ -1,4 +1,6 @@
 ﻿using OnlineStore.BusinessLogic.DtoModels;
+using OnlineStore.DataAccess.EntityModels;
+using OnlineStore.DataAccess.PagedList;
 using System.Collections.Generic;
 
 namespace OnlineStore.BusinessLogic.IServices
@@ -12,7 +14,7 @@ namespace OnlineStore.BusinessLogic.IServices
         /// GetAllSales method.
         /// </summary>
         /// <returns>Returns all sales from table</returns>
-        IEnumerable<SaleDto> GetAllSales();
+        PagedList<SaleDto> GetAllSales(PageParameters pageParameters);
 
         /// <summary>
         /// CreateSale method.

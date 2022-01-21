@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
+using OnlineStore.DataAccess.EntityModels;
+using OnlineStore.DataAccess.PagedList;
 using System.Collections.Generic;
 
 namespace OnlineStore.ServiceApi.Controllers
@@ -34,14 +37,26 @@ namespace OnlineStore.ServiceApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("getProducts")]
-        public ActionResult<IEnumerable<ProductDto>> GetAllProducts()
+        public ActionResult<PagedList<ProductDto>> GetAllProducts([FromQuery] PageParameters pageParameters)
         {
-            var products = _productService.GetAllProducts();
+            var products = _productService.GetAllProducts(pageParameters);
 
             if (products == null)
             {
                 return NotFound();
             }
+
+            var metadata = new
+            {
+                products.TotalCount,
+                products.PageSize,
+                products.CurrentPage,
+                products.TotalPages,
+                products.HasNext,
+                products.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             return Ok(products);
         }
@@ -53,9 +68,9 @@ namespace OnlineStore.ServiceApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("getProductsNames")]
-        public ActionResult<IEnumerable<SelectDto>> GetAllProductsNames()
+        public ActionResult<IEnumerable<SelectDto>> GetAllProductsNames([FromQuery] PageParameters pageParameters)
         {
-            var productsNames = _productService.GetAllProductNames();
+            var productsNames = _productService.GetAllProductNames(pageParameters);
 
             if (productsNames == null)
             {

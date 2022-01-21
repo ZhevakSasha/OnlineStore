@@ -1,8 +1,11 @@
 ﻿using OnlineStore.DataAccess.DataModel;
+using OnlineStore.DataAccess.EntityModels;
+using OnlineStore.DataAccess.PagedList;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace OnlineStore.DataAccess.AdoRepositoryImplementation
 {
@@ -30,7 +33,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
         /// GetList method. 
         /// </summary>
         /// <returns>Returns all objects.</returns>
-        public IEnumerable<Customer> GetList()
+        public PagedList<Customer> GetList(PageParameters pageParameters)
         {
             var customers = new List<Customer>();
             using (var connection = new SqlConnection(_connectionString))
@@ -50,7 +53,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
                     };
                     customers.Add(customer);
                 }
-                return (customers);
+                return PagedList<Customer>.ToPagedList(customers.AsQueryable(), pageParameters.PageNumber, pageParameters.PageSize);
             }
         }
 

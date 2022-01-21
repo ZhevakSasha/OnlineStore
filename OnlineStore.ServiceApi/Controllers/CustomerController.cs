@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
+using OnlineStore.DataAccess.EntityModels;
+using OnlineStore.DataAccess.PagedList;
 using System.Collections.Generic;
 
 namespace OnlineStore.ServiceApi.Controllers
@@ -34,14 +37,26 @@ namespace OnlineStore.ServiceApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("getCustomers")]
-        public ActionResult<IEnumerable<CustomerDto>> GetAllCustomers()
+        public ActionResult<PagedList<CustomerDto>> GetAllCustomers([FromQuery] PageParameters pageParameters)
         {
-            var customers = _customerService.GetAllCustomers();
+            var customers = _customerService.GetAllCustomers(pageParameters);
 
             if (customers == null)
             {
                 return NotFound();
             }
+
+            var metadata = new
+            {
+                customers.TotalCount,
+                customers.PageSize,
+                customers.CurrentPage,
+                customers.TotalPages,
+                customers.HasNext,
+                customers.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             return Ok(customers);
         }
@@ -53,9 +68,9 @@ namespace OnlineStore.ServiceApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("getCustomersNames")]
-        public ActionResult<IEnumerable<SelectDto>> GetAllCustomersNames()
+        public ActionResult<IEnumerable<SelectDto>> GetAllCustomersNames([FromQuery] PageParameters pageParameters)
         {
-            var customersNames = _customerService.GetAllCustomerNames();
+            var customersNames = _customerService.GetAllCustomerNames(pageParameters);
 
             if (customersNames == null)
             {

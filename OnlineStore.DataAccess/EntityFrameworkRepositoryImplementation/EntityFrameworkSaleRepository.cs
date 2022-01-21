@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineStore.DataAccess;
 using OnlineStore.DataAccess.DataModel;
+using OnlineStore.DataAccess.EntityModels;
+using OnlineStore.DataAccess.PagedList;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System;
 using System.Collections.Generic;
@@ -66,20 +68,14 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// GetList method. 
         /// </summary>
         /// <returns>Returns all objects.</returns>
-        public IEnumerable<Sale> GetList()
+        public PagedList<Sale> GetList(PageParameters pageParameters)
         {
-            return _context
+            return PagedList<Sale>.ToPagedList(_context
                 .Sales
-                .Include(c=>c.Customer)
-                .Include(p=>p.Product);
-        }
-
-        /// <summary>
-        /// Save changes to database.
-        /// </summary>
-        public void Save()
-        {
-            _context.SaveChanges();
+                .Include(c => c.Customer)
+                .Include(p => p.Product),
+                pageParameters.PageNumber,
+                pageParameters.PageSize); 
         }
 
         /// <summary>

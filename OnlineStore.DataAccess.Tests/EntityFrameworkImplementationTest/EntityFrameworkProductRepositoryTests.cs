@@ -3,7 +3,7 @@ using OnlineStore.DataAccess.DataModel;
 using FluentAssertions;
 using System.Collections.Generic;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
-using OnlineStore.DataAccess.DataAccess;
+using OnlineStore.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 namespace OnlineStore.DataAccess.Tests.EntityFrameworkImplementationTests
