@@ -123,6 +123,5 @@ namespace OnlineStore.DataAccess
                 sales.ToArray()
                 );
         }
-
     }
 }

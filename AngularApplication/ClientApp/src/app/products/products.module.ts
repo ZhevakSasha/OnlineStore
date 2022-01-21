@@ -9,6 +9,7 @@ import { ProductCreatingComponent } from './product-creating/product-creating.co
 import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
 import {TranslateModule} from "@ngx-translate/core";
 import { PaginatorComponent } from '../paginator/paginator.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -25,7 +26,8 @@ import { PaginatorComponent } from '../paginator/paginator.component';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule
+        TranslateModule,
+        MatPaginatorModule
     ]
 })
 export class ProductsModule { }

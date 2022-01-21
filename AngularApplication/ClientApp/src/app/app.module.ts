@@ -14,6 +14,7 @@ import {AuthenticateModule} from './authenticate/authenticate.module';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -42,7 +43,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
         deps: [HttpClient],
       },
       useDefaultLang: false,
-    })
+    }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
