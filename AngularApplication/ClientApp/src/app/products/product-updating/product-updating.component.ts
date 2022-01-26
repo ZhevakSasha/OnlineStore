@@ -24,7 +24,6 @@ export class ProductUpdatingComponent implements OnInit {
     this.productApi.getProduct(this.id)
       .subscribe(data => this.productData = data,
         error => this.productData = error);
-
     this.form = new FormGroup({
       productName: new FormControl(this.productData.productName, [
         Validators.required,

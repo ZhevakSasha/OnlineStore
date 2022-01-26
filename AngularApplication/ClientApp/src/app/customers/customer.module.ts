@@ -8,6 +8,9 @@ import { CustomerCreatingComponent } from './customer-creating/customer-creating
 import { CustomerUpdatingComponent } from './customer-updating/customer-updating.component';
 import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
 import {TranslateModule} from '@ngx-translate/core';
+import { PaginatorComponent } from '../Shared/paginator/paginator.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { SharedModule } from '../Shared/shared.module';
 
 
 @NgModule({
@@ -22,7 +25,8 @@ import {TranslateModule} from '@ngx-translate/core';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule
+        TranslateModule,
+        SharedModule
     ]
 })
 

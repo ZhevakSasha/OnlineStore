@@ -9,6 +9,7 @@ import { SaleUpdatingComponent } from './sale-updating/sale-updating.component';
 import {SearchPipe} from './search.pipe';
 import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
 import {TranslateModule} from "@ngx-translate/core";
+import { SharedModule } from '../Shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {TranslateModule} from "@ngx-translate/core";
         FormsModule,
         ReactiveFormsModule,
         FormsModule,
-        TranslateModule
+        TranslateModule,
+        SharedModule
     ]
 })
 

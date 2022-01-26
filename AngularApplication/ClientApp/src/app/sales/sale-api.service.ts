@@ -12,8 +12,8 @@ export class SaleApiService {
 
   apiURL = 'https://localhost:44307/serviceApi/Sale/';
 
-  public getSales() {
-    return this.httpClient.get<SaleModel[]>(environment.serviceApi + 'Sale/getSales');
+  public getSales(pageNumber: number, pageSize: number) {
+    return this.httpClient.get<SaleModel[]>(environment.serviceApi + `Sale/getSales?PageNumber=${pageNumber}&PageSize=${pageSize}`, {observe: 'response'});
   }
 
   public getSale(id: number) {

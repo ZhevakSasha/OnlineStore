@@ -10,8 +10,8 @@ export class CustomerApiService {
 
   apiURL = 'https://localhost:44307/serviceApi/Customer/';
 
-  public getCustomers() {
-    return this.httpClient.get<CustomerModel[]>(environment.serviceApi + 'Customer/getCustomers');
+  public getCustomers(pageNumber: number, pageSize: number) {
+    return this.httpClient.get<CustomerModel[]>(environment.serviceApi + `Customer/getCustomers?PageNumber=${pageNumber}&PageSize=${pageSize}`, {observe: 'response'});
   }
 
   public getCustomer(id: number) {

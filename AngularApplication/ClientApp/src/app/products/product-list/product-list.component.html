@@ -35,4 +35,4 @@
     
   </div>
 </div>
-<app-paginator></app-paginator>
+<app-paginator [length]="PaginationData.TotalCount" (paginatorEmit)="loadProducts()"></app-paginator>

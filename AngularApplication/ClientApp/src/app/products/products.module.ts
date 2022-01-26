@@ -8,14 +8,15 @@ import { ProductUpdatingComponent } from './product-updating/product-updating.co
 import { ProductCreatingComponent } from './product-creating/product-creating.component';
 import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
 import {TranslateModule} from "@ngx-translate/core";
-import { PaginatorComponent } from '../paginator/paginator.component';
+import { PaginatorComponent } from '../Shared/paginator/paginator.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { SharedModule } from '../Shared/shared.module';
 
 
 
 
 @NgModule({
-  declarations: [ProductListComponent, ProductUpdatingComponent, ProductCreatingComponent, PaginatorComponent],
+  declarations: [ProductListComponent, ProductUpdatingComponent, ProductCreatingComponent],
     imports: [
         RouterModule.forRoot([
             {path: 'products-list', component: ProductListComponent},
@@ -27,7 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         FormsModule,
         ReactiveFormsModule,
         TranslateModule,
-        MatPaginatorModule
+        SharedModule
     ]
 })
 export class ProductsModule { }

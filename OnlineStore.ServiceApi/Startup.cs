@@ -122,7 +122,7 @@ namespace OnlineStore.ServiceApi
 
             app.UseHttpsRedirection();
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("X-Pagination"));
 
             app.UseRouting();
 

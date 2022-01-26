@@ -10,8 +10,8 @@ export class ProductApiService {
 
   apiURL = 'https://localhost:44307/serviceApi/Product/';
 
-  public getProducts() {
-    return this.httpClient.get<ProductModel[]>(environment.serviceApi + 'Product/getProducts');
+  public getProducts(pageNumber: number, pageSize: number) {  
+    return this.httpClient.get<ProductModel[]>(environment.serviceApi + `Product/getProducts?PageNumber=${pageNumber}&PageSize=${pageSize}`, {observe: 'response'});
   }
 
   public getProduct(id: number) {
