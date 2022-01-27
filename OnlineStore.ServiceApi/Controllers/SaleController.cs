@@ -28,6 +28,7 @@ namespace OnlineStore.ServiceApi.Controllers
         public SaleController(ISaleService saleService)
         {
             _saleService = saleService;
+
         }
 
         /// <summary>
@@ -88,10 +89,20 @@ namespace OnlineStore.ServiceApi.Controllers
         [HttpPost]
         [Route("createSale")]
         [Authorize(Roles = "Admin")]
-        public ActionResult<SaleDto> CreateSale(SaleDto sale)
+        public CreatedAtActionResult CreateSale(SaleDto sale)
         {
             _saleService.CreateSale(sale);
             return CreatedAtAction(nameof(GetSaleById), new { Id = sale.Id }, sale);
+        }
+
+        [HttpPost]
+        [Route("createSaleWithProduct")]
+        [AllowAnonymous]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult<SaleWithProductDto> CreateSaleWithProduct(SaleWithProductDto saleWithProduct)
+        {
+            _saleService.CreateSaleWithProduct(saleWithProduct);
+            return CreatedAtAction(nameof(CreateSaleWithProduct), saleWithProduct);
         }
 
         /// <summary>

@@ -5,6 +5,7 @@
 
     <div class="form-group">
       <select [(ngModel)]="saleData.customerId" class="form-control" [ngModelOptions]="{standalone: true}">
+        <option [value]="saleData.customerId">{{saleData.customerName}}</option>>
         <option *ngFor = "let customer of customersNames" [value]="customer.id">{{customer.name}}
         </option>
       </select>
@@ -12,6 +13,7 @@
 
     <div class="form-group">
       <select [(ngModel)]="saleData.productId" class="form-control" [ngModelOptions]="{standalone: true}" >
+        <option [value]="saleData.productId">{{saleData.productName}}</option>>
         <option *ngFor = "let product of productsNames" [value]="product.id">{{product.name}}
         </option>
       </select>

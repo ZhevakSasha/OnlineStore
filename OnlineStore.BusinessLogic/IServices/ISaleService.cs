@@ -22,6 +22,8 @@ namespace OnlineStore.BusinessLogic.IServices
         /// <param name="sale">Takes SaleDto object</param>
         void CreateSale(SaleDto sale);
 
+        void CreateSaleWithProduct(SaleWithProductDto saleWithProduct);
+
         /// <summary>
         /// Update sale method.
         /// </summary>

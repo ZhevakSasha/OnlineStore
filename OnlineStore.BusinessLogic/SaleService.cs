@@ -66,6 +66,38 @@ namespace OnlineStore.BusinessLogic
             _unitOfWork.Save();
         }
 
+        public void CreateSaleWithProduct(SaleWithProductDto saleWithProduct)
+        {
+            var productDto = new ProductDto
+            {
+                Price = saleWithProduct.Price,
+                ProductName = saleWithProduct.ProductName,
+                UnitOfMeasurement = saleWithProduct.ProductName
+            };
+
+            var product = _mapper.Map<Product>(productDto);
+
+            _unitOfWork.Products.Create(product);
+
+            _unitOfWork.Save();
+
+            var saleDto = new SaleDto
+            {
+                Amount = saleWithProduct.Amount,
+                ProductName = saleWithProduct.ProductName,
+                CustomerId = saleWithProduct.CustomerId,
+                CustomerName = saleWithProduct.CustomerName,
+                DateOfSale = saleWithProduct.DateOfSale,
+                ProductId = product.Id
+            };
+
+            var sale = _mapper.Map<Sale>(saleDto);
+
+            _unitOfWork.Sales.Create(sale);
+
+            _unitOfWork.Save();
+        }
+
         /// <summary>
         /// UpdateSale method.
         /// </summary>
