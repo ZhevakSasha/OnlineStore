@@ -10,6 +10,8 @@ import {SearchPipe} from './search.pipe';
 import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
 import {TranslateModule} from "@ngx-translate/core";
 import { SharedModule } from '../Shared/shared.module';
+import { ProductsModule } from '../products/products.module';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { SharedModule } from '../Shared/shared.module';
         ReactiveFormsModule,
         FormsModule,
         TranslateModule,
-        SharedModule
+        SharedModule,
+        ProductsModule,
+        MatRadioModule
     ]
 })
 

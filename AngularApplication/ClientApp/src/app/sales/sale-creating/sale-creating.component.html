@@ -3,7 +3,7 @@
     <h3 class="mb-3 text-center">{{'Sales.AddSale' | translate}}</h3>
 
     <div class="form-group" [ngClass]="{invalid: form.get('customerName').touched && form.get('customerName').invalid}">
-      <select [(ngModel)]="saleDetails.customerId" class="form-control" formControlName="customerName">
+      <select [(ngModel)]="saleWithProduct.customerId" class="form-control" formControlName="customerName">
         <option [ngValue]="0" selected disabled hidden>{{'Sales.Validation.SelectCustomer' | translate}}</option>
         <option *ngFor = "let customer of customersNames" [ngValue]="customer.id">{{customer.name}}
         </option>
@@ -18,11 +18,18 @@
       </div>
     </div>
 
-    <div class="form-group" [ngClass]="{invalid: form.get('productName').touched && form.get('productName').invalid}">
-      <select [(ngModel)]="saleDetails.productId" class="form-control" formControlName="productName">
-        <option value="-1" selected disabled hidden>{{'Sales.Validation.SelectCustomer' | translate}}</option>
-        <option *ngFor = "let product of productsNames" [ngValue]="product.id">{{product.name}}
-        </option>
+    <div class="form-group">
+      <mat-radio-group aria-label="Select an option" [(ngModel)] = "saleWithProductFlag"  [ngModelOptions]="{standalone: true}">
+        <mat-radio-button (change)="radioChange($event)" [value]= false [checked]="!saleWithProductFlag">Select existing product</mat-radio-button>
+        <mat-radio-button (change)="radioChange($event)" [value]= true>Create new product</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  
+    <div *ngIf="!saleWithProductFlag" class="form-group" [ngClass]="{invalid: form.get('productName').touched && form.get('productName').invalid}">
+      <select [(ngModel)]="saleWithProduct.productId" class="form-control" formControlName="productName">
+        <option value="-1" selected disabled hidden>{{'Sales.Validation.SelectCustomer' | translate}}></option>
+        <option *ngFor = "let product of productsNames" [ngValue]="product.id">{{product.name}}></option>
+        <option [ngValue]="true"> -- Create new product -- </option>
       </select>
       <div
         *ngIf="form.get('productName').touched && form.get('productName').invalid"
@@ -33,9 +40,12 @@
         </small>
       </div>
     </div>
-
+    
+    <div *ngIf="saleWithProductFlag" class="productcreate">
+    <app-product-creating></app-product-creating>
+    </div>
     <div class="form-group" [ngClass]="{invalid: form.get('date').touched && form.get('date').invalid}">
-      <input type="date" [(ngModel)]="saleDetails.dateOfSale" class="form-control" placeholder="Enter date of sale" formControlName="date">
+      <input type="date" [(ngModel)]="saleWithProduct.dateOfSale" class="form-control" placeholder="Enter date of sale" formControlName="date">
       <div
         *ngIf="form.get('date').touched && form.get('date').invalid"
         class="validation text-danger"
@@ -47,7 +57,7 @@
     </div>
 
     <div class="form-group" [ngClass]="{invalid: form.get('amount').touched && form.get('amount').invalid}">
-      <input type="text" [(ngModel)]="saleDetails.amount" class="form-control" placeholder="{{'Sales.Validation.EnterAmount' | translate}}" formControlName="amount">
+      <input type="text" [(ngModel)]="saleWithProduct.amount" class="form-control" placeholder="{{'Sales.Validation.EnterAmount' | translate}}" formControlName="amount">
       <div
         *ngIf="form.get('amount').touched && form.get('amount').invalid"
         class="validation text-danger"
@@ -70,6 +80,6 @@
     <div class="form-group">
       <button [disabled]="form.invalid" class="btn btn-success btn-lg btn-block" (click)="addSale()">{{'Sales.AddSale' | translate}}</button>
     </div>
-
+    
   </div>
 </div>

@@ -12,7 +12,7 @@ import { PageModel } from 'src/app/Shared/paginator/page.model';
 })
 export class ProductListComponent implements OnInit {
 
-  Products: ProductModel[] = [];
+  Products: ProductModel[];
   public PageNumber: number = 0;
   public PageSize: number = 10;
   public PaginationData:PageModel;

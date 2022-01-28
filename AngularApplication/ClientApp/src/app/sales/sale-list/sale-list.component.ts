@@ -11,7 +11,7 @@ import {SaleApiService} from '../sale-api.service';
 })
 export class SaleListComponent implements OnInit {
 
-  Sales: SaleModel[] = [];
+  Sales: SaleModel[];
   searchStr = '';
   public PageNumber: number = 0;
   public PageSize: number = 10;

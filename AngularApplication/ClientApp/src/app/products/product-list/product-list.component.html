@@ -35,4 +35,4 @@
     
   </div>
 </div>
-<app-paginator [length]="PaginationData.TotalCount" (paginatorEmit)="loadProducts()"></app-paginator>
+<app-paginator *ngIf="Products != null" [length]="PaginationData.TotalCount" (paginatorEmit)="loadProducts()"></app-paginator>

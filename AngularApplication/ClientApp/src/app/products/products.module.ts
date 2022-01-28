@@ -16,6 +16,7 @@ import { SharedModule } from '../Shared/shared.module';
 
 
 @NgModule({
+    exports:[ProductCreatingComponent],
   declarations: [ProductListComponent, ProductUpdatingComponent, ProductCreatingComponent],
     imports: [
         RouterModule.forRoot([

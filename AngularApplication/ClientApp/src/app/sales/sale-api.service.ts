@@ -36,6 +36,10 @@ export class SaleApiService {
     return this.httpClient.post(environment.serviceApi + 'Sale/createSale', sale);
   }
 
+  public createSaleWithProduct(sale: SaleModel) {
+    return this.httpClient.post(environment.serviceApi + 'Sale/createSaleWithProduct', sale);
+  }
+
   public deleteSale(id: number) {
     return this.httpClient.delete(environment.serviceApi + `Sale/deleteSale/${id}`);
   }

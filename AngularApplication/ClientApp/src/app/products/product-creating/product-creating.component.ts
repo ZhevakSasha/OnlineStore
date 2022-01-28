@@ -45,4 +45,9 @@ export class ProductCreatingComponent implements OnInit {
     });
   }
 
+  addSaleWithProduct() : ProductModel{
+    console.log("pd", this.productDetails)
+    return this.productDetails;
+  }
+
 }

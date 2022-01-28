@@ -36,5 +36,5 @@
     </div>
   </div>
 </div>
-<app-paginator [length]="PaginationData.TotalCount" (paginatorEmit)="loadCustomers()"></app-paginator>
+<app-paginator *ngIf="Customers != null" [length]="PaginationData.TotalCount" (paginatorEmit)="loadCustomers()"></app-paginator>
 

@@ -39,4 +39,4 @@
     </div>
   </div>
 </div>
-<app-paginator [length]="PaginationData.TotalCount" (paginatorEmit)="loadSales()"></app-paginator>
+<app-paginator *ngIf="Sales != null" [length]="PaginationData.TotalCount" (paginatorEmit)="loadSales()"></app-paginator>
