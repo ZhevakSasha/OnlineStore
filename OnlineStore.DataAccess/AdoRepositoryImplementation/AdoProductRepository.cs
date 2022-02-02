@@ -1,7 +1,6 @@
-﻿using OnlineStore.DataAccess.DataModel;
-using OnlineStore.DataAccess.EntityModels;
-using OnlineStore.DataAccess.PagedList;
+﻿using OnlineStore.DataAccess.PagedList;
 using OnlineStore.DataAccess.RepositoryPatterns;
+using OnlineStore.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;

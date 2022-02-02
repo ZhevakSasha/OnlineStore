@@ -1,4 +1,4 @@
-﻿namespace OnlineStore.DataAccess.DataModel
+﻿namespace OnlineStore.Domain.Models
 {
     /// <summary>
     /// Data model for Sales a table. 

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using OnlineStore.BusinessLogic.DtoModels;
-using OnlineStore.DataAccess.DataModel;
 using OnlineStore.DataAccess.PagedList;
+using OnlineStore.Domain.Models;
 
 namespace OnlineStore.MvcApplication
 {

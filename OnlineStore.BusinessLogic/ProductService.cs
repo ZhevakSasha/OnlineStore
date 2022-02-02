@@ -1,13 +1,11 @@
 ﻿using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.DataModel;
-using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Collections.Generic;
 using AutoMapper;
 using System.Linq;
 using OnlineStore.DataAccess;
-using OnlineStore.DataAccess.EntityModels;
 using OnlineStore.DataAccess.PagedList;
+using OnlineStore.Domain.Models;
 
 namespace OnlineStore.BusinessLogic
 {

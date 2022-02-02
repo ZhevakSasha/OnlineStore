@@ -29,7 +29,6 @@
       <select [(ngModel)]="saleWithProduct.productId" class="form-control" formControlName="productName">
         <option value="-1" selected disabled hidden>{{'Sales.Validation.SelectCustomer' | translate}}></option>
         <option *ngFor = "let product of productsNames" [ngValue]="product.id">{{product.name}}></option>
-        <option [ngValue]="true"> -- Create new product -- </option>
       </select>
       <div
         *ngIf="form.get('productName').touched && form.get('productName').invalid"

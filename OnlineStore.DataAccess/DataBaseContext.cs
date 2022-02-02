@@ -1,7 +1,7 @@
-﻿using OnlineStore.DataAccess.DataModel;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using OnlineStore.Domain.Models;
 
 namespace OnlineStore.DataAccess
 {

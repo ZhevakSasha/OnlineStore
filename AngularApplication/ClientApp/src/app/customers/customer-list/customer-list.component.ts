@@ -12,7 +12,7 @@ import { PageChangeService } from 'src/app/Shared/paginator/page-change.service'
 })
 export class CustomerListComponent implements OnInit {
 
-  Customers: CustomerModel[];
+  Customers: CustomerModel[] = [];
   public PageNumber: number = 0;
   public PageSize: number = 10;
   public PaginationData:PageModel;

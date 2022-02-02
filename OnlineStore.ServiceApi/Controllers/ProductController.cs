@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
-using OnlineStore.DataAccess.EntityModels;
 using OnlineStore.DataAccess.PagedList;
+using OnlineStore.Domain.Models;
 using System.Collections.Generic;
 
 namespace OnlineStore.ServiceApi.Controllers

@@ -1,10 +1,5 @@
 <div class="container custom-container-2">
 
-  <div class="no-data text-center" *ngIf="Customers.length == 0">
-    <p>There is no customer added yet!</p>
-    <button class="btn btn-outline-primary" routerLink="/customer-creating">{{'Customers.AddCustomer' | translate}}</button>
-  </div>
-
   <button class="btn btn-outline-primary" routerLink="/customer-creating">{{'Customers.AddCustomer' | translate}}</button>
   <div *ngIf="Customers.length !== 0">
     <h3 class="mb-3 text-center">{{'Customers.CustomersList' | translate}}</h3>
@@ -36,5 +31,11 @@
     </div>
   </div>
 </div>
-<app-paginator *ngIf="Customers != null" [length]="PaginationData.TotalCount" (paginatorEmit)="loadCustomers()"></app-paginator>
+
+<div class="no-data text-center" *ngIf="Customers == null">
+  <p>There is no customer added yet!</p>
+  <button class="btn btn-outline-primary" routerLink="/customer-creating">{{'Customers.AddCustomer' | translate}}</button>
+</div>
+
+<app-paginator *ngIf="Customers.length != 0" [length]="PaginationData.TotalCount" (paginatorEmit)="loadCustomers()"></app-paginator>
 

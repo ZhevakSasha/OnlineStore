@@ -1,4 +1,4 @@
-﻿namespace OnlineStore.DataAccess.DataModel
+﻿namespace OnlineStore.Domain.Models
 {
     /// <summary>
     /// Abstract class to inheritance the ID field.

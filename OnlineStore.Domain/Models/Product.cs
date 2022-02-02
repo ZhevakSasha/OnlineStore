@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OnlineStore.DataAccess.DataModel
+namespace OnlineStore.Domain.Models
 {
     /// <summary>
     /// Data model for a Product table. 

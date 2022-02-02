@@ -1,6 +1,6 @@
 <div class="container custom-container-2">
 
-  <div class="no-data text-center" *ngIf="Sales.length == 0">
+  <div class="no-data text-center" *ngIf="Sales == null">
     <p>There is no sale added yet!</p>
     <button class="btn btn-outline-primary" routerLink="/sale-creating">{{'Sales.AddSale' | translate}}</button>
   </div>
@@ -39,4 +39,4 @@
     </div>
   </div>
 </div>
-<app-paginator *ngIf="Sales != null" [length]="PaginationData.TotalCount" (paginatorEmit)="loadSales()"></app-paginator>
+<app-paginator *ngIf="Sales.length != 0" [length]="PaginationData.TotalCount" (paginatorEmit)="loadSales()"></app-paginator>

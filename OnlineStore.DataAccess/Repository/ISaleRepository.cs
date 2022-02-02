@@ -1,4 +1,4 @@
-﻿using OnlineStore.DataAccess.DataModel;
+﻿using OnlineStore.Domain.Models;
 
 namespace OnlineStore.DataAccess.RepositoryPatterns
 {

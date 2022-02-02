@@ -1,7 +1,6 @@
 ﻿using OnlineStore.BusinessLogic.DtoModels;
-using OnlineStore.DataAccess.EntityModels;
 using OnlineStore.DataAccess.PagedList;
-using System.Collections.Generic;
+using OnlineStore.Domain.Models;
 
 namespace OnlineStore.BusinessLogic.IServices
 {

@@ -2,10 +2,9 @@
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess;
-using OnlineStore.DataAccess.DataModel;
-using OnlineStore.DataAccess.EntityModels;
 using OnlineStore.DataAccess.PagedList;
 using OnlineStore.DataAccess.RepositoryPatterns;
+using OnlineStore.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
 

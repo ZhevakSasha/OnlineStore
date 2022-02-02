@@ -45,7 +45,7 @@ namespace OnlineStore.ServiceApi
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<DataBaseContext>(options =>
-           options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Adding Authentication  
             services.AddAuthentication(options =>
@@ -132,8 +132,7 @@ namespace OnlineStore.ServiceApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
-            
+            });  
         }
     }
 }
