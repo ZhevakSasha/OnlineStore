@@ -1,16 +1,12 @@
-﻿namespace OnlineStore.Domain.Models
+﻿using System.Collections.Generic;
+
+namespace OnlineStore.Domain.Models
 {
     /// <summary>
     /// Data model for Sales a table. 
     /// </summary>
     public class Sale : ModelBase
     {
-
-        /// <summary>
-        /// Property  for storing product id.
-        /// </summary>
-        public int ProductId { get; set; }
-
         /// <summary>
         /// Property  for storing customer id.
         /// </summary>
@@ -29,7 +25,7 @@
         /// <summary>
         /// Property  for getting product.
         /// </summary>
-        public Product Product { get; set; }
+        public List<Product> Products { get; set; } = new List<Product>();
 
         /// <summary>
         /// Property  for getting customer.

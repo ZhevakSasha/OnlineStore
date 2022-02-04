@@ -45,7 +45,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
                     var sale = new Sale()
                     {
                         Id = Convert.ToInt32(reader["Id"]),
-                        ProductId = Convert.ToInt32(reader["ProductId"]),
+                        //ProductId = Convert.ToInt32(reader["ProductId"]),
                         CustomerId = Convert.ToInt32(reader["CustomerId"]),
                         DateOfSale = reader["DateOfSale"].ToString(),
                         Amount = Convert.ToInt32(reader["Amount"])
@@ -72,7 +72,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
                 while (reader.Read())
                 {
                     sale.Id = Convert.ToInt32(reader["Id"]);
-                    sale.ProductId = Convert.ToInt32(reader["ProductId"]);
+                    //sale.ProductId = Convert.ToInt32(reader["ProductId"]);
                     sale.CustomerId = Convert.ToInt32(reader["CustomerId"]);
                     sale.DateOfSale = reader["DateOfSale"].ToString();
                     sale.Amount = Convert.ToInt32(reader["Amount"]);
@@ -94,7 +94,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
                    "(ProductId, CustomerId, DateOfSale, Amount)" +
                    " VALUES(@ProductId, @CustomerId, @DateOfSale, @Amount)", connection);
                 connection.Open();
-                command.Parameters.AddWithValue("@ProductId", sale.ProductId);
+                //command.Parameters.AddWithValue("@ProductId", sale.ProductId);
                 command.Parameters.AddWithValue("@CustomerId", sale.CustomerId);
                 command.Parameters.AddWithValue("@DateOfSale", sale.DateOfSale);
                 command.Parameters.AddWithValue("@Amount", sale.Amount);
@@ -117,7 +117,7 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
                                              "Amount = @Amount " +
                                              $"WHERE Id ={sale.Id}", connection);
                 connection.Open();
-                command.Parameters.AddWithValue("@ProductId", sale.ProductId);
+                //command.Parameters.AddWithValue("@ProductId", sale.ProductId);
                 command.Parameters.AddWithValue("@CustomerId", sale.CustomerId);
                 command.Parameters.AddWithValue("@DateOfSale", sale.DateOfSale);
                 command.Parameters.AddWithValue("@Amount", sale.Amount);

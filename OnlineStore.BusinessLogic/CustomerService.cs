@@ -87,16 +87,15 @@ namespace OnlineStore.BusinessLogic
         /// GetAllCustomerNames method.
         /// </summary>
         /// <returns>IEnumerable<SelectDto></returns>
-        public IEnumerable<SelectDto> GetAllCustomerNames(PageParameters pageParameters)
+        public IList<SelectDto> GetAllCustomerNames()
         {
             var customerNames = _unitOfWork.Customers
-                .GetList(pageParameters)
+                .GetList()
                 .Select(s => new SelectDto
                 {
                     Id = s.Id,
                     Name = $"{s.FirstName.Substring(0, 1)}. {s.LastName}"
-                }
-                    ) ;
+                }).ToList();
             return customerNames;
         }
 

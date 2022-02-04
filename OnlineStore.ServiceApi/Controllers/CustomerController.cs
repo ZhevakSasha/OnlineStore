@@ -68,9 +68,9 @@ namespace OnlineStore.ServiceApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("getCustomersNames")]
-        public ActionResult<IEnumerable<SelectDto>> GetAllCustomersNames([FromQuery] PageParameters pageParameters)
+        public ActionResult<IEnumerable<SelectDto>> GetAllCustomersNames()
         {
-            var customersNames = _customerService.GetAllCustomerNames(pageParameters);
+            var customersNames = _customerService.GetAllCustomerNames();
 
             if (customersNames == null)
             {

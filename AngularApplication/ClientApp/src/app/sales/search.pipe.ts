@@ -11,7 +11,13 @@ export class SearchPipe implements PipeTransform {
     }
 
     return sales.filter(sale => {
-      const byProduct = sale.productName.toLowerCase().includes(search.toLowerCase());
+      var byProduct = false;
+      console.log(sale.productName)
+      
+      for (var product of sale.productName) {
+      if(product.toLowerCase().includes(search.toLowerCase())) {return true}
+      }
+      
       const byCustomer = sale.customerName.toLowerCase().includes(search.toLowerCase());
       if (byProduct || byCustomer === true) {return true; }
     });

@@ -86,15 +86,15 @@ namespace OnlineStore.BusinessLogic
         /// GetAllProductNames method.
         /// </summary>
         /// <returns>IEnumerable<SelectDto> product names</returns>
-        public IEnumerable<SelectDto> GetAllProductNames(PageParameters pageParameters)
+        public IList<SelectDto> GetAllProductNames()
         {
             var productNames = _unitOfWork.Products
-                .GetList(pageParameters)
+                .GetList()
                 .Select(s => new SelectDto
                 {
                     Id = s.Id,
                     Name = s.ProductName
-                });
+                }).ToList();
             return productNames;
         }
 

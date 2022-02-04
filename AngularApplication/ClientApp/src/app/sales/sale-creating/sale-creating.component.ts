@@ -14,14 +14,14 @@ import { ProductCreatingComponent } from 'src/app/products/product-creating/prod
 })
 export class SaleCreatingComponent implements OnInit {
 
-  @Input() saleDetails: SaleModel = { productName : '', customerName : '', dateOfSale : null, amount: 0 };
+  @Input() saleDetails: SaleModel = { productName : [], customerName : '', dateOfSale : null, amount: 0 };
   @ViewChild(ProductCreatingComponent) productCreatingComponent:ProductCreatingComponent;
 
   productsNames: SelectModel[] = [];
   customersNames: SelectModel[] = [];
 
   
-  saleWithProduct: SaleWithProductModel = { productName : '', customerName : '', dateOfSale : null, amount: 0, price: 0, unitOfMeasurement: ''};
+  saleWithProduct: SaleWithProductModel = { productName : [], customerName : '', dateOfSale : null, amount: 0, price: 0, unitOfMeasurement: ''};
   saleWithProductFlag: boolean = false;
   
   public form: FormGroup;
@@ -76,7 +76,7 @@ export class SaleCreatingComponent implements OnInit {
         var a = this.productCreatingComponent.addSaleWithProduct();
         this.saleWithProduct.price = a.price;
         this.saleWithProduct.unitOfMeasurement = a.unitOfMeasurement;
-        this.saleWithProduct.productName = a.productName;
+        //this.saleWithProduct.productName = a.productName;
         console.log("createdata", this.saleWithProduct);
         this.saleApi.createSaleWithProduct(this.saleWithProduct).subscribe((data: {}) => {
           this.router.navigate(['/sales-list']);});

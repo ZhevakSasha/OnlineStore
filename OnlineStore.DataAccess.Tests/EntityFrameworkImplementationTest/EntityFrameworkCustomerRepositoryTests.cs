@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using OnlineStore.DataAccess.DataModel;
 using FluentAssertions;
 using System.Collections.Generic;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;

@@ -59,7 +59,8 @@ namespace OnlineStore.BusinessLogic
         {
             var sale = _mapper.Map<Sale>(saleModel);
             if (_unitOfWork.Customers.GetEntity(sale.CustomerId) == null) throw new BLException($"Customer {sale.CustomerId} is not found");
-            if (_unitOfWork.Products.GetEntity(sale.ProductId) == null) throw new BLException($"Product {sale.ProductId} is not found");
+            foreach(var product in sale.Products) 
+            if (_unitOfWork.Products.GetEntity(product.Id) == null) throw new BLException($"Product {product.Id} is not found");
             _unitOfWork.Sales.Create(sale);
             _unitOfWork.Save();
         }
@@ -69,8 +70,8 @@ namespace OnlineStore.BusinessLogic
             var productDto = new ProductDto
             {
                 Price = saleWithProduct.Price,
-                ProductName = saleWithProduct.ProductName,
-                UnitOfMeasurement = saleWithProduct.ProductName
+                ProductName = saleWithProduct.ProductName.Last(),
+                UnitOfMeasurement = saleWithProduct.UnitOfMeasurement
             };
 
             var product = _mapper.Map<Product>(productDto);

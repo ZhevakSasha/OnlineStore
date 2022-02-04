@@ -68,9 +68,9 @@ namespace OnlineStore.ServiceApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("getProductsNames")]
-        public ActionResult<IEnumerable<SelectDto>> GetAllProductsNames([FromQuery] PageParameters pageParameters)
+        public ActionResult<IEnumerable<SelectDto>> GetAllProductsNames()
         {
-            var productsNames = _productService.GetAllProductNames(pageParameters);
+            var productsNames = _productService.GetAllProductNames();
 
             if (productsNames == null)
             {

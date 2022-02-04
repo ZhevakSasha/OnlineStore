@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using OnlineStore.DataAccess.AdoRepositoryImplementation;
-using OnlineStore.DataAccess.DataModel;
 using Microsoft.Extensions.Configuration;
 using FluentAssertions;
 using System.Collections.Generic;

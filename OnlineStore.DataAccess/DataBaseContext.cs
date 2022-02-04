@@ -18,6 +18,7 @@ namespace OnlineStore.DataAccess
             //optionsBuilder.UseSqlServer("Data Source=localhost,1433;Initial Catalog=TestOnlineStore;User ID=sa;Password=pa55w0rd!;");
         }
 
+
         /// <summary>
         /// A set of Customer class objects that are stored in the database. 
         /// </summary>
@@ -63,6 +64,7 @@ namespace OnlineStore.DataAccess
             this.SeedCustomers(builder);
             this.SeedProducts(builder);
             this.SeedSales(builder);
+            //this.SeedProductSale(builder);
         }
 
         private void SeedCustomers(ModelBuilder builder)
@@ -113,8 +115,7 @@ namespace OnlineStore.DataAccess
                 sales.Add(new Sale
                 {
                     Id = i + 1,
-                    CustomerId = rndGen.Next(1,1000), 
-                    ProductId = rndGen.Next(1, 1000),
+                    CustomerId = rndGen.Next(1,1000),
                     Amount = rndGen.Next(1, 20),
                     DateOfSale = RandomDay().ToString("dd'.'MM'.'yyyy")
                 });
@@ -122,6 +123,30 @@ namespace OnlineStore.DataAccess
             builder.Entity<Sale>().HasData(
                 sales.ToArray()
                 );
+        }
+
+        private void SeedProductSale(ModelBuilder builder)
+        {
+            List<ProductSale> productSales = new List<ProductSale>();
+
+            for (int i = 1; i<1000; i++)
+            {
+                productSales.Add(new ProductSale
+                {
+                    SalesId = i,
+                    ProductsId = rndGen.Next(1, 1000)
+                });
+                productSales.Add(new ProductSale
+                {
+                    SalesId = i,
+                    ProductsId = rndGen.Next(1, 1000)
+                });
+            }
+
+            builder.Entity<ProductSale>().HasData(
+               productSales.ToArray()
+               );
+
         }
     }
 }

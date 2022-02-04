@@ -30,6 +30,7 @@ export class SaleListComponent implements OnInit {
       .subscribe(data => {const header = data.headers.get('x-pagination');
       this.PaginationData = JSON.parse(header);
         this.Sales = data.body,
+        console.log(this.Sales),
         error => this.Sales = error; 
         });
   }

@@ -1,4 +1,6 @@
-﻿namespace OnlineStore.BusinessLogic.DtoModels
+﻿using System.Collections.Generic;
+
+namespace OnlineStore.BusinessLogic.DtoModels
 {
     /// <summary>
     /// SaleDto model.
@@ -23,7 +25,7 @@
         /// <summary>
         /// Property  for storing product name.
         /// </summary>
-        public string ProductName { get; set; }
+        public IList<string> ProductName { get; set; }
 
         /// <summary>
         /// Property for storing customer name.

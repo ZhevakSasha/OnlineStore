@@ -1,6 +1,6 @@
 export class SaleWithProductModel {
     constructor(
-      public productName: string,
+      public productName: string[],
       public customerName: string,
       public dateOfSale: Date,
       public amount: number,

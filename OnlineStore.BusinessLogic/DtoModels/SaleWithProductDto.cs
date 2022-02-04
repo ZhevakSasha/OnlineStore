@@ -39,7 +39,7 @@ namespace OnlineStore.BusinessLogic.DtoModels
         /// <summary>
         /// Property  for storing product name.
         /// </summary>
-        public string ProductName { get; set; }
+        public IList<string> ProductName { get; set; }
 
         /// <summary>
         /// Property for storing price of product.

@@ -2,6 +2,8 @@
 using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.DataAccess.PagedList;
 using OnlineStore.Domain.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineStore.MvcApplication
 {
@@ -24,7 +26,7 @@ namespace OnlineStore.MvcApplication
 
             CreateMap<Sale, SaleDto>()
                 .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => $"{src.Customer.FirstName.Substring(0, 1)}. {src.Customer.LastName}"))
-                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.ProductName));
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Products.Select(s => s.ProductName).ToList()));
             CreateMap<SaleDto, Sale>();
         }
 

@@ -8,10 +8,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SaleUpdatingComponent } from './sale-updating/sale-updating.component';
 import {SearchPipe} from './search.pipe';
 import {AdminGuard} from '../authenticate/authenticate-guards/admin.guard';
-import {TranslateModule} from "@ngx-translate/core";
 import { SharedModule } from '../Shared/shared.module';
 import { ProductsModule } from '../products/products.module';
 import {MatRadioModule} from '@angular/material/radio';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgSelect2Module } from 'ng-select2';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import {MatRadioModule} from '@angular/material/radio';
         TranslateModule,
         SharedModule,
         ProductsModule,
-        MatRadioModule
+        MatRadioModule,
+        NgSelect2Module,
+        BrowserModule
     ]
 })
 

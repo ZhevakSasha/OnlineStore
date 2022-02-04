@@ -67,6 +67,15 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         }
 
         /// <summary>
+        /// GetList method. 
+        /// </summary>
+        /// <returns>Returns all objects.</returns>
+        public IList<Product> GetList()
+        {
+            return _context.Products.ToList();
+        }
+
+        /// <summary>
         /// Update method.
         /// Updates an object of Product class.
         /// </summary>

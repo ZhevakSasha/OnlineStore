@@ -24,7 +24,7 @@ import {TranslateModule} from "@ngx-translate/core";
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule,
+        TranslateModule
     ]
 })
 export class UsersModule { }

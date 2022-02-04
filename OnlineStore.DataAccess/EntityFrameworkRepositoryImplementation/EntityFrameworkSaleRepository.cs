@@ -57,7 +57,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
                 .Sales
                 .Where(x => x.Id == Id)
                 .Include(c => c.Customer)
-                .Include(p => p.Product)
+                .Include(p => p.Products)
                 .SingleOrDefault();
             return sale;
         }
@@ -68,12 +68,30 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Returns all objects.</returns>
         public PagedList<Sale> GetList(PageParameters pageParameters)
         {
+            var a = _context
+                .Sales
+                .Include(c => c.Customer)
+                .Include(p => p.Products)
+                .ToList();
             return PagedList<Sale>.ToPagedList(_context
                 .Sales
                 .Include(c => c.Customer)
-                .Include(p => p.Product),
+                .Include(p => p.Products),
                 pageParameters.PageNumber,
                 pageParameters.PageSize); 
+        }
+
+        /// <summary>
+        /// GetList method. 
+        /// </summary>
+        /// <returns>Returns all objects.</returns>
+        public IList<Sale> GetList()
+        {
+            return _context
+                .Sales
+                .Include(c => c.Customer)
+                .Include(p => p.Products)
+                .ToList();
         }
 
         /// <summary>
@@ -87,7 +105,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
 
             entity.Amount = sale.Amount;
             entity.CustomerId = sale.CustomerId;
-            entity.ProductId = sale.ProductId;
+            entity.Products = sale.Products;
             entity.DateOfSale = sale.DateOfSale;
 
             _context.Sales.Update(entity);
