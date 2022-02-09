@@ -15,6 +15,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SalesReportComponent } from './sales-report/sales-report.component';
 
 
 
@@ -23,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    SalesReportComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -34,7 +36,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProductsModule,
     AuthenticateModule,
     RouterModule.forRoot([
-    { path: '', component: HomeComponent, pathMatch: 'full' }
+    { path: '', component: HomeComponent, pathMatch: 'full' },
+    { path: 'sales-report', component: SalesReportComponent }
 ], { relativeLinkResolution: 'legacy' }),
     TranslateModule.forRoot({
       loader: {

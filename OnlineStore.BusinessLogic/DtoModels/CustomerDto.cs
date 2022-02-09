@@ -1,4 +1,6 @@
-﻿namespace OnlineStore.BusinessLogic.DtoModels
+﻿using System.Collections.Generic;
+
+namespace OnlineStore.BusinessLogic.DtoModels
 {
     /// <summary>
     /// CustomerDto model.
@@ -29,5 +31,7 @@
         /// Property  for storing customer phone number.
         /// </summary>
         public string PhoneNumber { get; set; }
+
+        public List<SaleDto> Sales { get; set; } = new List<SaleDto>();
     }
 }

@@ -58,9 +58,16 @@ namespace OnlineStore.BusinessLogic
         public void CreateSale(SaleDto saleModel)
         {
             var sale = _mapper.Map<Sale>(saleModel);
+            var newProducts = new List<Product>();
             if (_unitOfWork.Customers.GetEntity(sale.CustomerId) == null) throw new BLException($"Customer {sale.CustomerId} is not found");
-            foreach(var product in sale.Products) 
-            if (_unitOfWork.Products.GetEntity(product.Id) == null) throw new BLException($"Product {product.Id} is not found");
+            foreach(var product in sale.Products)
+            {
+                if (_unitOfWork.Products.GetEntity(product.Id) == null) throw new BLException($"Product {product.Id} is not found");
+                newProducts.Add(_unitOfWork.Products.GetEntity(product.Id));
+            }
+
+
+            sale.Products = newProducts;
             _unitOfWork.Sales.Create(sale);
             _unitOfWork.Save();
         }
@@ -83,11 +90,10 @@ namespace OnlineStore.BusinessLogic
             var saleDto = new SaleDto
             {
                 Amount = saleWithProduct.Amount,
-                ProductName = saleWithProduct.ProductName,
+                //Product = saleWithProduct.ProductName,
                 CustomerId = saleWithProduct.CustomerId,
                 CustomerName = saleWithProduct.CustomerName,
-                DateOfSale = saleWithProduct.DateOfSale,
-                ProductId = product.Id
+                DateOfSale = saleWithProduct.DateOfSale
             };
 
             var sale = _mapper.Map<Sale>(saleDto);
@@ -104,6 +110,12 @@ namespace OnlineStore.BusinessLogic
         public void UpdateSale(SaleDto saleModel)
         {
             var sale = _mapper.Map<Sale>(saleModel);
+            var newProducts = new List<Product>();
+            foreach (var product in sale.Products)
+            {
+                newProducts.Add(_unitOfWork.Products.GetEntity(product.Id));
+            }
+            sale.Products = newProducts;
             _unitOfWork.Sales.Update(sale);
             _unitOfWork.Save();
         }

@@ -13,11 +13,6 @@ namespace OnlineStore.BusinessLogic.DtoModels
         public int Id { get; set; }
 
         /// <summary>
-        /// Property for storing product id.
-        /// </summary>
-        public int ProductId { get; set; }
-
-        /// <summary>
         /// Property for storing customer id.
         /// </summary>
         public int CustomerId { get; set; }
@@ -25,7 +20,9 @@ namespace OnlineStore.BusinessLogic.DtoModels
         /// <summary>
         /// Property  for storing product name.
         /// </summary>
-        public IList<string> ProductName { get; set; }
+        public IList<SelectDto> Product { get; set; }
+
+        public IList<ProductDto> Products { get; set; }
 
         /// <summary>
         /// Property for storing customer name.

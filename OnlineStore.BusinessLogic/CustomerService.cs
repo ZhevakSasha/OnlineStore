@@ -80,6 +80,11 @@ namespace OnlineStore.BusinessLogic
         public CustomerDto FindCustomerById(int id)
         {
             var customer = _unitOfWork.Customers.GetEntity(id);
+            foreach (var sale in customer.Sales)
+            {
+                sale.Products = _unitOfWork.Sales.GetEntity(sale.Id).Products;
+            }
+
             return _mapper.Map<CustomerDto>(customer);
         }
 

@@ -25,20 +25,13 @@
       </mat-radio-group>
     </div>
   
-    <div *ngIf="!saleWithProductFlag" class="form-group" [ngClass]="{invalid: form.get('productName').touched && form.get('productName').invalid}">
-      <select [(ngModel)]="saleWithProduct.productId" class="form-control" formControlName="productName">
-        <option value="-1" selected disabled hidden>{{'Sales.Validation.SelectCustomer' | translate}}></option>
-        <option *ngFor = "let product of productsNames" [ngValue]="product.id">{{product.name}}></option>
-      </select>
-      <div
-        *ngIf="form.get('productName').touched && form.get('productName').invalid"
-        class="validation text-danger"
-      >
-        <small *ngIf="form.get('productName').errors.required">
-          {{'Sales.Validation.SelectProduct' | translate}}
-        </small>
+      <div *ngIf="!saleWithProductFlag" class="form-group">
+        <ng-multiselect-dropdown 
+          [settings]="dropdownSettings"
+          [data]="productsNames"
+          [(ngModel)]="saleWithProduct.product" [ngModelOptions]="{standalone: true}">
+        </ng-multiselect-dropdown>
       </div>
-    </div>
     
     <div *ngIf="saleWithProductFlag" class="productcreate">
     <app-product-creating></app-product-creating>

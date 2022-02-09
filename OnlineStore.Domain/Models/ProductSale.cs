@@ -17,5 +17,9 @@ namespace OnlineStore.Domain.Models
         /// Property  for storing sale id.
         /// </summary>
         public int SalesId { get; set; }
+
+        public Sale Sale { get; set; }
+
+        public Product Product { get; set; }
     }
 }

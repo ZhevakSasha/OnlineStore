@@ -121,10 +121,11 @@ namespace OnlineStore.ServiceApi.Controllers
                 return NotFound();
             }
 
-            sale.ProductId = saleService.ProductId;
+            sale.Product = saleService.Product;
             sale.CustomerId = saleService.CustomerId;
             sale.Amount = saleService.Amount;
             sale.DateOfSale = saleService.DateOfSale;
+
 
             _saleService.UpdateSale(sale);
 

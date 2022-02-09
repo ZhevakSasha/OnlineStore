@@ -6,6 +6,7 @@ import {SelectModel} from '../Models/select.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { SaleWithProductModel } from '../Models/sale-with-product.model';
 import { ProductCreatingComponent } from 'src/app/products/product-creating/product-creating.component';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-sale-creating',
@@ -14,14 +15,22 @@ import { ProductCreatingComponent } from 'src/app/products/product-creating/prod
 })
 export class SaleCreatingComponent implements OnInit {
 
-  @Input() saleDetails: SaleModel = { productName : [], customerName : '', dateOfSale : null, amount: 0 };
+  @Input() saleDetails: SaleModel = { product : [], customerName : '', dateOfSale : null, amount: 0 };
   @ViewChild(ProductCreatingComponent) productCreatingComponent:ProductCreatingComponent;
 
   productsNames: SelectModel[] = [];
   customersNames: SelectModel[] = [];
 
+  dropdownSettings: IDropdownSettings = {
+    singleSelection: false,
+    maxHeight : 200,
+    itemsShowLimit: 4,
+    allowSearchFilter: true,
+    idField: 'id',
+    textField: 'name',
+  };
   
-  saleWithProduct: SaleWithProductModel = { productName : [], customerName : '', dateOfSale : null, amount: 0, price: 0, unitOfMeasurement: ''};
+  saleWithProduct: SaleWithProductModel = { product : [], customerName : '', dateOfSale : null, amount: 0, price: 0, unitOfMeasurement: ''};
   saleWithProductFlag: boolean = false;
   
   public form: FormGroup;
@@ -37,9 +46,6 @@ export class SaleCreatingComponent implements OnInit {
         error => this.customersNames = error);
 
     this.form = new FormGroup({
-      productName: new FormControl(null, [
-        Validators.required
-      ]),
       customerName: new FormControl(null, [
         Validators.required
       ]),

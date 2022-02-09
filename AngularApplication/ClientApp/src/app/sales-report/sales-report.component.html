@@ -1,0 +1,24 @@
+<h1>Sales report by customer</h1>
+<div class="formGroup">
+<select class="form-control" (change)="onSelect($event.target.value)">
+    <option selected disabled hidden>Select customer
+    </option>
+    <option *ngFor = "let customer of customersNames" [value]="customer.id">{{customer.name}}
+    </option>
+</select>
+
+<div *ngIf="customerData.sales.length == 0" class="formGroup tab"><h2>Sales not found!</h2></div>
+
+<div *ngIf="customerData.sales.length != 0" class="formGroup tab">
+    <ul *ngFor="let sale of customerData.sales">
+    <h1>Sale</h1>
+        <li>Date of Sale - {{sale.dateOfSale}}</li>
+        <li>Amount - {{sale.amount}}</li>
+            <ul *ngFor="let product of sale.products"> 
+                <h2> Product </h2>
+                <li>Product name - {{product.productName}}</li>
+                <li>Price - {{product.price}}</li>
+                <li>UoM - {{product.unitOfMeasurement}}</li>
+            </ul>
+      </ul>
+</div>

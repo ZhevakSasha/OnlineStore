@@ -15,7 +15,7 @@ export class CustomerCreatingComponent implements OnInit {
 
   form: FormGroup;
 
-  @Input() customerDetails: CustomerModel = {firstName: '', lastName: '', address: '', phoneNumber: null};
+  @Input() customerDetails: CustomerModel = {firstName: '', lastName: '', address: '', phoneNumber: null, sales: []};
 
   ngOnInit() {
     this.form = new FormGroup({

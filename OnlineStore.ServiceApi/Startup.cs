@@ -34,9 +34,9 @@ namespace OnlineStore.ServiceApi
 
             services.AddScoped<UnitOfWork>();
 
-            services.AddScoped<ICustomerRepository, EntityFrameworkCustomerRepository>();
-            services.AddScoped<IProductRepository, EntityFrameworkProductRepository>();
-            services.AddScoped<ISaleRepository, EntityFrameworkSaleRepository>();
+            services.AddTransient<ICustomerRepository, EntityFrameworkCustomerRepository>();
+            services.AddTransient<IProductRepository, EntityFrameworkProductRepository>();
+            services.AddTransient<ISaleRepository, EntityFrameworkSaleRepository>();
 
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<IProductService, ProductService>();

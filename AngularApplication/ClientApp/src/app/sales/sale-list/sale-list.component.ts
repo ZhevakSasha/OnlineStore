@@ -11,7 +11,7 @@ import {SaleApiService} from '../sale-api.service';
 })
 export class SaleListComponent implements OnInit {
 
-  Sales: SaleModel[] = [];
+  public Sales: SaleModel[] = [] ;
   searchStr = '';
   public PageNumber: number = 0;
   public PageSize: number = 10;
@@ -30,9 +30,11 @@ export class SaleListComponent implements OnInit {
       .subscribe(data => {const header = data.headers.get('x-pagination');
       this.PaginationData = JSON.parse(header);
         this.Sales = data.body,
-        console.log(this.Sales),
+        console.log(this.Sales.map(a=> a.product.map(b => b.name))),
+        console.log(this.Sales);
         error => this.Sales = error; 
         });
+        
   }
 
   deleteSale(id) {

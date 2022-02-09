@@ -27,6 +27,8 @@ namespace OnlineStore.Domain.Models
         /// </summary>
         public List<Product> Products { get; set; } = new List<Product>();
 
+        //public List<ProductSale> ProductSale { get; set; } = new List<ProductSale>();
+
         /// <summary>
         /// Property  for getting customer.
         /// </summary>

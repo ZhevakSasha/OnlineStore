@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {SaleModel} from './Models/sale.model';
 import {SelectModel} from './Models/select.model';
 import {environment} from '../../environments/environment';
+import { SaleWithProductModel } from './Models/sale-with-product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,11 @@ export class SaleApiService {
     return this.httpClient.put(environment.serviceApi + 'Sale/updateSale', sale);
   }
 
-  public createSale(sale: SaleModel) {
+  public createSale(sale: SaleWithProductModel) {
     return this.httpClient.post(environment.serviceApi + 'Sale/createSale', sale);
   }
 
-  public createSaleWithProduct(sale: SaleModel) {
+  public createSaleWithProduct(sale: SaleWithProductModel) {
     return this.httpClient.post(environment.serviceApi + 'Sale/createSaleWithProduct', sale);
   }
 

@@ -12,7 +12,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class CustomerUpdatingComponent implements OnInit {
 
   public id = this.actRoute.snapshot.params['id'];
-  public customerData: CustomerModel = { firstName: '', lastName: '', address: '', phoneNumber: null };
+  public customerData: CustomerModel = { firstName: '', lastName: '', address: '', phoneNumber: null, sales: [] };
 
   form: FormGroup;
 

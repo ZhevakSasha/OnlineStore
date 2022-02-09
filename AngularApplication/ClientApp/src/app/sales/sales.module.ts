@@ -12,8 +12,8 @@ import { SharedModule } from '../Shared/shared.module';
 import { ProductsModule } from '../products/products.module';
 import {MatRadioModule} from '@angular/material/radio';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgSelect2Module } from 'ng-select2';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -38,8 +38,8 @@ import { TranslateModule } from '@ngx-translate/core';
         SharedModule,
         ProductsModule,
         MatRadioModule,
-        NgSelect2Module,
-        BrowserModule
+        BrowserModule,
+        NgMultiSelectDropDownModule
     ]
 })
 

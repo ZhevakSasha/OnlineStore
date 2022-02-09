@@ -54,7 +54,9 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Return one object by id.</returns>
         public Customer GetEntity(int Id)
         {
-            return _context.Customers.Find(Id);
+            var customer = _context.Customers.Find(Id);
+            _context.Entry(customer).Collection(s => s.Sales).Load();
+            return customer;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using OnlineStore.DataAccess.PagedList;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineStore.DataAccess.PagedList;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using OnlineStore.Domain.Models;
 using System;
@@ -73,6 +74,14 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         public IList<Product> GetList()
         {
             return _context.Products.ToList();
+        }
+
+        public IList<Product> GetList(Func<Product, bool> predicate)
+        {
+            return _context.Products
+                .Include(s => s.Sales)
+                .ThenInclude(p => p.Products)
+                .Where(predicate).ToList();
         }
 
         /// <summary>

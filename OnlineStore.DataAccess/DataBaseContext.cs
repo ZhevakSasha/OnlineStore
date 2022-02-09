@@ -134,12 +134,12 @@ namespace OnlineStore.DataAccess
                 productSales.Add(new ProductSale
                 {
                     SalesId = i,
-                    ProductsId = rndGen.Next(1, 1000)
+                    ProductsId = rndGen.Next(1, 1000),
                 });
                 productSales.Add(new ProductSale
                 {
-                    SalesId = i,
-                    ProductsId = rndGen.Next(1, 1000)
+                    ProductsId = rndGen.Next(1, 1000),
+                    SalesId = i
                 });
             }
 

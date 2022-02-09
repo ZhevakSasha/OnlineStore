@@ -14,6 +14,8 @@ namespace OnlineStore.MvcApplication
     {
         public AutoMapping()
         {
+            var prod = new SaleDto();
+
             CreateMap(typeof(PagedList<>), typeof(PagedList<>));
 
             CreateMap<Product, ProductDto>().ReverseMap();
@@ -26,8 +28,9 @@ namespace OnlineStore.MvcApplication
 
             CreateMap<Sale, SaleDto>()
                 .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => $"{src.Customer.FirstName.Substring(0, 1)}. {src.Customer.LastName}"))
-                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Products.Select(s => s.ProductName).ToList()));
-            CreateMap<SaleDto, Sale>();
+                .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Products.Select(s => new SelectDto { Id = s.Id, Name = s.ProductName }).ToList()));
+            CreateMap<SaleDto, Sale>()
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Product.Select(s => new Product { Id = s.Id, ProductName = s.Name }).ToList()));
         }
 
         //public class Converter<TSource, TDestination> : ITypeConverter<PagedList<TSource>, PagedList<TDestination>>
@@ -42,7 +45,6 @@ namespace OnlineStore.MvcApplication
         //            CurrentPage = source.CurrentPage,
         //        };
         //    }
-
         //}
     }
 }

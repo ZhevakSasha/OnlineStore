@@ -1,10 +1,11 @@
+import { SelectModel } from "./select.model";
+
 export class SaleModel {
   constructor(
-    public productName: string[],
+    public product: SelectModel[],
     public customerName: string,
     public dateOfSale: Date,
     public amount: number,
-    public productId?: number,
     public customerId?: number,
     public id?: number) {
   }
