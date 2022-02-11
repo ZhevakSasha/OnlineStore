@@ -70,5 +70,20 @@ namespace OnlineStore.DataAccess
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public void BeginTransaction()
+        {
+            _context.Database.BeginTransaction();
+        }
+
+        public void Commit()
+        {
+            _context.Database.CommitTransaction();
+        }
+
+        public void Rollback()
+        {
+            _context.Database.RollbackTransaction();
+        }
     }
 }

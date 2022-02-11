@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineStore.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,11 +9,6 @@ namespace OnlineStore.BusinessLogic.DtoModels
     public class SaleWithProductDto
     {
         // Properties for sale
-
-        /// <summary>
-        /// Property for storing product id.
-        /// </summary>
-        public int ProductId { get; set; }
 
         /// <summary>
         /// Property for storing customer id.
@@ -36,19 +32,6 @@ namespace OnlineStore.BusinessLogic.DtoModels
 
         // Properties for Product
 
-        /// <summary>
-        /// Property  for storing product name.
-        /// </summary>
-        public IList<string> ProductName { get; set; }
-
-        /// <summary>
-        /// Property for storing price of product.
-        /// </summary>
-        public int Price { get; set; }
-
-        /// <summary>
-        /// Property for storing product unit of measurement.
-        /// </summary>
-        public string UnitOfMeasurement { get; set; }
+        public IList<ProductDto> Products { get; set; }
     }
 }

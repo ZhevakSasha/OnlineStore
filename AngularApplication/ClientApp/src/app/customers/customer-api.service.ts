@@ -18,6 +18,10 @@ export class CustomerApiService {
     return this.httpClient.get<CustomerModel>(environment.serviceApi + `Customer/getCustomer/${id}`);
   }
 
+  public getCustomerReport(id: number) {
+    return this.httpClient.get<CustomerModel>(environment.serviceApi + `Customer/CustomerReport/${id}`);
+  }
+
   public updateCustomer(customer: CustomerModel) {
     return this.httpClient.put(environment.serviceApi + 'Customer/updateCustomer', customer);
   }

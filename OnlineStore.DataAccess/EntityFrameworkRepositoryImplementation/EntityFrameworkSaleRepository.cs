@@ -68,17 +68,15 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         /// <returns>Returns all objects.</returns>
         public PagedList<Sale> GetList(PageParameters pageParameters)
         {
-            var a = _context
-                .Sales
+            var sales = _context.Sales
                 .Include(c => c.Customer)
                 .Include(p => p.Products)
+                .Skip((pageParameters.PageNumber) * pageParameters.PageSize).Take(pageParameters.PageSize)
                 .ToList();
-            return PagedList<Sale>.ToPagedList(_context
-                .Sales
-                .Include(c => c.Customer)
-                .Include(p => p.Products),
+            return new PagedList<Sale>(sales,
                 pageParameters.PageNumber,
-                pageParameters.PageSize); 
+                pageParameters.PageSize,
+                _context.Sales.Count()); 
         }
 
         /// <summary>

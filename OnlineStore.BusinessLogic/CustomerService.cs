@@ -80,13 +80,22 @@ namespace OnlineStore.BusinessLogic
         public CustomerDto FindCustomerById(int id)
         {
             var customer = _unitOfWork.Customers.GetEntity(id);
+            return _mapper.Map<CustomerDto>(customer);
+        }
+
+        public CustomerSaleReportDto ReportByCustomer(int id)
+        {
+            var customer = _unitOfWork.Customers.GetEntity(id);
             foreach (var sale in customer.Sales)
             {
                 sale.Products = _unitOfWork.Sales.GetEntity(sale.Id).Products;
             }
 
-            return _mapper.Map<CustomerDto>(customer);
+            var res = _mapper.Map<CustomerSaleReportDto>(customer);
+
+            return res;
         }
+
 
         /// <summary>
         /// GetAllCustomerNames method.

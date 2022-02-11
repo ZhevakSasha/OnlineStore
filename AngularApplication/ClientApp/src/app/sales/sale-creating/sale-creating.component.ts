@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {SaleApiService} from '../sale-api.service';
 import {SaleModel} from '../Models/sale.model';
 import {Router} from '@angular/router';
@@ -16,7 +16,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 export class SaleCreatingComponent implements OnInit {
 
   @Input() saleDetails: SaleModel = { product : [], customerName : '', dateOfSale : null, amount: 0 };
-  @ViewChild(ProductCreatingComponent) productCreatingComponent:ProductCreatingComponent;
+  @ViewChildren(ProductCreatingComponent) productCreatingComponents:QueryList<ProductCreatingComponent>;
 
   productsNames: SelectModel[] = [];
   customersNames: SelectModel[] = [];
@@ -79,7 +79,7 @@ export class SaleCreatingComponent implements OnInit {
         this.router.navigate(['/sales-list']);
         });
       } else {
-        var a = this.productCreatingComponent.addSaleWithProduct();
+        var a = this.productCreatingComponents[0].addSaleWithProduct();
         this.saleWithProduct.price = a.price;
         this.saleWithProduct.unitOfMeasurement = a.unitOfMeasurement;
         //this.saleWithProduct.productName = a.productName;

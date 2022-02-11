@@ -101,6 +101,26 @@ namespace OnlineStore.ServiceApi.Controllers
         }
 
         /// <summary>
+        /// HttpGet endpoint with customer by id.
+        /// </summary>
+        /// <param name="id">Customer id</param>
+        /// <returns>Customer</returns>
+        [HttpGet]
+        [Route("CustomerReport/{id}")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult<CustomerSaleReportDto> CustomeeReport(int id)
+        {
+            var customer = _customerService.ReportByCustomer(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(customer);
+        }
+
+        /// <summary>
         /// HttpPost endpoint. Creates customer.
         /// </summary>
         /// <param name="customer">Customer</param>

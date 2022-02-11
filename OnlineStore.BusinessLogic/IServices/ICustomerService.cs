@@ -35,6 +35,8 @@ namespace OnlineStore.BusinessLogic.IServices
         /// <returns>CustomerDto object</returns>
         CustomerDto FindCustomerById(int id);
 
+        CustomerSaleReportDto ReportByCustomer(int id);
+
         /// <summary>
         /// DeleteCustomer method deletes customer by id.
         /// </summary>

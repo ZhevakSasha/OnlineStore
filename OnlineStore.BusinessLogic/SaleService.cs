@@ -66,7 +66,6 @@ namespace OnlineStore.BusinessLogic
                 newProducts.Add(_unitOfWork.Products.GetEntity(product.Id));
             }
 
-
             sale.Products = newProducts;
             _unitOfWork.Sales.Create(sale);
             _unitOfWork.Save();
@@ -74,16 +73,16 @@ namespace OnlineStore.BusinessLogic
 
         public void CreateSaleWithProduct(SaleWithProductDto saleWithProduct)
         {
-            var productDto = new ProductDto
-            {
-                Price = saleWithProduct.Price,
-                ProductName = saleWithProduct.ProductName.Last(),
-                UnitOfMeasurement = saleWithProduct.UnitOfMeasurement
-            };
+            //var productDto = new ProductDto
+            //{
+            //    Price = saleWithProduct.Price,
+            //    ProductName = saleWithProduct.ProductName.Last(),
+            //    UnitOfMeasurement = saleWithProduct.UnitOfMeasurement
+            //};
 
-            var product = _mapper.Map<Product>(productDto);
+            //var product = _mapper.Map<Product>(productDto);
 
-            _unitOfWork.Products.Create(product);
+            //_unitOfWork.Products.Create(product);
 
             _unitOfWork.Save();
 

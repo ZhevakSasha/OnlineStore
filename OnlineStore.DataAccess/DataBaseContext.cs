@@ -60,6 +60,7 @@ namespace OnlineStore.DataAccess
         /// <param name="builder">builder</param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
             base.OnModelCreating(builder);
             this.SeedCustomers(builder);
             this.SeedProducts(builder);

@@ -25,7 +25,7 @@ export class SalesReportComponent implements OnInit {
     this.selectedCustomerId = value;
     console.log(this.selectedCustomerId);
 
-    this.customerApi.getCustomer(this.selectedCustomerId).subscribe(data => {this.customerData = data, console.log(this.customerData.sales);},
+    this.customerApi.getCustomerReport(this.selectedCustomerId).subscribe(data => {this.customerData = data, console.log(this.customerData.sales);},
       error => this.customerData = error,
       );
   }

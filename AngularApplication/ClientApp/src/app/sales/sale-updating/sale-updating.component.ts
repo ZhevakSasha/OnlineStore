@@ -17,7 +17,6 @@ export class SaleUpdatingComponent implements OnInit {
   public saleData: SaleModel = { product : [], customerName : '', dateOfSale : null, amount: 0, customerId: 0};
   productsNames: SelectModel[] = [];
   customersNames: SelectModel[] = [];
-  selectedItems = [];
   dropdownSettings: IDropdownSettings = {
     singleSelection: false,
     maxHeight : 200,
@@ -33,7 +32,7 @@ export class SaleUpdatingComponent implements OnInit {
 
   ngOnInit() {
     this.saleApi.getSale(this.id)
-      .subscribe(data => { this.saleData = data; this.selectedItems = data.product; console.log(this.selectedItems) },
+      .subscribe(data => { this.saleData = data; },
         error => this.saleData = error);
     this.saleApi.getProductsNames()
       .subscribe(data => {this.productsNames = data, console.log(this.productsNames)},
@@ -42,7 +41,6 @@ export class SaleUpdatingComponent implements OnInit {
       .subscribe(data => this.customersNames = data,
         error => this.customersNames = error);
 
-        this.selectedItems = this.saleData.product
     this.form = new FormGroup({
       date: new FormControl(this.saleData.dateOfSale, [
         Validators.required
