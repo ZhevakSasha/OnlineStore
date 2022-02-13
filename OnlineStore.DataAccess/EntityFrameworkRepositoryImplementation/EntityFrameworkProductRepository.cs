@@ -68,9 +68,9 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
                 .ToList();
            
             return new PagedList<Product>(products,
+                _context.Products.Count(),
                 pageParameters.PageNumber,
-                pageParameters.PageSize,
-                _context.Products.Count()
+                pageParameters.PageSize
                 );
         }
 

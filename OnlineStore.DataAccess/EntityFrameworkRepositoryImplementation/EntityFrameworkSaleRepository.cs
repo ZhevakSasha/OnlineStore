@@ -74,9 +74,10 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
                 .Skip((pageParameters.PageNumber) * pageParameters.PageSize).Take(pageParameters.PageSize)
                 .ToList();
             return new PagedList<Sale>(sales,
+                 _context.Sales.Count(),
                 pageParameters.PageNumber,
-                pageParameters.PageSize,
-                _context.Sales.Count()); 
+                pageParameters.PageSize
+               ); 
         }
 
         /// <summary>
