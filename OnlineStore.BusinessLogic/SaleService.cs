@@ -73,29 +73,26 @@ namespace OnlineStore.BusinessLogic
 
         public void CreateSaleWithProduct(SaleWithProductDto saleWithProduct)
         {
-            //var productDto = new ProductDto
-            //{
-            //    Price = saleWithProduct.Price,
-            //    ProductName = saleWithProduct.ProductName.Last(),
-            //    UnitOfMeasurement = saleWithProduct.UnitOfMeasurement
-            //};
+            var products = _mapper.Map<List<Product>>(saleWithProduct.Products);
 
-            //var product = _mapper.Map<Product>(productDto);
+            if (_unitOfWork.Customers.GetEntity(saleWithProduct.CustomerId) == null) throw new BLException($"Customer {saleWithProduct.CustomerId} is not found");
 
-            //_unitOfWork.Products.Create(product);
+            foreach (var product in products)
+                _unitOfWork.Products.Create(product);
 
             _unitOfWork.Save();
 
             var saleDto = new SaleDto
             {
                 Amount = saleWithProduct.Amount,
-                //Product = saleWithProduct.ProductName,
                 CustomerId = saleWithProduct.CustomerId,
                 CustomerName = saleWithProduct.CustomerName,
                 DateOfSale = saleWithProduct.DateOfSale
             };
 
             var sale = _mapper.Map<Sale>(saleDto);
+
+            sale.Products = products;
 
             _unitOfWork.Sales.Create(sale);
 

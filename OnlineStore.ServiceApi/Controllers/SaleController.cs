@@ -121,7 +121,7 @@ namespace OnlineStore.ServiceApi.Controllers
                 return NotFound();
             }
 
-            sale.Product = saleService.Product;
+            sale.Products = saleService.Products;
             sale.CustomerId = saleService.CustomerId;
             sale.Amount = saleService.Amount;
             sale.DateOfSale = saleService.DateOfSale;

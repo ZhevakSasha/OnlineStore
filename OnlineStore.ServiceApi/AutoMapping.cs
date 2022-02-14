@@ -28,9 +28,9 @@ namespace OnlineStore.MvcApplication
 
             CreateMap<Sale, SaleDto>()
                 .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => $"{src.Customer.FirstName.Substring(0, 1)}. {src.Customer.LastName}"))
-                .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Products.Select(s => new SelectDto { Id = s.Id, Name = s.ProductName }).ToList()));
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products.Select(s => new SelectDto { Id = s.Id, Name = s.ProductName }).ToList()));
             CreateMap<SaleDto, Sale>()
-                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Product.Select(s => new Product { Id = s.Id, ProductName = s.Name }).ToList()));
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products.Select(s => new Product { Id = s.Id, ProductName = s.Name }).ToList()));
             CreateMap<CustomerSaleReportDto, Customer>()
                 .ForMember(dest => dest.Sales, opt => opt.MapFrom(src => src.Sales.Select(s => new Sale {Id = 0, Amount = s.Amount, CustomerId = s.CustomerId, DateOfSale = s.DateOfSale , Products = new List<Product> {  } 
                 }).ToList()));

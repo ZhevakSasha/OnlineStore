@@ -24,7 +24,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let sale of Sales | searchSale:searchStr">
-          <td><span *ngFor="let product of sale.product">{{product.name + " "}}</span></td>
+          <td><span *ngFor="let product of sale.products">{{product.name + " "}}</span></td>
           <td>{{sale.customerName}}</td>
           <td>{{sale.dateOfSale}}</td>
           <td>{{sale.amount}}</td>

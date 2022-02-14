@@ -3,7 +3,6 @@ using OnlineStore.BusinessLogic.DtoModels;
 using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess;
 using OnlineStore.DataAccess.PagedList;
-using OnlineStore.DataAccess.RepositoryPatterns;
 using OnlineStore.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,9 +90,7 @@ namespace OnlineStore.BusinessLogic
                 sale.Products = _unitOfWork.Sales.GetEntity(sale.Id).Products;
             }
 
-            var res = _mapper.Map<CustomerSaleReportDto>(customer);
-
-            return res;
+            return _mapper.Map<CustomerSaleReportDto>(customer);
         }
 
 

@@ -12,9 +12,9 @@ export class SearchPipe implements PipeTransform {
 
     return sales.filter(sale => {
       var byProduct = false;
-      console.log(sale.product)
+      console.log(sale.products)
       
-      for (var product of sale.product) {
+      for (var product of sale.products) {
       if(product.name.toLowerCase().includes(search.toLowerCase())) {return true}
       }
       

@@ -20,7 +20,7 @@ namespace OnlineStore.BusinessLogic.DtoModels
         /// <summary>
         /// Property  for storing product name.
         /// </summary>
-        public IList<SelectDto> Product { get; set; }
+        public IList<SelectDto> Products { get; set; }
 
         /// <summary>
         /// Property for storing customer name.

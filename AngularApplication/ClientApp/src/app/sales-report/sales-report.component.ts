@@ -21,6 +21,7 @@ export class SalesReportComponent implements OnInit {
       .subscribe(data => this.customersNames = data,
         error => this.customersNames = error);
   }
+  
   onSelect(value) {
     this.selectedCustomerId = value;
     console.log(this.selectedCustomerId);

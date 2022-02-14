@@ -26,17 +26,28 @@
     </div>
   
       <div *ngIf="!saleWithProductFlag" class="form-group">
-        <ng-multiselect-dropdown 
+        <ng-multiselect-dropdown formControlName="productName"
           [settings]="dropdownSettings"
           [data]="productsNames"
-          [(ngModel)]="saleWithProduct.product" [ngModelOptions]="{standalone: true}">
+          [(ngModel)]="saleWithProduct.products" [ngModelOptions]="{standalone: true}">
         </ng-multiselect-dropdown>
       </div>
-    <div *ngIf="saleWithProductFlag" >
-      <div class="productcreate">
-        <app-product-creating></app-product-creating>
+    <div [formGroup]="formGroup"  *ngIf="saleWithProductFlag" >
+      <ng-container formArrayName="products">
+        <div class="flex">
+        <ng-container class="flex" *ngFor="let productForm of products.controls; let i = index">
+          <div class="formGroup">
+            <ng-container [formGroup]="productForm">
+              <p>Product name <button class="btn" (click)="deleteProduct(i)">x</button><p><input formControlName="productName" /> 
+              <p>Price<p><input formControlName="price" />
+              <p>Unit Of Measurement<p><input formControlName="unitOfMeasurement" />
+            </ng-container>
+              
+          </div>
+        </ng-container>
       </div>
-      <button (click)="addNewProduct()">Add</button>
+      </ng-container>
+      <button class="btn btn-success mar" (click)="addProduct()">Add</button>
     </div>
     <div class="form-group" [ngClass]="{invalid: form.get('date').touched && form.get('date').invalid}">
       <input type="date" [(ngModel)]="saleWithProduct.dateOfSale" class="form-control" placeholder="Enter date of sale" formControlName="date">

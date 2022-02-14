@@ -14,7 +14,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 export class SaleUpdatingComponent implements OnInit {
 
   public id = this.actRoute.snapshot.params['id'];
-  public saleData: SaleModel = { product : [], customerName : '', dateOfSale : null, amount: 0, customerId: 0};
+  public saleData: SaleModel = { products : [], customerName : '', dateOfSale : null, amount: 0, customerId: 0};
   productsNames: SelectModel[] = [];
   customersNames: SelectModel[] = [];
   dropdownSettings: IDropdownSettings = {

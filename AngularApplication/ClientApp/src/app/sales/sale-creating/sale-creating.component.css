@@ -12,3 +12,19 @@
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
 }
+.flex{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.mar{
+  margin-bottom: 5px;
+}
+
+.titles{
+  width: 650px;
+  text-align: justify;						 
+	text-align-last: justify;
+}
+
+.tab { margin-top: 20px; padding: 10px; display: flex;}
