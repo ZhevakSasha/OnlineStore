@@ -105,13 +105,14 @@ namespace OnlineStore.BusinessLogic
                 _unitOfWork.Save();
 
                 //throw new Exception("cant save cus");
+                _unitOfWork.Commit();
             }
             catch (Exception e)
             {
                 _unitOfWork.Rollback();
             }
 
-            _unitOfWork.Commit();
+            
         }
 
         /// <summary>

@@ -55,7 +55,8 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
         public Customer GetEntity(int Id)
         {
             var customer = _context.Customers.Find(Id);
-            _context.Entry(customer).Collection(s => s.Sales).Load();
+            if(customer != null)
+                _context.Entry(customer).Collection(s => s.Sales).Load();
             return customer;
         }
 
