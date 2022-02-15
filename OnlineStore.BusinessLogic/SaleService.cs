@@ -5,6 +5,7 @@ using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess;
 using OnlineStore.DataAccess.PagedList;
 using OnlineStore.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -59,8 +60,9 @@ namespace OnlineStore.BusinessLogic
         {
             var sale = _mapper.Map<Sale>(saleModel);
             var newProducts = new List<Product>();
+           
             if (_unitOfWork.Customers.GetEntity(sale.CustomerId) == null) throw new BLException($"Customer {sale.CustomerId} is not found");
-            foreach(var product in sale.Products)
+            foreach (var product in sale.Products)
             {
                 if (_unitOfWork.Products.GetEntity(product.Id) == null) throw new BLException($"Product {product.Id} is not found");
                 newProducts.Add(_unitOfWork.Products.GetEntity(product.Id));
@@ -69,10 +71,13 @@ namespace OnlineStore.BusinessLogic
             sale.Products = newProducts;
             _unitOfWork.Sales.Create(sale);
             _unitOfWork.Save();
+            
         }
 
         public void CreateSaleWithProduct(SaleWithProductDto saleWithProduct)
         {
+            _unitOfWork.BeginTransaction();
+
             var products = _mapper.Map<List<Product>>(saleWithProduct.Products);
 
             if (_unitOfWork.Customers.GetEntity(saleWithProduct.CustomerId) == null) throw new BLException($"Customer {saleWithProduct.CustomerId} is not found");
@@ -94,9 +99,19 @@ namespace OnlineStore.BusinessLogic
 
             sale.Products = products;
 
-            _unitOfWork.Sales.Create(sale);
+            try
+            {
+                _unitOfWork.Sales.Create(sale);
+                _unitOfWork.Save();
 
-            _unitOfWork.Save();
+                //throw new Exception("cant save cus");
+            }
+            catch (Exception e)
+            {
+                _unitOfWork.Rollback();
+            }
+
+            _unitOfWork.Commit();
         }
 
         /// <summary>
