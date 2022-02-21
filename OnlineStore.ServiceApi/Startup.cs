@@ -34,13 +34,13 @@ namespace OnlineStore.ServiceApi
 
             services.AddScoped<UnitOfWork>();
 
-            services.AddTransient<ICustomerRepository, EntityFrameworkCustomerRepository>();
-            services.AddTransient<IProductRepository, EntityFrameworkProductRepository>();
-            services.AddTransient<ISaleRepository, EntityFrameworkSaleRepository>();
+            services.AddScoped<ICustomerRepository, EntityFrameworkCustomerRepository>();
+            services.AddScoped<IProductRepository, EntityFrameworkProductRepository>();
+            services.AddScoped<ISaleRepository, EntityFrameworkSaleRepository>();
 
-            services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<ISaleService, SaleService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ISaleService, SaleService>();
 
             services.AddAutoMapper(typeof(Startup));
 

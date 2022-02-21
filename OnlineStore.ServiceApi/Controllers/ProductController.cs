@@ -22,7 +22,7 @@ namespace OnlineStore.ServiceApi.Controllers
         private IProductService _productService;
 
         /// <summary>
-        /// PoductController constructor.
+        /// ProductController constructor.
         /// </summary>
         /// <param name="productService">Product service</param>
         public ProductController(IProductService productService)

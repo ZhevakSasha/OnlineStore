@@ -107,7 +107,7 @@ namespace OnlineStore.BusinessLogic
                 //throw new Exception("cant save cus");
                 _unitOfWork.Commit();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 _unitOfWork.Rollback();
             }

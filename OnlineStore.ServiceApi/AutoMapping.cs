@@ -5,7 +5,7 @@ using OnlineStore.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OnlineStore.MvcApplication
+namespace OnlineStore.ServiceApi
 {
     /// <summary>
     /// AutoMapper profile.
@@ -14,15 +14,11 @@ namespace OnlineStore.MvcApplication
     {
         public AutoMapping()
         {
-            var prod = new SaleDto();
-
-            CreateMap(typeof(PagedList<>), typeof(PagedList<>));
 
             CreateMap<Product, ProductDto>().ReverseMap();
 
             CreateMap<Customer, CustomerDto>().ReverseMap();
-
-            CreateMap<PagedList<Customer>, PagedList<CustomerDto>>();
+            
 
             CreateMap<Customer, CustomerDto>().ReverseMap();
 

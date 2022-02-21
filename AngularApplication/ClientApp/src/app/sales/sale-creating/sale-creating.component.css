@@ -14,8 +14,9 @@
 }
 .flex{
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  gap: 23px;
 }
 .mar{
   margin-bottom: 5px;

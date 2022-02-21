@@ -123,4 +123,8 @@
   <data name="UsersTable" xml:space="preserve">
     <value>Пользователи</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+    <comment>Delete</comment>
+  </data>
 </root>
