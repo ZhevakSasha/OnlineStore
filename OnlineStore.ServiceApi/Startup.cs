@@ -1,3 +1,4 @@
+using System.Data.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +16,9 @@ using OnlineStore.DataAccess;
 using OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation;
 using OnlineStore.DataAccess.RepositoryPatterns;
 using System.Text;
+using System.Data.SqlClient;
+using OnlineStore.DataAccess.DapperRepositoryImplementation;
+using OnlineStore.DataAccess.UnitOfWork;
 
 namespace OnlineStore.ServiceApi
 {
@@ -30,22 +34,29 @@ namespace OnlineStore.ServiceApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<DbConnection>(provider =>
+            {
+                return new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
+            });
+            services.AddSingleton<DapperContext>();
             services.AddControllers();
 
-            services.AddScoped<UnitOfWork>();
+            //services.AddScoped<UnitOfWork>();
 
-            services.AddScoped<ICustomerRepository, EntityFrameworkCustomerRepository>();
-            services.AddScoped<IProductRepository, EntityFrameworkProductRepository>();
-            services.AddScoped<ISaleRepository, EntityFrameworkSaleRepository>();
+            services.AddScoped<IUnitOfWork, DapperUnitOfWork>();
+
+            services.AddDbContext<DataBaseContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<ICustomerRepository, DapperCustomerRepository>();
+            services.AddScoped<IProductRepository, DapperProductRepository>();
+            services.AddScoped<ISaleRepository, DapperSaleRepository>();
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ISaleService, SaleService>();
 
             services.AddAutoMapper(typeof(Startup));
-
-            services.AddDbContext<DataBaseContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Adding Authentication  
             services.AddAuthentication(options =>
@@ -128,7 +139,7 @@ namespace OnlineStore.ServiceApi
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

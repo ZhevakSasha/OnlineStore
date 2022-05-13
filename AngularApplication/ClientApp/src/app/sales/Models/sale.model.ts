@@ -1,4 +1,4 @@
-import { SelectModel } from "./select.model";
+import { SelectModel } from './select.model';
 
 export class SaleModel {
   constructor(

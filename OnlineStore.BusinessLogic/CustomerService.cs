@@ -6,6 +6,7 @@ using OnlineStore.DataAccess.PagedList;
 using OnlineStore.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
+using OnlineStore.DataAccess.UnitOfWork;
 
 namespace OnlineStore.BusinessLogic
 {
@@ -17,7 +18,7 @@ namespace OnlineStore.BusinessLogic
         /// <summary>
         /// Customer repository.
         /// </summary>
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// Mapper.
@@ -28,7 +29,7 @@ namespace OnlineStore.BusinessLogic
         /// CustomerService constructor.
         /// </summary>
         /// <param name="customer">Customer repository</param>
-        public CustomerService(UnitOfWork unitOfWork, IMapper mapper)
+        public CustomerService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

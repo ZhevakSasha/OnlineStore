@@ -24,7 +24,7 @@ namespace OnlineStore.BusinessLogic.DtoModels
         public string LastName { get; set; }
 
         /// <summary>
-        /// Property  for storing customer addres.
+        /// Property  for storing customer address.
         /// </summary>
         public string Address { get; set; }
 

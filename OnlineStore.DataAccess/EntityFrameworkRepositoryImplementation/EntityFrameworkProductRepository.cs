@@ -65,6 +65,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
             var products = _context.Products
                 .Skip((pageParameters.PageNumber) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
+                .OrderBy(x => x.Id)
                 .ToList();
            
             return new PagedList<Product>(products,

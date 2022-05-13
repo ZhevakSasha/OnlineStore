@@ -17,6 +17,8 @@ namespace OnlineStore.DataAccess.RepositoryPatterns
         /// <returns>Returns all objects.</returns>
         PagedList<T> GetList(PageParameters pageParameters);
 
+        IList<T> GetList();
+
         /// <summary>
         /// GetEntity method.
         /// </summary>

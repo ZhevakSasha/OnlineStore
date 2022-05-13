@@ -69,6 +69,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
             var customers = _context.Customers
                 .Skip((pageParameters.PageNumber) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
+                .OrderBy(x => x.Id)
                 .ToList();
 
             return new PagedList<Customer>(customers,

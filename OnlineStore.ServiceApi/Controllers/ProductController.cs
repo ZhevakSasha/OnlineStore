@@ -6,6 +6,7 @@ using OnlineStore.BusinessLogic.IServices;
 using OnlineStore.DataAccess.PagedList;
 using OnlineStore.Domain.Models;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace OnlineStore.ServiceApi.Controllers
 {
@@ -70,6 +71,8 @@ namespace OnlineStore.ServiceApi.Controllers
         [Route("getProductsNames")]
         public ActionResult<IEnumerable<SelectDto>> GetAllProductsNames()
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var v = User.Identity?.IsAuthenticated;
             var productsNames = _productService.GetAllProductNames();
 
             if (productsNames == null)

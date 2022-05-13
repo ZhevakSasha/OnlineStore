@@ -56,6 +56,11 @@ namespace OnlineStore.DataAccess.AdoRepositoryImplementation
             }
         }
 
+        public IList<Sale> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// GetEntity method.
         /// </summary>

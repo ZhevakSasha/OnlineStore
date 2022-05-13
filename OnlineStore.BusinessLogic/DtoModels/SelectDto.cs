@@ -6,12 +6,12 @@
     public class SelectDto
     {
         /// <summary>
-        /// Property for storing celected item id.
+        /// Property for storing selected item id.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Property for storing celected item name.
+        /// Property for storing selected item name.
         /// </summary>
         public string Name { get; set; }
     }

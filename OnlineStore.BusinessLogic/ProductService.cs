@@ -5,6 +5,7 @@ using AutoMapper;
 using System.Linq;
 using OnlineStore.DataAccess;
 using OnlineStore.DataAccess.PagedList;
+using OnlineStore.DataAccess.UnitOfWork;
 using OnlineStore.Domain.Models;
 
 namespace OnlineStore.BusinessLogic
@@ -17,7 +18,7 @@ namespace OnlineStore.BusinessLogic
         /// <summary>
         /// Product repository.
         /// </summary>
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// Mapper.
@@ -28,7 +29,7 @@ namespace OnlineStore.BusinessLogic
         /// ProductService constructor.
         /// </summary>
         /// <param name="product">Product repository</param>
-        public ProductService(UnitOfWork unitOfWork, IMapper mapper)
+        public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

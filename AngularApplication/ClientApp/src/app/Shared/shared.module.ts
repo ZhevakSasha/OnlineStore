@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [PaginatorComponent],
-  exports:[PaginatorComponent],
+  exports: [PaginatorComponent],
   imports: [
     CommonModule,
     HttpClientModule,

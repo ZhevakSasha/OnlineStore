@@ -15,7 +15,7 @@ export class ProductListComponent implements OnInit {
   Products: ProductModel[] = [];
   public PageNumber: number = 0;
   public PageSize: number = 10;
-  public PaginationData:PageModel;
+  public PaginationData: PageModel;
 
   constructor(public productApi: ProductApiService, private readonly pageChangeService: PageChangeService) { }
 
@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit {
       .subscribe(data => {const header = data.headers.get('x-pagination');
       this.PaginationData = JSON.parse(header);
         this.Products = data.body,
-        error => this.Products = error; 
+        error => this.Products = error;
         });
     console.log("this ",this);
   }

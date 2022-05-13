@@ -72,6 +72,7 @@ namespace OnlineStore.DataAccess.EntityFrameworkRepositoryImplementation
                 .Include(c => c.Customer)
                 .Include(p => p.Products)
                 .Skip((pageParameters.PageNumber) * pageParameters.PageSize).Take(pageParameters.PageSize)
+                .OrderBy(x => x.Id)
                 .ToList();
             return new PagedList<Sale>(sales,
                  _context.Sales.Count(),

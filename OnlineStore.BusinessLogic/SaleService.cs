@@ -8,6 +8,7 @@ using OnlineStore.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OnlineStore.DataAccess.UnitOfWork;
 
 namespace OnlineStore.BusinessLogic
 {
@@ -19,7 +20,7 @@ namespace OnlineStore.BusinessLogic
         /// <summary>
         /// Sale repository.
         /// </summary>
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// Mapper.
@@ -30,7 +31,7 @@ namespace OnlineStore.BusinessLogic
         /// SaleService constructor.
         /// </summary>
         /// <param name="sale">Sale repository</param>
-        public SaleService(UnitOfWork unitOfWork, IMapper mapper)
+        public SaleService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -71,7 +72,6 @@ namespace OnlineStore.BusinessLogic
             sale.Products = newProducts;
             _unitOfWork.Sales.Create(sale);
             _unitOfWork.Save();
-            
         }
 
         public void CreateSaleWithProduct(SaleWithProductDto saleWithProduct)
